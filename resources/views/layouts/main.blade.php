@@ -52,5 +52,5 @@
 		@include('layouts.foot')
         <!---End Foot--->
 	</body>
-	<!--end::Body-->
+	<!--End::Body-->
 </html>
