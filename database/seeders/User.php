@@ -18,7 +18,7 @@ class User extends Seeder
         DB::table('users')->insert([
             'role_id' => 1,
             'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@mailinator.com',
             'password' => Hash::make('aipX@1234'),
         ]);
     }
