@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-	<!--begin::Head-->
 	<head>
-        <base href="../../../">
 		<title>{{env('APP_NAME')}}</title>
 		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico')}}" />
-		{{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" /> --}}
 		<link href="{{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 	</head>
@@ -26,7 +23,7 @@
 							</a>
 							<!--end::Logo-->
 							<!--begin::Title-->
-							<h1 class="fw-bolder fs-2qx pb-5 pb-md-10" style="color: #986923;">Welcome to Metronic</h1>
+							<h1 class="fw-bolder fs-2qx pb-5 pb-md-10" style="color: #986923;">{{env('APP_NAME')}}</h1>
 							<!--end::Title-->
 							<!--begin::Description-->
 							<p class="fw-bold fs-2" style="color: #986923;">Discover Amazing Metronic
@@ -53,12 +50,7 @@
                                 <!--begin::Heading-->
 								<div class="text-center mb-10">
 									<!--begin::Title-->
-									<h1 class="text-dark mb-3">Sign In to Metronic</h1>
-									<!--end::Title-->
-									<!--begin::Link-->
-									<div class="text-gray-400 fw-bold fs-4">New Here?
-									<a href="{{ route('register') }}" class="link-primary fw-bolder">Create an Account</a></div>
-									<!--end::Link-->
+									<h1 class="text-dark mb-3">Sign In to Lead Management</h1>
 								</div>
 								<!--begin::Heading-->
 								<!--begin::Input group-->
@@ -67,7 +59,8 @@
 									<label class="form-label fs-6 fw-bolder text-dark">Email</label>
 									<!--end::Label-->
 									<!--begin::Input-->
-									<input class="form-control form-control-lg form-control-solid" type="text" name="email" autocomplete="off" />
+                                    <input id="email" type="email" class="form-control form-control-lg form-control-solid" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
 									<!--end::Input-->
 								</div>
 								<!--end::Input group-->
@@ -84,14 +77,18 @@
 									</div>
 									<!--end::Wrapper-->
 									<!--begin::Input-->
-									<input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" />
+                                    <input id="password" type="password" class="form-control form-control-lg form-control-solid" name="password" required autocomplete="current-password">
+
 									<!--end::Input-->
 								</div>
 								<!--end::Input group-->
 								<!--begin::Actions-->
 								<div class="text-center">
+                                    <!--Popup -->
+                                    {{-- id="kt_sign_in_submit" --}}
+                                    <!--end-->
 									<!--begin::Submit button-->
-									<button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+									<button type="submit"  class="btn btn-lg btn-primary w-100 mb-5">
 										<span class="indicator-label">Continue</span>
 										<span class="indicator-progress">Please wait...
 										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -142,7 +139,6 @@
 		<script src="{{ asset('assets/js/scripts.bundle.js')}}"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="{{ asset('assets/js/custom/authentication/sign-in/general.js')}}"></script>
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->
 	</body>
