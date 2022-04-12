@@ -1,6 +1,6 @@
 <title>{{env('APP_NAME')}}</title>
 
-<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico')}}" />
+<link rel="shortcut icon" href="{{ asset('assets/media/logos/512x512bb.jpg')}}" />
 <!--Start Toastr -->
 <link rel="stylesheet" href="{{ asset('assets/css/style.toastr.css') }}">
 <!-- End toastr -->
