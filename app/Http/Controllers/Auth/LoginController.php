@@ -53,17 +53,17 @@ class LoginController extends Controller
                 'password' => 'required|min:8|string|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'
             ]);
 
-            $users = User::where('email', $request->email)->first();
-            if ($users) {
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
 
-                    if ($users->status == 1) {
+                    if ($user->status == 1) {
 
                         $data = $request->only('email', 'password');
 
                         if (Auth::attempt($data)) {
                             return redirect()->route('home')->with('message','Login successfully');
                         }else{
-                            return back()->with('error','Please use currect password!');
+                            return back()->with('error','Please use correct password!');
                         }
 
                     }else{

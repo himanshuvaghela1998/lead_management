@@ -21,9 +21,5 @@ class admin extends Seeder
             'email' => 'admin@mailinator.com',
             'password' => Hash::make('aipX@1234'),
         ]);
-
-        // DB::table('translations')->where('field', 'page_desc')->update(['field' => 'meta_desc']);
-        // User::where('email', 'admin@mailinator.com')->update(['email' => 'admin@mailinator.com']);
-
     }
 }
