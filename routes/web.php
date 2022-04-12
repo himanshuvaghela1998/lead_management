@@ -27,4 +27,5 @@ Route::match(['GET', 'POST'], 'login', [LoginController::class, 'login'])->name(
 
 Route::get('logout', [HomeController::class, 'logout'])->name('logout');
 
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
