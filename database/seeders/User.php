@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Seeder
@@ -15,11 +14,6 @@ class User extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'role_id' => 1,
-            'name' => 'Admin',
-            'email' => 'admin@mailinator.com',
-            'password' => Hash::make('aipX@1234'),
-        ]);
+
     }
 }
