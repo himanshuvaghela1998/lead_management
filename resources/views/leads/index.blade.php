@@ -10,6 +10,7 @@
             <!--begin::Card title-->
             <div class="card-title">
                 <!--begin::Search-->
+                <form id="customer_filter_form" class="ml-auto search-form d-none col-md-3 d-md-block m-2" name="myForm" action="{{ route('lead') }}">
                 <div class="d-flex align-items-center position-relative my-1">
                     <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                     <span class="svg-icon svg-icon-1 position-absolute ms-6">
@@ -19,8 +20,11 @@
                         </svg>
                     </span>
                     <!--end::Svg Icon-->
-                    <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Customers" />
+                    <input type="text" name="search" data-kt-customer-table-filter="search" id="search_text" class="form-control form-control-solid w-250px ps-15" placeholder="Search Lead" >
+
+                    <input type="hidden"  name="page" value="0"  id="hidden_page" >
                 </div>
+                </form>
                 <!--end::Search-->
             </div>
             <!--begin::Card title-->
@@ -29,7 +33,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                     <!--begin::Filter-->
-                    <div class="w-150px me-3">
+                    {{-- <div class="w-150px me-3">
                         <!--begin::Select2-->
                         <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
                             <option></option>
@@ -38,7 +42,7 @@
                             <option value="locked">Locked</option>
                         </select>
                         <!--end::Select2-->
-                    </div>
+                    </div> --}}
                     <!--end::Filter-->
                     <!--begin::Export-->
                     {{-- <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_customers_export_modal"> --}}
@@ -69,30 +73,12 @@
         </div>
         <!--end::Card header-->
         <!--begin::Card body-->
-        <div class="card-body pt-0">
+        <div class="card-body pt-0" id="main-content">
             <!--begin::Table-->
-            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
-                <!--begin::Table head-->
-                <thead>
-                    <!--begin::Table row-->
-                    <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                        <th class="w-10px pe-2">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
-                            </div>
-                        </th>
-                        <th class="min-w-125px">Customer Name</th>
-                        <th class="min-w-125px">Email</th>
-                        <th class="min-w-125px">Status</th>
-                        <th class="min-w-125px">IP Address</th>
-                        <th class="min-w-125px">Created Date</th>
-                        <th class="text-end min-w-70px">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="fw-bold text-gray-600">
-                    @include('component.lead-list')
-                </tbody>
-            </table>
+                @include('leads.compact.lead_list')
+            <div class="customer-pagination">
+            {{ $leads->links() }}
+            </div>
         </div>
     </div>
  </div>

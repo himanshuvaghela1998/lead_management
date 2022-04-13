@@ -89,7 +89,7 @@
                             <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="10"></textarea>
                         </div>
                         <div class="form-actions d-flex justify-content-end mt-5">
-                            <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary me-3">Cancel</button></a>
+                            <a href="{{ route('users.index') }}"><button type="button" class="btn btn-secondary me-3">Cancel</button></a>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-check"></i> Save</button>
                             </div>

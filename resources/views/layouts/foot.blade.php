@@ -13,6 +13,9 @@
 <script src="{{asset('assets/js/jquery-validation/js/additional-methods.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/js/custom/custom.js')}}"></script>
 <!--end::Page Custom Javascript-->
+<!-- Start Lead Listing -->
+<script src="{{ asset('assets/js/custom_listing/lead_listing.js') }}"></script>
+<!-- End Lead Listing -->
  <!-- strat Toastr -->
  <script src="{{ asset('assets/js/toastr.js') }}"></script>
  <script>

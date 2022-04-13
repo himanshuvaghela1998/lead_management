@@ -16,7 +16,7 @@ class CreateLeadsTable extends Migration
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->index('user_id');
-            $table->string('project_title,100');
+            $table->string('project_title',100);
             $table->integer('project_type_id')->index('project_type_id');
             $table->string('status');
             $table->integer('source_id')->index('source_id');

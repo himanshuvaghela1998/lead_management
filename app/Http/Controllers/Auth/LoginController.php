@@ -56,19 +56,19 @@ class LoginController extends Controller
             $user = User::where('email', $request->email)->first();
             if ($user) {
 
-                    if ($user->status == 1) {
+                if ($user->status == 1) {
 
-                        $data = $request->only('email', 'password');
+                    $data = $request->only('email', 'password');
 
-                        if (Auth::attempt($data)) {
-                            return redirect()->route('home')->with('message','Login successfully');
-                        }else{
-                            return back()->with('error','Please use correct password!');
-                        }
-
+                    if (Auth::attempt($data)) {
+                        return redirect()->route('home')->with('message','Login successfully');
                     }else{
-                        return back()->with('error', 'Your status is inactive please contact your admin');
+                        return back()->with('error','Please use correct password!');
                     }
+
+                }else{
+                    return back()->with('error', 'Your status is inactive please contact your admin');
+                }
 
             }else{
                 return back()->with('error', 'The recipient`s email address doesn`t exist.');

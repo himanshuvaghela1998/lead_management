@@ -19,4 +19,14 @@ class Lead extends Model
         'cost_estimation',
         'lead_details',
     ];
+
+    public function clients()
+    {
+        return $this->belongsTo(Client::class, 'id', 'lead_id');
+    }
+
+    public function ProjectType()
+    {
+        return $this->belongsTo(ProjectType::class, 'project_type_id', 'id');
+    }
 }
