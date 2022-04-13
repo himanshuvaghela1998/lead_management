@@ -35,8 +35,8 @@ class UserController extends Controller
         }
 
         /* Status filter */
-        if (!is_null($request->status)) {
-            $users->where('status', $request->status);
+        if (!is_null($request->status_id) && $request->status_id != '-1') {
+            $users->where('status', $request->status_id);
         }
         $users = $users->paginate($this->limit)->appends($request->all());
         if($request->ajax()){

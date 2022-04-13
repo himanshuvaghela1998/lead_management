@@ -172,9 +172,10 @@ $(document).on('change','#filter_form select',function(){
 });
 
 /* Status Filter */
-$('#status').on('change', function (){
-       var status  =$('#status').val();
-       $('#form-status').val(status);
+$('#status_filter').on('change', function (){
+       var status  =$('#status_filter').val();
+       console.log(status);
+       $('#status_id').val(status);
        $('#filter_form').trigger('submit');
 });
 $(document).on('submit','#filter_form',function(e){
