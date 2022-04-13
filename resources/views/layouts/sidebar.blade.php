@@ -5,7 +5,7 @@
         <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
             <!--begin::Symbol-->
             <div class="symbol symbol-50px">
-                <img src="assets/media/avatars/150-26.jpg" alt="" />
+                <img src="{{ asset('assets/media/avatars/150-26.jpg') }}" alt="" />
             </div>
             <!--end::Symbol-->
             <!--begin::Wrapper-->
@@ -15,7 +15,7 @@
                     <!--begin::Info-->
                     <div class="flex-grow-1 me-2">
                         <!--begin::Username-->
-                        <a href="#" class="text-white text-hover-primary fs-6 fw-bold">Paul Melone</a>
+                        <a href="#" class="text-white text-hover-primary fs-6 fw-bold">Admin</a>
                         <!--end::Username-->
                         <!--begin::Description-->
                         <span class="text-gray-600 fw-bold d-block fs-8 mb-1">Python Dev</span>
@@ -977,7 +977,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="../../demo8/dist/landing.html">
+                    <a class="menu-link" href="{{ route('users.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">

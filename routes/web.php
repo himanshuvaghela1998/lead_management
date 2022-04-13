@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,6 +30,9 @@ Route::match(['GET', 'POST'], 'login', [LoginController::class, 'login'])->name(
 Route::get('logout', [HomeController::class, 'logout'])->name('logout');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::resource('/users', UserController::class);
+Route::post('users/email-exists', [UserController::class,'isEmailExists'])->name('isEmailExists');
+Route::post('users/update_status/{id}', [UserController::class,'status_update'])->name('user.update_status');
 // <!--- Lead Controller -->
 
 Route::get('Leads', [LeadController::class, 'index'])->name('lead');

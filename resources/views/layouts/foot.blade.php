@@ -9,6 +9,9 @@
 <script src="{{ asset('assets/js/custom/apps/chat/chat.js')}}"></script>
 <script src="{{ asset('assets/js/custom/modals/create-app.js')}}"></script>
 <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js')}}"></script>
+<script src="{{ asset('assets/js/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/js/jquery-validation/js/additional-methods.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/custom/custom.js')}}"></script>
 <!--end::Page Custom Javascript-->
  <!-- strat Toastr -->
  <script src="{{ asset('assets/js/toastr.js') }}"></script>
@@ -21,6 +24,23 @@
   }
   		toastr.success("{{ session('message') }}");
   @endif
+  @if (Session::has('error'))
+    toastr.options =
+    {
+    "closeButton" : true,
+    "progressbar" : true
+    }
+    toastr.error("{{ session('error') }}")
+
+    @endif
+    @if (Session::has('success'))
+    toastr.options =
+    {
+        "closeButton" : true,
+        "progressbar" : true
+    }
+        toastr.success("{{ session('success') }}")
+    @endif
  </script>
  <!-- end Toastr -->
 <!--end::Javascript-->

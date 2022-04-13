@@ -1,0 +1,8 @@
+.capitalize-letter
+{
+    text-transform: capitalize;
+}
+.error
+{
+    color: red;
+}
