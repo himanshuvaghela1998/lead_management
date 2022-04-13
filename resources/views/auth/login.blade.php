@@ -2,9 +2,16 @@
 <html lang="en">
 	<head>
 		<title>{{env('APP_NAME')}}</title>
-		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico')}}" />
+		<link rel="shortcut icon" href="{{ asset('assets/media/logos/512x512bb.jpg')}}" />
 		<link href="{{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('assets/css/style.toastr.css') }}">
+        <style>
+            label.error {
+                 color: #dc3545;
+                 font-size: 14px;
+            }
+        </style>
 	</head>
 	<body id="kt_body" class="bg-body">
 		<!--begin::Main-->
@@ -19,15 +26,15 @@
 						<div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
 							<!--begin::Logo-->
 							<a href="../../demo8/dist/index.html" class="py-9 mb-5">
-								<img alt="Logo" src="{{ asset('assets/media/logos/logo-2.svg')}}" class="h-60px" />
+								<img alt="Logo" src="{{ asset('assets/media/logos/512x512bb.jpg')}}" class="h-60px" />
 							</a>
 							<!--end::Logo-->
 							<!--begin::Title-->
 							<h1 class="fw-bolder fs-2qx pb-5 pb-md-10" style="color: #986923;">{{env('APP_NAME')}}</h1>
 							<!--end::Title-->
 							<!--begin::Description-->
-							<p class="fw-bold fs-2" style="color: #986923;">Discover Amazing Metronic
-							<br />with great build tools</p>
+							<p class="fw-bold fs-2" style="color: #986923;">Discover lead Management
+							<br />with great build</p>
 							<!--end::Description-->
 						</div>
 						<!--end::Content-->
@@ -45,7 +52,7 @@
 						<!--begin::Wrapper-->
 						<div class="w-lg-500px p-10 p-lg-15 mx-auto">
 							<!--begin::Form-->
-							<form class="form w-100" method="post" action="{{ route('login') }}">
+							<form class="form w-100" method="post" action="{{ route('login') }}" id="login_form">
 								@csrf
                                 <!--begin::Heading-->
 								<div class="text-center mb-10">
@@ -59,8 +66,10 @@
 									<label class="form-label fs-6 fw-bolder text-dark">Email</label>
 									<!--end::Label-->
 									<!--begin::Input-->
-                                    <input id="email" type="email" class="form-control form-control-lg form-control-solid" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+                                    <input id="email" type="email" class="form-control form-control-lg form-control-solid" name="email" value="{{ old('email') }}" data-msg-required="Email is required"  autocomplete="email" >
+                                    @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
 									<!--end::Input-->
 								</div>
 								<!--end::Input group-->
@@ -77,8 +86,10 @@
 									</div>
 									<!--end::Wrapper-->
 									<!--begin::Input-->
-                                    <input id="password" type="password" class="form-control form-control-lg form-control-solid" name="password" required autocomplete="current-password">
-
+                                    <input id="password" type="password" class="form-control form-control-lg form-control-solid" name="password" data-msg="Password is required."  autocomplete="current-password">
+                                    @error('password')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
 									<!--end::Input-->
 								</div>
 								<!--end::Input group-->
@@ -89,7 +100,7 @@
                                     <!--end-->
 									<!--begin::Submit button-->
 									<button type="submit"  class="btn btn-lg btn-primary w-100 mb-5">
-										<span class="indicator-label">Continue</span>
+										<span class="indicator-label">Login</span>
 										<span class="indicator-progress">Please wait...
 										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 									</button>
@@ -138,6 +149,32 @@
 		<script src="{{ asset('assets/plugins/global/plugins.bundle.js')}}"></script>
 		<script src="{{ asset('assets/js/scripts.bundle.js')}}"></script>
 		<!--end::Global Javascript Bundle-->
+        <!--Start login validation -->
+        <script src="{{ asset('assets/js/validation.js') }}"></script>
+        <script src="{{ asset('assets/js/custom_validation/login_validation.js') }}"></script>
+        <!-- end login validation-->
+        <!-- strat Toastr -->
+        <script src="{{ asset('assets/js/toastr.js') }}"></script>
+        <script>
+        @if (Session::has('error'))
+        toastr.options =
+        {
+        "closeButton" : true,
+        "progressbar" : true
+        }
+        toastr.error("{{ session('error') }}")
+
+        @endif
+        @if (Session::has('success'))
+        toastr.options =
+        {
+            "closeButton" = true,
+            "progressbar" = true
+        }
+            toastr.success("{{ session('success') }}")
+        @endif
+        </script>
+        <!-- end Toastr -->
 		<!--begin::Page Custom Javascript(used by this page)-->
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->

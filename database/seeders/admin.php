@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class User extends Seeder
+class admin extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,8 +15,8 @@ class User extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'role_id' => 1,
+        User::insert([
+            'role_id' => '1',
             'name' => 'Admin',
             'email' => 'admin@mailinator.com',
             'password' => Hash::make('aipX@1234'),

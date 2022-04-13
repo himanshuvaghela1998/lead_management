@@ -1,7 +1,7 @@
 <div class="header-brand">
     <!--begin::Logo-->
     <a href="{{url('/')}}">
-        <img alt="Logo" src="{{ asset('assets/media/logos/logo-1-dark.svg')}}" class="h-25px h-lg-25px" />
+        <img alt="Logo" src="{{ asset('assets/media/logos/512x512bb.jpg')}}" class="h-25px h-lg-25px" />
     </a>
     <!--end::Logo-->
     <!--begin::Aside minimize-->

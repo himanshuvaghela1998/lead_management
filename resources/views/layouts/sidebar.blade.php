@@ -46,7 +46,7 @@
                                 <div class="menu-content d-flex align-items-center px-3">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img alt="Logo" src="assets/media/avatars/150-26.jpg" />
+                                        <img alt="Logo" src="{{ asset('assets/media/avatars/150-26.jpg') }}" />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Username-->
@@ -961,7 +961,7 @@
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link" href="../../demo8/dist/landing.html">
+                    <a class="menu-link" href="{{ route('home') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -993,7 +993,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="../../demo8/dist/landing.html">
+                    <a class="menu-link" href="{{ route('lead') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">
