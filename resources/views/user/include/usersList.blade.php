@@ -5,7 +5,7 @@
         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
             <th class="w-10px pe-2">
                 <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                    <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
+                    <input class="form-check-input" type="checkbox" data-kt-check="true" name="select_all" value="1" id="search-select-all" />
                 </div>
             </th>
             <th class="min-w-125px">Name</th>
@@ -16,6 +16,7 @@
         </tr>
     </thead>
     <tbody class="fw-bold text-gray-600">
+        @if (count($users)>0)
         @foreach ($users as $user)
         <tr>
             <td>
@@ -30,7 +31,7 @@
                 {{ $user->email }}
             </td>
             <td>
-                {{ isset($user->getRole) ? $user->getRole->name : '' }}
+                <p class="capitalize-letter">{{ isset($user->getRole) ? $user->getRole->name : '' }}</p>
             </td>
             <td>
                 <?php
@@ -48,5 +49,18 @@
             </td>
         </tr>
         @endforeach
+        @else
+            <tr>
+                <th colspan="7" class="text-center">
+                    No records found
+                </th>
+            </tr>
+        @endif
     </tbody>
 </table>
+
+{{-- Pagination --}}
+<div class="custom-pagination">
+    {{ $users->render('vendor.pagination.default') }}
+</div>
+{{-- END Pagination --}}

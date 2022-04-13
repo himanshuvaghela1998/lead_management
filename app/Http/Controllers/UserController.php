@@ -9,14 +9,40 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    protected $limit;
+
+    public function __construct()
+    {
+        $this->limit = 10;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::with('getRole')->where('role_id','!=', 1)->where('is_delete','0')->get();
+        $users = User::with('getRole')->where('role_id','!=', 1)->where('is_delete','0');
+
+        if($request->has('search_keyword') && $request->search_keyword != ""){
+            $users = $users->where(function($q) use($request){
+                $q->where('name', 'LIKE', '%'.$request->search_keyword.'%');
+                $q->orWhere('email', 'LIKE', '%'.$request->search_keyword.'%');
+                $q->orWhereHas('getRole',function($q1) use ($request){
+					$q1->where('name', 'like', '%' . $request->search_keyword . '%');
+                });
+            });
+        }
+
+        /* Status filter */
+        if (!is_null($request->status)) {
+            $users->where('status', $request->status);
+        }
+        $users = $users->paginate($this->limit)->appends($request->all());
+        if($request->ajax()){
+            $view = view('user.include.usersList',compact('users'))->render();
+            return response()->json(['status'=>200,'message','content'=>$view]);
+        }
         return view('user.index',compact('users'));
     }
 
@@ -129,7 +155,7 @@ class UserController extends Controller
         $status->save();
         if($status){
             $type = 'success';
-            $msg = 'User created successfully';
+            $msg = 'Status updated successfully';
         }else{
             $type = 'error';
             $msg = 'Error! something went to wrong!';

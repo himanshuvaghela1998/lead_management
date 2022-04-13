@@ -1,4 +1,5 @@
 <title>{{env('APP_NAME')}}</title>
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <link rel="shortcut icon" href="{{ asset('assets/media/logos/512x512bb.jpg')}}" />
 <!--Start Toastr -->

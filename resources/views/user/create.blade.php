@@ -5,10 +5,6 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h5 class="pt-4">Add User</h5>
-                </div>
-
                 <div class="card-body">
                     <form action="{{ route('users.store') }}" class="horizontal-form" method="POST" id="user_store">
                         {{ csrf_field() }}
