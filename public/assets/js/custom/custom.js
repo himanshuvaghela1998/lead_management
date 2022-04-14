@@ -66,15 +66,6 @@ $("#user_store").validate({
     }
 });
 
-$("#user_update").validate({
-    ignore: [],
-    rules: user_rules, 
-    messages: user_msgs,
-    //perform an AJAX post to ajax.php
-    submitHandler: function() {    
-        return true;
-    }
-});
 $('#add_user_btn').on('click',function(){
     $('#add_user_modal').modal('show')
 })
@@ -120,6 +111,39 @@ $('.edit_user').on('click',function(e){
             if(response.status == 'success'){
                 $('#edit_user_modal').html(response.content);
                 _modal.modal('show');
+                $("#user_update").validate({
+                    ignore: [],
+                    rules: user_rules, 
+                    messages: user_msgs,
+                    //perform an AJAX post to ajax.php
+                    submitHandler: function() {    
+                        return true;
+                    }
+                });
+                $('.close-modal').on('click',function(){
+                    Swal.fire({
+                        text: "Are you sure you would like to cancel?",
+                        icon: "warning",
+                        showCancelButton: !0,
+                        buttonsStyling: !1,
+                        confirmButtonText: "Yes, cancel it!",
+                        cancelButtonText: "No, return",
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                            cancelButton: "btn btn-active-light"
+                        }
+                    }).then((function(t) {
+                        t.value ? ($('#edit_user_modal').modal('hide')) : "cancel" === t.dismiss && Swal.fire({
+                            text: "Your form has not been cancelled!.",
+                            icon: "error",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        })
+                    }))
+                })
             }else{
                 toastr.error('No user found');
             }

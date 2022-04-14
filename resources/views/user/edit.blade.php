@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-dialog-centered mw-650px">
     <div class="modal-content">
-        <form action="{{ route('user.modify',[getEncrypted($user->id)]) }}" class="horizontal-form user_store" method="post" id="user_update">
+        <form action="{{ route('user.modify',[$user->secret]) }}" class="horizontal-form" method="post" id="user_update">
             {{ csrf_field() }}
             <!--begin::Modal header-->
             <div class="modal-header">

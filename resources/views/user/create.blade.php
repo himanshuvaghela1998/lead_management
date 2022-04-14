@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-dialog-centered mw-650px">
     <div class="modal-content">
-        <form action="{{ route('users.store') }}" class="horizontal-form user_store" method="POST" id="user_store">
+        <form action="{{ route('users.store') }}" class="horizontal-form" method="POST" id="user_store">
             {{ csrf_field() }}
             <!--begin::Modal header-->
             <div class="modal-header">
