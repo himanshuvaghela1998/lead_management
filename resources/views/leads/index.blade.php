@@ -25,24 +25,19 @@
                         </div>
                         <!--end::Search-->
                     </div>
-                    <!--begin::Card toolbar-->
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                            <!--begin::Filter-->
                             <div class="w-150px me-3">
-                                <!--begin::Select2-->
-                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
-                                    <option></option>
+                                <select class="form-select form-select-solid" name="status" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
                                     <option value="all">All</option>
-                                    <option value="active">Active</option>
-                                    <option value="locked">Locked</option>
+                                    <option value="Open">Open</option>
+                                    <option value="in_Conversation">In Conversation</option>
+                                    <option value="estimation_submitted">Estimation Submitted</option>
+                                    <option value="closed">Close</option>
+                                    <option value="converted">Converted</option>
                                 </select>
-                                <!--end::Select2-->
                             </div>
-                            <!--end::Filter-->
-                            <!--begin::Add customer-->
                             <a class="btn btn-primary" href="{{ route('create') }}">Add User</a>
-                            <!--end::Add customer-->
                         </div>
                     </div>
                 </div>
