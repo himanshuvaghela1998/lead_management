@@ -25,7 +25,7 @@ class Lead extends Model
         return $this->belongsTo(Client::class, 'id', 'lead_id');
     }
 
-    public function ProjectType()
+    public function projectType()
     {
         return $this->belongsTo(ProjectType::class, 'project_type_id', 'id');
     }

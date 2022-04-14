@@ -10,21 +10,33 @@ use App\Models\LeadSources;
 
 class LeadController extends Controller
 {
+    protected $limit;
+
+    public function __construct()
+    {
+        $this->limit = 10;
+    }
+
     public function index(Request $request)
     {
-        $leads = Lead::with('clients', 'ProjectType')->paginate(5);
+        $leads = Lead::with('clients', 'projectType');
 
-        $leads = Lead::with('clients', 'ProjectType');
-        if (!$request->search == '') {
-            $leads = $leads->where('status', 'LIKE', "%".$request->search."%")->paginate(5);
-            $view =  view('leads.compact.lead_list', compact('leads'))->render();
+        if($request->has('search_keyword') && $request->search_keyword != ""){
+            $leads = $leads->where(function($q) use($request){
+                $q->where('status', 'LIKE', '%'.$request->search_keyword.'%');
+            });
+        }
+
+        /* Status filter */
+          if (!is_null($request->status)) {
+            $leads->where('status', $request->status);
+        }
+        $leads = $leads->paginate($this->limit)->appends($request->all());
+        if($request->ajax()){
+            $view = view('user.include.usersList',compact('users'))->render();
             return response()->json(['status'=>200,'message','content'=>$view]);
         }
-        $leads = $leads->paginate(5)->appends($request->all());
-        if ($request->ajax()) {
-            $view = view('leads.compact.lead_list', compact('leads'))->render();
-            return response()->json(['status'=>200,'message','content'=>$view]);
-        }
+
         return view('leads.index', compact('leads'));
     }
 
