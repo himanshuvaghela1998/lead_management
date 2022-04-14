@@ -42,7 +42,7 @@
                             </div>
                             <!--end::Filter-->
                             <!--begin::Add customer-->
-                            <a class="btn btn-primary" href="{{ route('users.create') }}">Add User</a>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_user_modal" id="add_user_btn">Add User</button>
                             <!--end::Add customer-->
                         </div>
                     </div>
@@ -57,4 +57,13 @@
         </div>
     </div>
 </div>
+<!--begin::Modal - User - Add-->
+<div class="modal fade" id="add_user_modal" tabindex="-1" aria-hidden="true">
+    @include('user.create')
+</div>
+<!--end::Modal - User - Add-->
+<!--begin::Modal - User - Edit-->
+<div class="modal fade" id="edit_user_modal" tabindex="-1" aria-hidden="true">
+</div>
+<!--end::Modal - User - Edit-->
 @endsection

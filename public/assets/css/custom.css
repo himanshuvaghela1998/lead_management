@@ -6,3 +6,7 @@
 {
     color: red;
 }
+.table.gy-5 td, .table.gy-5 th {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
