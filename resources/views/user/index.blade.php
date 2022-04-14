@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('page_name','Users')
+@section('breadcrumb','Users')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

@@ -62,8 +62,9 @@
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
-                <li class="breadcrumb-item text-dark">@yield('page_name')</li>
+                <li class="breadcrumb-item text-dark">@yield('breadcrumb')</li>
                 <!--end::Item-->
+                @yield('more_breadcrumb')
             </ul>
             <!--end::Breadcrumb-->
         </div>
