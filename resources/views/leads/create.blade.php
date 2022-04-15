@@ -126,6 +126,13 @@
                             <label class="fs-6 fw-bold mb-2">Client's Details </label>
                             <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5"></textarea>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                            <label class="fs-6 fw-bold mb-2 required">Lead Details</label>
+                            {!! Form::textarea('lead_details',str_replace( '&', '&amp;', null),["class"=>"form-control form-control-solid","placeholder"=>"","id"=>"lead_details"]) !!}
+                            <div class="has-error"><span class="help-block lead_details-error text-danger" style="text-align: left;" ></span></div>
+                            </div>
+                        </div>
                         <div class="form-actions d-flex justify-content-end mt-5">
                             <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary me-3">Cancel</button></a>
                             <button type="submit" class="btn btn-primary">
@@ -138,4 +145,28 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function () {
+		ClassicEditor.create( document.querySelector( '#lead_details' ) )
+		.then( newEditor => {
+			desc_editor = newEditor;
+			desc_editor.model.document.on( 'change:data', ( evt, data ) => {
+				var lead_details =  desc_editor.getData();
+				if(lead_details==''){
+					$(".lead_details-error").html('Lead details is required');
+				    $(':input[type="submit"]').prop('disabled',true);
+				}else{
+					$(".lead_details-error").html('');
+				    $(':input[type="submit"]').prop('disabled',false);
+				}
+			});
+		})
+        .catch( error => {
+            console.error( error );
+        });
+	});
+
+</script>
 @endsection

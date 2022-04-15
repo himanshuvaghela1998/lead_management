@@ -14,9 +14,9 @@
 <script src="{{asset('public/assets/js/jquery-validation/js/additional-methods.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/js/custom/custom.js')}}"></script>
 <!--end::Page Custom Javascript-->
-<!-- Start Lead Listing -->
-<script src="{{ asset('public/assets/js/custom/custom.js') }}"></script>
-<!-- End Lead Listing -->
+<!-- CKEditor -->
+<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+<script src="{{asset('public/assets/js/ckeditor/build/ckeditor.js')}}" type="text/javascript"></script>
  <!-- strat Toastr -->
  <script src="{{ asset('public/assets/js/toastr.js') }}"></script>
  <script>

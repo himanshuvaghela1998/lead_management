@@ -56,6 +56,7 @@
 			<!--end::Page-->
 		</div>
 		@include('layouts.foot')
+		@yield('scripts')
 	</body>
 	<!--end::Body-->
 </html>
