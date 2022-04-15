@@ -150,7 +150,6 @@ class UserController extends Controller
         $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
         $user->is_delete = 1;
         $user->save();
-
         if($user){
             $type = 'success';
             $msg = 'User deleted successfully';
@@ -177,7 +176,7 @@ class UserController extends Controller
             'valid' => $isValid,
             'message' => $message
         ]);
-    }    
+    }
 
     public function status_update(Request $request,$id){
         /* Record status update*/

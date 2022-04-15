@@ -20,7 +20,7 @@ class LeadController extends Controller
 
     public function index(Request $request)
     {
-        $leads = Lead::with('clients', 'projectType');
+        $leads = Lead::with('clients', 'projectType')->where('is_delete',0);
 
         if($request->has('search_keyword') && $request->search_keyword != ""){
             $leads = $leads->where(function($q) use($request){
@@ -140,10 +140,18 @@ class LeadController extends Controller
 
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
-        $leads = Lead::find($id);
-        $leads->is_delete = $request->input(0);
-        dd($leads);
+        $leads = Lead::where('is_delete',0)->where('id',getDecrypted($id))->first();
+        if($leads){
+            $leads->is_delete = 1;
+            $leads->save();
+            $type = 'success';
+            $msg = 'Leads deleted successfully';
+        }else{
+            $type = 'error';
+            $msg = 'Error! something went to wrong!';
+        }
+        return response()->json(['status'=>$type,'message'=>$msg]);
     }
 }

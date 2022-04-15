@@ -92,19 +92,21 @@
 
                             </div>
                         </div>
-                        <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="fs-6 fw-bold mb-2">
-                                <span class="required">Assigned Too</span>
-                                <i class="fas fa-exclamation-circle ms-1 fs-7" title="Assigned Too "></i>
-                            </label>
-                            <select name="user_id" aria-label="Assigned Too" data-control="select2" data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid fw-bolder">
-                              @foreach ($users as $user)
-                              <option value="">Project Type...</option>
-                              <option value="{{ $user->id }}" {{ ($user->id == $leads->user_id) ? 'selected' : '' }}>{{ $user->name }}</option>
-                              @endforeach
+                        <div class="row">
+                            <div class="col-md-12 d-flex flex-column mb-7 fv-row">
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span class="required">Assigned Too</span>
+                                    <i class="fas fa-exclamation-circle ms-1 fs-7" title="Assigned Too "></i>
+                                </label>
+                                <select name="user_id" aria-label="Assigned Too" data-control="select2" data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid fw-bolder">
+                                @foreach ($users as $user)
+                                <option value="">Project Type...</option>
+                                <option value="{{ $user->id }}" {{ ($user->id == $leads->user_id) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                @endforeach
 
-                            </select>
-                            <!--end::Input-->
+                                </select>
+                                <!--end::Input-->
+                            </div>
                         </div>
                         {{-- @dd($leads->clients->client_other_details) --}}
                         <div class="row mt-2">
@@ -117,9 +119,11 @@
                                 <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" name="client_email" value="{{ $leads->clients->client_email }}" id="client Email"/>
                             </div>
                         </div>
-                        <div class="fv-row mb-15">
-                            <label class="fs-6 fw-bold mb-2">Client's Details </label>
-                            <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5">{{ $leads->clients->client_other_details }}</textarea>
+                        <div class="row">
+                            <div class="col-md-12 fv-row mb-15">
+                                <label class="fs-6 fw-bold mb-2">Client's Details </label>
+                                <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5">{{ $leads->clients->client_other_details }}</textarea>
+                            </div>
                         </div>
                         <div class="form-actions d-flex justify-content-end mt-5">
                             <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary me-3">Cancel</button></a>

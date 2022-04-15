@@ -91,20 +91,22 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="fs-6 fw-bold mb-2">
-                                <span class="required">Assigned Too</span>
-                                <i class="fas fa-exclamation-circle ms-1 fs-7" title="Assigned Too "></i>
-                            </label>
-                            <select name="user_id" aria-label="Assigned Too" data-control="select2" data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid fw-bolder">
-                              @foreach ($users as $user)
-                              <option value="">Project Type...</option>
-                              <option value="{{ $user->id }}" >{{ $user->name }}</option>
-                              @endforeach
-                            </select>
-                            @error('user_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        <div class="row mt-2">
+                            <div class="d-flex flex-column col-md-12">
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span class="">Assigned Too</span>
+
+                                </label>
+                                <select name="user_id" aria-label="Assigned Too" data-control="select2" data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid fw-bolder">
+                                @foreach ($users as $user)
+                                <option value="">Project Type...</option>
+                                <option value="{{ $user->id }}" >{{ $user->name }}</option>
+                                @endforeach
+                                </select>
+                                @error('user_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-6">
@@ -122,15 +124,17 @@
                             @enderror
                             </div>
                         </div>
-                        <div class="fv-row mb-15">
-                            <label class="fs-6 fw-bold mb-2">Client's Details </label>
-                            <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5"></textarea>
-                        </div>
-                        <div class="form-actions d-flex justify-content-end mt-5">
-                            <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary me-3">Cancel</button></a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-check"></i> Save</button>
+                         <div class="row">
+                            <div class="col-md-12 fv-row mb-15">
+                                <label class="fs-6 fw-bold mb-2">Client's Details </label>
+                                <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5"></textarea>
                             </div>
+                            <div class="form-actions d-flex justify-content-end mt-5">
+                                <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary me-3">Cancel</button></a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-check"></i> Save</button>
+                            </div>
+                        </div>
                         </form>
                     </form>
                 </div>

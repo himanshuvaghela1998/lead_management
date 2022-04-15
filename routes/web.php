@@ -40,3 +40,4 @@ Route::get('Leads', [LeadController::class, 'index'])->name('lead');
 Route::match(['GET', 'POST'], 'create', [LeadController::class, 'create'])->name('create');
 Route::get('edit/{id}', [LeadController::class, 'edit'])->name('edit');
 Route::post('update/{id}', [LeadController::class, 'update'])->name('update');
+Route::delete('delete/{id}', [LeadController::class, 'delete'])->name('lead.destroy');
