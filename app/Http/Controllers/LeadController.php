@@ -102,6 +102,20 @@ class LeadController extends Controller
     public function update(Request $request, $id)
     {
 
+        $request->validate([
+            'project_title' => 'required',
+            'project_type_id' => 'required',
+            'source_id' => 'required',
+            'user_id' => 'required',
+            'status' => 'required',
+            'billing_type' => 'required',
+            'time_estimation' => 'required',
+            'client_name' => 'required',
+            'client_email' => 'required|email',
+            'client_other_details' => 'required'
+        ]);
+
+
         $leads = Lead::find($id);
         $leads->project_title = $request->input('project_title');
         $leads->project_type_id = $request->input('project_type_id');
@@ -118,7 +132,11 @@ class LeadController extends Controller
         $clients->client_other_details = $request->input('client_other_details');
         $clients->save();
 
-        return redirect()->route('lead')->with('message', 'Update successfully');
+        if ($clients) {
+            return redirect()->route('lead')->with('message', 'Update successfully');
+        }else{
+            return redirect()->route('lead')->with('error', 'Not update data');
+        }
 
     }
 }

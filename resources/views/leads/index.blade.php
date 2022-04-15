@@ -27,16 +27,6 @@
                     </div>
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                            <div class="w-150px me-3">
-                                <select class="form-select form-select-solid" name="status" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
-                                    <option value="all">All</option>
-                                    <option value="Open">Open</option>
-                                    <option value="in_Conversation">In Conversation</option>
-                                    <option value="estimation_submitted">Estimation Submitted</option>
-                                    <option value="closed">Close</option>
-                                    <option value="converted">Converted</option>
-                                </select>
-                            </div>
                             <a class="btn btn-primary" href="{{ route('create') }}">Add User</a>
                         </div>
                     </div>

@@ -13,6 +13,9 @@
                             <div class="fs-6 col-md-6">
                                 <label class="required fs-6 fw-bold mb-2">Project Title</label>
                                 <input type="text" class="form-control form-control-solid" placeholder="Enter user name" value="{{ $leads->project_title }}" name="project_title" id="project_title"/>
+                                @error('project_title')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             </div>
                             <div class="d-flex flex-column col-md-6">
                                 <label class="fs-6 fw-bold mb-2">
@@ -24,7 +27,9 @@
                                   <option value="">Project Type...</option>
                                   <option value="{{ $project->id }}" {{ ($project->id == $leads->project_type_id) ? 'selected' : '' }}>{{ $project->project_type }}</option>
                                   @endforeach
-
+                                  @error('project_type_id')
+                                  <span class="text-danger">{{ $message }}</span>
+                              @enderror
                                 </select>
                             </div>
                         </div>
@@ -32,6 +37,9 @@
                             <div class="fs-6 fw-bold col-md-6">
                                 <label class="required fs-6 fw-bold mb-2">Time Estimation</label>
                                 <input type="text" class="form-control form-control-solid" placeholder="Enter Time Estimation" value="{{ $leads->time_estimation }}" name="time_estimation" id="time_estimation"/>
+                                @error('time_estimation')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             </div>
                             <div class="d-flex flex-column col-md-6">
                                 <label class="fs-6 fw-bold mb-2">
@@ -43,7 +51,9 @@
                                   <option value="">Project Type...</option>
                                   <option value="{{ $Source->id }}"{{ ($Source->id == $leads->source_id) ? 'selected' : '' }}>{{ $Source->source }}</option>
                                   @endforeach
-
+                                  @error('source_id')
+                                  <span class="text-danger">{{ $message }}</span>
+                              @enderror
                                 </select>
                             </div>
                         </div>
@@ -59,7 +69,9 @@
                                   <option value="fixed_cost" {{ ($leads->billing_type == 'fixed_cost') ? 'selected' :'' }} >Fixed Cost </option>
                                   <option value="not_mentioned" {{ ($leads->billing_type == 'not_mentioned') ? 'selected' :'' }} >Not Mentioned</option>
                                 </select>
-                                <!--end::Input-->
+                                @error('billing_type')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             </div>
                             <div class="d-flex flex-column  col-md-6">
                                 <label class="fs-6 fw-bold mb-2">
@@ -74,6 +86,10 @@
                                   <option value="closed" {{ ($leads->status == 'closed') ? 'selected' : '' }}>Closed</option>
                                   <option value="converted" {{ ($leads->status == 'converted') ? 'selected' : '' }}>Converted</option>
                                 </select>
+                                @error('status')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
