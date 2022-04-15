@@ -32,7 +32,7 @@
                     </div>
                     <div class="fv-row mb-7">
                         <label class="required fs-6 fw-bold mb-2">Role</label>
-                        {{Form::select('role',[''=>'Select Role']+$roles,null,['class'=>'form-control form-control-solid capitalize-letter','id'=>'role'])}}
+                        {!! Form::select('role',$roles,old('role',isset($user->role_id)?$user->role_id:''),['class'=>'form-control form-control-solid capitalize-letter']) !!}
                     </div>
                     <div class="fv-row mb-7">
                         <label class="required fs-6 fw-bold mb-2">Email</label>
