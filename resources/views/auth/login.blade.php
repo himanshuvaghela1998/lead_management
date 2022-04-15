@@ -2,10 +2,10 @@
 <html lang="en">
 	<head>
 		<title>{{env('APP_NAME')}}</title>
-		<link rel="shortcut icon" href="{{ asset('assets/media/logos/512x512bb.jpg')}}" />
-		<link href="{{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="{{ asset('assets/css/style.toastr.css') }}">
+		<link rel="shortcut icon" href="{{ asset('public/assets/media/logos/512x512bb.jpg')}}" />
+		<link href="{{ asset('public/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('public/assets/css/style.toastr.css') }}">
         <style>
             label.error {
                  color: #dc3545;
@@ -26,7 +26,7 @@
 						<div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
 							<!--begin::Logo-->
 							<a href="../../demo8/dist/index.html" class="py-9 mb-5">
-								<img alt="Logo" src="{{ asset('assets/media/logos/512x512bb.jpg')}}" class="h-60px" />
+								<img alt="Logo" src="{{ asset('public/assets/media/logos/aipexpert.png')}}" class="h-60px" />
 							</a>
 							<!--end::Logo-->
 							<!--begin::Title-->
@@ -39,7 +39,7 @@
 						</div>
 						<!--end::Content-->
 						<!--begin::Illustration-->
-						<div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px" style="background-image: url(assets/media/illustrations/sketchy-1/13.png"></div>
+						<div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px" style="background-image: url('public/assets/media/illustrations/sketchy-1/13.png')"></div>
 						<!--end::Illustration-->
 					</div>
 					<!--end::Wrapper-->
@@ -146,15 +146,15 @@
 		</div>
 
 		<!--begin::Global Javascript Bundle(used by all pages)-->
-		<script src="{{ asset('assets/plugins/global/plugins.bundle.js')}}"></script>
-		<script src="{{ asset('assets/js/scripts.bundle.js')}}"></script>
+		<script src="{{ asset('public/assets/plugins/global/plugins.bundle.js')}}"></script>
+		<script src="{{ asset('public/assets/js/scripts.bundle.js')}}"></script>
 		<!--end::Global Javascript Bundle-->
         <!--Start login validation -->
-        <script src="{{ asset('assets/js/validation.js') }}"></script>
-        <script src="{{ asset('assets/js/custom_validation/login_validation.js') }}"></script>
+        <script src="{{ asset('public/assets/js/validation.js') }}"></script>
+        <script src="{{ asset('public/assets/js/custom_validation/login_validation.js') }}"></script>
         <!-- end login validation-->
         <!-- strat Toastr -->
-        <script src="{{ asset('assets/js/toastr.js') }}"></script>
+        <script src="{{ asset('public/assets/js/toastr.js') }}"></script>
         <script>
         @if (Session::has('error'))
         toastr.options =

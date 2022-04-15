@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 	<!--begin::Head-->
@@ -19,6 +18,32 @@
 					<!--begin::Header-->
                     @include('layouts.header')
 					<!--end::Header-->
+					<!--begin::Page title-->
+					{{-- <div class="px-10 mt-0 mb-4">
+						<div class="page-title d-flex flex-column me-5">
+							<!--begin::Title-->
+							<h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">@yield('page_name')</h1>
+							<!--end::Title-->
+							<!--begin::Breadcrumb-->
+							<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 pt-1">
+								<!--begin::Item-->
+								<li class="breadcrumb-item text-muted">
+									<a href="{{ route('home') }}" class="text-muted text-hover-primary">Home</a>
+								</li>
+								<!--end::Item-->
+								<!--begin::Item-->
+								<li class="breadcrumb-item">
+									<span class="bullet bg-gray-200 w-5px h-2px"></span>
+								</li>
+								<!--end::Item-->
+								<!--begin::Item-->
+								<li class="breadcrumb-item text-dark">@yield('breadcrumb')</li>
+								<!--end::Item-->
+								@yield('more_breadcrumb')
+							</ul>
+							<!--end::Breadcrumb-->
+						</div>
+					</div> --}}
 					<!--begin::Content-->
                     @yield('content')
                     <!--end::Content-->
