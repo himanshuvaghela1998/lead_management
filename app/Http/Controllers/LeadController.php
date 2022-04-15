@@ -139,4 +139,11 @@ class LeadController extends Controller
         }
 
     }
+
+    public function delete(Request $request, $id)
+    {
+        $leads = Lead::find($id);
+        $leads->is_delete = $request->input(0);
+        dd($leads);
+    }
 }

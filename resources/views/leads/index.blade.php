@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                            <a class="btn btn-primary" href="{{ route('create') }}">Add User</a>
+                            <a class="btn btn-primary" href="{{ route('create') }}">Add Leads</a>
                         </div>
                     </div>
                 </div>

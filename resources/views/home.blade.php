@@ -2,12 +2,13 @@
 @section('page_name','Dashboard')
 @section('breadcrumb','Dashboard')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
+<div id="kt_content_container" class="container">
+    <!--begin::Row-->
+    <div class="row g-5 g-xl-8">
+        <div class="col-xl-4">
+            <!--begin::Statistics Widget 5-->
+            <a href="#" class="card bg-body-white hoverable card-xl-stretch mb-xl-8">
+                <!--begin::Body-->
                 <div class="card-body">
                     <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
                     <span class="svg-icon svg-icon-primary svg-icon-3x ms-n1">
@@ -18,8 +19,8 @@
                         </svg>
                     </span>
                     <!--end::Svg Icon-->
-                    <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">Total User</div>
-                    <div class="fw-bold text-gray-400">User</div>
+                    <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">Total Project</div>
+                    <div class="fw-bold text-gray-400"></div>
                 </div>
                 <!--end::Body-->
             </a>
@@ -40,8 +41,8 @@
                         </svg>
                     </span>
                     <!--end::Svg Icon-->
-                    <div class="text-white fw-bolder fs-2 mb-2 mt-5">Total Lead</div>
-                    <div class="fw-bold text-white">Lead</div>
+                    <div class="text-white fw-bolder fs-2 mb-2 mt-5">Total Users</div>
+                    <div class="fw-bold text-white"></div>
                 </div>
                 <!--end::Body-->
             </a>
@@ -62,8 +63,8 @@
                         </svg>
                     </span>
                     <!--end::Svg Icon-->
-                    <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">Total Project</div>
-                    <div class="fw-bold text-gray-100">50% Increased for FY20</div>
+                    <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">Total Leads</div>
+                    <div class="fw-bold text-gray-100"></div>
                 </div>
                 <!--end::Body-->
             </a>
