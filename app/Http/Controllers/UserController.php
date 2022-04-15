@@ -33,17 +33,17 @@ class UserController extends Controller
                 });
             });
         }
-
+        $roles = Role::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
         /* Status filter */
-        if (!is_null($request->status)) {
-            $users->where('status', $request->status);
+        if (!is_null($request->status_id) && $request->status_id != '-1') {
+            $users->where('status', $request->status_id);
         }
         $users = $users->paginate($this->limit)->appends($request->all());
         if($request->ajax()){
             $view = view('user.include.usersList',compact('users'))->render();
             return response()->json(['status'=>200,'message','content'=>$view]);
         }
-        return view('user.index',compact('users'));
+        return view('user.index',compact('users','roles'));
     }
 
     /**
@@ -77,11 +77,9 @@ class UserController extends Controller
         if($user){
             $type = 'success';
             $msg = 'User created successfully';
-            // \Session::flash('errorSuccess', 'User created successfully');
         }else{
             $type = 'error';
             $msg = 'Error! something went to wrong!';
-            // \Session::flash('errorFails', 'Error! something went to wrong!');
         }
         return redirect()->route('users.index')->with($type,$msg);
     }
@@ -105,7 +103,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find(getDecrypted($id));
+        if ($user) {
+            $roles = Role::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
+            $view = view('user.edit',compact('user','roles'))->render();
+            return response()->json(['status'=>'success','content'=>$view]);
+        }
+        return response()->json(['status'=>'error']);
     }
 
     /**
@@ -117,7 +121,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
+        $user->name = $request->name;
+        $user->role_id = $request->role;
+        $user->email = $request->email;
+        $user->password = isset($request->password) ? $request->password : $user->password;
+        $user->save();
+
+        if($user){
+            $type = 'success';
+            $msg = 'User updated successfully';
+        }else{
+            $type = 'error';
+            $msg = 'Error! something went to wrong!';
+        }
+
+        return redirect()->route('users.index')->with($type,$msg);
     }
 
     /**
@@ -128,7 +147,19 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
+        $user->is_delete = 1;
+        $user->save();
+
+        if($user){
+            $type = 'success';
+            $msg = 'User deleted successfully';
+        }else{
+            $type = 'error';
+            $msg = 'Error! something went to wrong!';
+        }
+
+        return response()->json(['status'=>$type,'message'=>$msg]);
     }
 
     public function isEmailExists(Request $request){
