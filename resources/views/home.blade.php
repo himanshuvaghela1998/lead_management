@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('page_name','Dashboard')
+@section('breadcrumb','Dashboard')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

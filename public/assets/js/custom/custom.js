@@ -4,72 +4,159 @@ $.ajaxSetup({
     }
 });
 var _token = $("meta[name='_token']").attr('content');
+var user_rules = {
+    email: {
+        checkemail: true,
+        required: true,
+    },
+    role: {
+        required: true,
+    },
+    password: {
+        required: true,
+        noSpacePwd : true,
+        minlength : 8,
+        pwcheck: true,
+    },
+    name: {
+        required: true,
+        minlength:1,
+    },
+}
 
-$(function(){	
-    if($("#user_store").val() !== undefined)
-    {
-        jQuery.validator.addMethod('checkemail', function (value) { 
-            return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value); 
-        }, 'Please enter a valid email address.');
-        jQuery.validator.addMethod("noSpace", function(value, element) {      
-            return this.optional( element ) || /^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/.test( value );
-        }, "No space please and don't leave it empty");
-    
-        jQuery.validator.addMethod("noSpacePwd", function(value, element) { 
-            return value.indexOf(" ") < 0 && value != ""; 
-        }, "No space please and don't leave it empty");
-    
-        jQuery.validator.addMethod("pwcheck", function(value) {
-            return /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/.test(value) // consists of only these
-        });
-    }		
-    $("#user_store").validate({
-        ignore: [],
-        rules: {
-            email: {
-                checkemail: true,
-                required: true,
-            },
-            role: {
-                required: true,
-            },
-            password: {
-                required: true,
-                noSpacePwd : true,
-                minlength : 8,
-                pwcheck: true,
-            },
-            name: {
-                required: true,
-                noSpace:true,
-                minlength:1,
-            },
-        }, 
-        messages: {
-            "email":{
-                required:"Email is required."
-            }, 
-            "role":{
-                required:"Select a role."
-            },
-            "password":{
-                required:"Password is required.",
-                noSpacePwd:"Password is required.",
-                minlength:"Password may not be less than 8 character.",
-                pwcheck: "Password must contain at least 1 number, 1 lowercase, 1 uppercase letter and at least 1 special character from @#$%&",
-            },
-            "name":{
-                required:"Name is required.",
-                noSpace:"Name is required.",
-            }, 
+var user_msgs = {
+    "email":{
+        required:"Email is required."
+    }, 
+    "role":{
+        required:"Select a role."
+    },
+    "password":{
+        required:"Password is required.",
+        noSpacePwd:"Password is required.",
+        minlength:"Password may not be less than 8 character.",
+        pwcheck: "Password must contain at least 1 number, 1 lowercase, 1 uppercase letter and at least 1 special character from @#$%&",
+    },
+    "name":{
+        required:"Name is required.",
+    }, 
+}
+// Start add user
+jQuery.validator.addMethod('checkemail', function (value) { 
+    return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value); 
+}, 'Please enter a valid email address.');
+jQuery.validator.addMethod("noSpace", function(value, element) {      
+    return this.optional( element ) || /^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/.test( value );
+}, "No space please and don't leave it empty");
+
+jQuery.validator.addMethod("noSpacePwd", function(value, element) { 
+    return value.indexOf(" ") < 0 && value != ""; 
+}, "No space please and don't leave it empty");
+
+jQuery.validator.addMethod("pwcheck", function(value) {
+    return /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/.test(value) // consists of only these
+});		
+$("#user_store").validate({
+    ignore: [],
+    rules: user_rules, 
+    messages: user_msgs,
+    //perform an AJAX post to ajax.php
+    submitHandler: function() {    
+        return true;
+    }
+});
+
+$('#add_user_btn').on('click',function(){
+    $('#add_user_modal').modal('show')
+})
+$('.close-modal').on('click',function(){
+    Swal.fire({
+        text: "Are you sure you would like to cancel?",
+        icon: "warning",
+        showCancelButton: !0,
+        buttonsStyling: !1,
+        confirmButtonText: "Yes, cancel it!",
+        cancelButtonText: "No, return",
+        customClass: {
+            confirmButton: "btn btn-primary",
+            cancelButton: "btn btn-active-light"
+        }
+    }).then((function(t) {
+        t.value ? ($('#add_user_modal').modal('hide')) : "cancel" === t.dismiss && Swal.fire({
+            text: "Your form has not been cancelled!.",
+            icon: "error",
+            buttonsStyling: !1,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+                confirmButton: "btn btn-primary"
+            }
+        })
+    }))
+})
+// End add User
+
+// Start Edit User
+$('.edit_user').on('click',function(e){
+    e.preventDefault();
+    var id = $(this).attr('id');
+    var url = $(this).data('url');
+    var _modal=$('#edit_user_modal');
+    $.ajax({
+        url: url,
+        type: 'get',
+        cache : false,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            if(response.status == 'success'){
+                $('#edit_user_modal').html(response.content);
+                _modal.modal('show');
+                $("#user_update").validate({
+                    ignore: [],
+                    rules: user_rules, 
+                    messages: user_msgs,
+                    //perform an AJAX post to ajax.php
+                    submitHandler: function() {    
+                        return true;
+                    }
+                });
+                $('.close-modal').on('click',function(){
+                    Swal.fire({
+                        text: "Are you sure you would like to cancel?",
+                        icon: "warning",
+                        showCancelButton: !0,
+                        buttonsStyling: !1,
+                        confirmButtonText: "Yes, cancel it!",
+                        cancelButtonText: "No, return",
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                            cancelButton: "btn btn-active-light"
+                        }
+                    }).then((function(t) {
+                        t.value ? ($('#edit_user_modal').modal('hide')) : "cancel" === t.dismiss && Swal.fire({
+                            text: "Your form has not been cancelled!.",
+                            icon: "error",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        })
+                    }))
+                })
+            }else{
+                toastr.error('No user found');
+            }
         },
-        //perform an AJAX post to ajax.php
-        submitHandler: function() {    
-            console.log('mouuu');                    
-            return true;
+        error: function(error){
+            toastr.error('Something went wrong');
         }
     });
-}); 
+    
+})
+// end edit user
+
+
 check_all_click();
 
 function get_all_checked_ids() {
@@ -202,3 +289,42 @@ $(document).on('submit','#filter_form',function(e){
     });
 });
 /* END Filter Ajax*/
+
+
+/* Delete Record Jquery */
+$(document).on('click','.delete_row',function(e){
+    e.preventDefault();
+    var URL  = $(this).data('href');
+    var user_id  = $(this).data('user_id');
+    var title  = $(this).data('title');
+    Swal.fire({
+        text: "Are you sure to delete this "+title+" ?",
+        icon: "warning",
+        showCancelButton: !0,
+        buttonsStyling: !1,
+        confirmButtonText: "Confirm",
+        cancelButtonText: "Cancel",
+        customClass: { confirmButton: "btn fw-bold btn-danger", cancelButton: "btn fw-bold btn-active-light-primary" },
+    }).then(function (result) {
+        console.log(result.isConfirmed);
+        if(result.isConfirmed){
+            $.ajax({
+                url:URL,
+                type: 'delete', // replaced from put
+                dataType: "JSON",
+                success: function (response)
+                {
+                    toastr.success(response.message);
+                    $("#user_"+user_id).remove();
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText); // this line will save you tons of hours while debugging
+                    Swal.fire({ text: "Something went wrong!", icon: "error", buttonsStyling: !1, confirmButtonText: "Okay", customClass: { confirmButton: "btn fw-bold btn-primary" } });
+                }
+            });
+        }else{
+
+        }
+    });
+});
+/* END Delete Record Jquery */

@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('page_name','Users')
+@section('breadcrumb','Users')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -18,7 +19,7 @@
                             </span>
                             <!--end::Svg Icon-->
                             <form id="filter_form" action="{{route('users.index')}}" method="GET">
-                                <input type="hidden" name="status" class="input-sm form-control" id="form-status">
+                                <input type="hidden" name="status_id" class="input-sm form-control" id="status_id">
                                 <input type="hidden" name="page" value="1" id="filter_page">
                                 <input type="text" name="search_keyword" class="form-control form-control-solid w-250px ps-15" placeholder="Search" />
                             </form>
@@ -31,17 +32,17 @@
                             <!--begin::Filter-->
                             <div class="w-150px me-3">
                                 <!--begin::Select2-->
-                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
+                                <select class="form-select form-select-solid" id="status_filter" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
                                     <option></option>
-                                    <option value="all">All</option>
-                                    <option value="active">Active</option>
-                                    <option value="locked">Locked</option>
+                                    <option value="-1">All</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
                                 </select>
                                 <!--end::Select2-->
                             </div>
                             <!--end::Filter-->
                             <!--begin::Add customer-->
-                            <a class="btn btn-primary" href="{{ route('users.create') }}">Add User</a>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_user_modal" id="add_user_btn">Add User</button>
                             <!--end::Add customer-->
                         </div>
                     </div>
@@ -56,4 +57,13 @@
         </div>
     </div>
 </div>
+<!--begin::Modal - User - Add-->
+<div class="modal fade" id="add_user_modal" tabindex="-1" aria-hidden="true">
+    @include('user.create')
+</div>
+<!--end::Modal - User - Add-->
+<!--begin::Modal - User - Edit-->
+<div class="modal fade" id="edit_user_modal" tabindex="-1" aria-hidden="true">
+</div>
+<!--end::Modal - User - Edit-->
 @endsection
