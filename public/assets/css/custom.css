@@ -16,3 +16,10 @@
 .header-fixed.toolbar-fixed .wrapper {
     padding-top: 70px;
 }}
+
+.form-control {
+
+    padding: 0.5rem 0.5rem;
+    font-size: 1rem;
+    line-height: 1.0;
+}

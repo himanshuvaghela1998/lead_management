@@ -9,11 +9,11 @@
                 </div>
             </th>
             <th class="min-w-125px">Project Title</th>
-            <th class="min-w-125px">Status</th>
+            <th class="min-w-125px">Project Status</th>
             <th class="min-w-125px">Project Type</th>
-            <th class="min-w-125px">Client Name</th>
-            <th class="min-w-125px">Client Email</th>
-            <th class="text-end min-w-70px">Actions</th>
+            <th class="min-w-125px">Assign To</th>
+            <th class="min-w-125px">Status</th>
+            <th class="text-center min-w-125px">Actions</th>
         </tr>
     </thead>
     <tbody class="fw-bold text-gray-600">
