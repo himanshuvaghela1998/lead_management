@@ -26,21 +26,25 @@
                 <!--begin::Scroll-->
                 <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
                     <!--begin::Input group-->
-                    <div class="fv-row mb-7">
-                        <label class="required fs-6 fw-bold mb-2">Name</label>
-                        <input type="text" class="form-control form-control-solid" placeholder="Enter user name" name="name" id="name"/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="required fs-6 fw-bold mb-2">Name</label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Enter user name" name="name" id="name"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="required fs-6 fw-bold mb-2">Role</label>
+                            {{Form::select('role',[''=>'Select Role']+$roles,null,['class'=>'form-control form-control-solid capitalize-letter','id'=>'role'])}}
+                        </div>
                     </div>
-                    <div class="fv-row mb-7">
-                        <label class="required fs-6 fw-bold mb-2">Role</label>
-                        {{Form::select('role',[''=>'Select Role']+$roles,null,['class'=>'form-control form-control-solid capitalize-letter','id'=>'role'])}}
-                    </div>
-                    <div class="fv-row mb-7">
-                        <label class="required fs-6 fw-bold mb-2">Email</label>
-                        <input type="text" class="form-control form-control-solid" placeholder="Enter email address" name="email" id="email"/>
-                    </div>
-                    <div class="fv-row mb-7">
-                        <label class="required fs-6 fw-bold mb-2">Password</label>
-                        <input type="password" class="form-control form-control-solid" placeholder="Enter password" name="password" id="password"/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="required fs-6 fw-bold mb-2">Email</label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Enter email address" name="email" id="email"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="required fs-6 fw-bold mb-2">Password</label>
+                            <input type="password" class="form-control form-control-solid" placeholder="Enter password" name="password" id="password"/>
+                        </div>
                     </div>
                 </div>
             </div>

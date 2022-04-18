@@ -25,10 +25,10 @@
                 </div>
             </td> --}}
             <td>
-                {{ $user->name }}
+                <p class="capitalize-letter">{{ $user->name }}</p>
             </td>
             <td>
-                {{ $user->email }}
+                <p>{{ $user->email }}</p>
             </td>
             <td>
                 <p class="capitalize-letter">{{ isset($user->getRole) ? $user->getRole->name : '' }}</p>
