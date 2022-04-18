@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>{{env('APP_NAME')}}</title>
-		<link rel="shortcut icon" href="{{ asset('public/assets/media/logos/512x512bb.jpg')}}" />
+		<title>Lead Management | Login</title> 
+		<link rel="icon" href="{{asset('public/assets/media/logos/Aipxperts-logo_1.png')}}" type = "image/x-icon"/>
 		<link href="{{ asset('public/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('public/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="{{ asset('public/assets/css/style.toastr.css') }}">
