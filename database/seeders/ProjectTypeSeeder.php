@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\project_types;
+use App\Models\ProjectType;
 
-class admin_projecttitle extends Seeder
+class ProjectTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,8 @@ class admin_projecttitle extends Seeder
      */
     public function run()
     {
-        project_types::insert([
-            'project_type' => 'lead manager'
+        ProjectType::insert([
+            'project_type' => 'web project'
         ]);
     }
 }

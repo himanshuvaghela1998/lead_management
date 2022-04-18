@@ -27,7 +27,7 @@ var user_rules = {
 var user_msgs = {
     "email":{
         required:"Email is required."
-    }, 
+    },
     "role":{
         required:"Select a role."
     },
@@ -39,29 +39,29 @@ var user_msgs = {
     },
     "name":{
         required:"Name is required.",
-    }, 
+    },
 }
 // Start add user
-jQuery.validator.addMethod('checkemail', function (value) { 
-    return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value); 
+jQuery.validator.addMethod('checkemail', function (value) {
+    return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value);
 }, 'Please enter a valid email address.');
-jQuery.validator.addMethod("noSpace", function(value, element) {      
+jQuery.validator.addMethod("noSpace", function(value, element) {
     return this.optional( element ) || /^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/.test( value );
 }, "No space please and don't leave it empty");
 
-jQuery.validator.addMethod("noSpacePwd", function(value, element) { 
-    return value.indexOf(" ") < 0 && value != ""; 
+jQuery.validator.addMethod("noSpacePwd", function(value, element) {
+    return value.indexOf(" ") < 0 && value != "";
 }, "No space please and don't leave it empty");
 
 jQuery.validator.addMethod("pwcheck", function(value) {
     return /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/.test(value) // consists of only these
-});		
+});
 $("#user_store").validate({
     ignore: [],
-    rules: user_rules, 
+    rules: user_rules,
     messages: user_msgs,
     //perform an AJAX post to ajax.php
-    submitHandler: function() {    
+    submitHandler: function() {
         return true;
     }
 });
@@ -92,10 +92,10 @@ $('.edit_user').on('click',function(e){
                 _modal.modal('show');
                 $("#user_update").validate({
                     ignore: [],
-                    rules: user_rules, 
+                    rules: user_rules,
                     messages: user_msgs,
                     //perform an AJAX post to ajax.php
-                    submitHandler: function() {    
+                    submitHandler: function() {
                         return true;
                     }
                 });
@@ -110,7 +110,7 @@ $('.edit_user').on('click',function(e){
             toastr.error('Something went wrong');
         }
     });
-    
+
 })
 // end edit user
 
@@ -255,6 +255,7 @@ $(document).on('click','.delete_row',function(e){
     var URL  = $(this).data('href');
     var user_id  = $(this).data('user_id');
     var title  = $(this).data('title');
+
     Swal.fire({
         text: "Are you sure to delete this "+title+" ?",
         icon: "warning",
@@ -268,7 +269,7 @@ $(document).on('click','.delete_row',function(e){
         if(result.isConfirmed){
             $.ajax({
                 url:URL,
-                type: 'delete', // replaced from put
+                type:'delete', // replaced from put
                 dataType: "JSON",
                 success: function (response)
                 {
