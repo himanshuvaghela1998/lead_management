@@ -12,6 +12,7 @@
 <script src="{{ asset('public/assets/js/custom/modals/upgrade-plan.js')}}"></script>
 <script src="{{ asset('public/assets/js/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('public/assets/js/jquery-validation/js/additional-methods.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('public/assets/js/custom/custom.js')}}"></script>
 <!--end::Page Custom Javascript-->
 <!-- CKEditor -->
 {{-- <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script> --}}
