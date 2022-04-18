@@ -17,7 +17,7 @@
             <td>{{ $lead->project_title }}</td>
             <td>{{ $lead->status }}</td>
             <td>{{ ($lead->ProjectType) ? $lead->ProjectType->project_type : '' }}</td>
-            <td>{{ ($lead->clients) ? $lead->clients->client_name : ''  }}</td>
+            <td>{{ ($lead->getUser) ? $lead->getUser->name : ''  }}</td>
             <!-- Start drop down list -->
             <td>
                 <div class="d-flex flex-column  col-md-6">

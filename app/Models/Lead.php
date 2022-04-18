@@ -34,5 +34,9 @@ class Lead extends Model
         $encrypted_string=openssl_encrypt($this->id,config('services.encryption.type'),config('services.encryption.secret'));
         return base64_encode($encrypted_string);
     }
+    public function getUser()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
 }
