@@ -20,7 +20,7 @@ class LeadController extends Controller
 
     public function index(Request $request)
     {
-        $leads = Lead::with('clients', 'projectType')->where('is_delete',0);
+        $leads = Lead::with('clients', 'projectType', 'getUser')->where('is_delete',0);
 
         if($request->has('search_keyword') && $request->search_keyword != ""){
             $leads = $leads->where(function($q) use($request){
@@ -28,7 +28,9 @@ class LeadController extends Controller
                 $q->orWhere('project_title', 'LIKE', '%'.$request->search_keyword.'%');
                 $q->orWhereHas('ProjectType', function($q1) use ($request){
                     $q1->where('project_type', 'LIKE', '%' .$request->search_keyword. '%');
-                    // $qi->orWhereHas('')
+                });
+                $q->orWhereHas('getUser', function($q2) use ($request){
+                    $q2->where('name', 'LIKE', '%' .$request->search_keyword. '%');
                 });
             });
         }
@@ -127,7 +129,6 @@ class LeadController extends Controller
             'time_estimation' => 'required',
             'client_name' => 'required',
             'client_email' => 'required|email',
-            'client_other_details' => 'required'
         ],
     [
         'project_title.required' => 'Project title is required',
