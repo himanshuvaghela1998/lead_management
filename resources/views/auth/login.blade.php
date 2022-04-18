@@ -5,7 +5,6 @@
 		<link rel="icon" href="{{asset('public/assets/media/logos/Aipxperts-logo_1.png')}}" type = "image/x-icon"/>
 		<link href="{{ asset('public/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('public/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="{{ asset('public/assets/css/style.toastr.css') }}">
         <style>
             label.error {
                  color: #dc3545;
@@ -25,13 +24,10 @@
 						<!--begin::Content-->
 						<div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
 							<!--begin::Logo-->
-							<a href="" class="py-9 mb-5">
-								<img alt="Logo" src="{{ asset('public/assets/media/logos/Aipxperts-logoTransparent.png')}}" class="h-60px" />
+							<a href="" class="pt-9">
+								<img alt="Logo" src="{{ asset('public/assets/media/logos/Aipxperts-logoTransparent.png')}}" class="h-100px" />
 							</a>
 							<!--end::Logo-->
-							<!--begin::Title-->
-							<h1 class="fw-bolder fs-2qx pb-5 pb-md-10" style="color: #986923;">{{env('APP_NAME')}}</h1>
-							<!--end::Title-->
 							<!--begin::Description-->
 							<p class="fw-bold fs-2" style="color: #986923;">Discover lead Management
 							<br />with great build</p>
@@ -66,7 +62,7 @@
 									<label class="form-label fs-6 fw-bolder text-dark">Email</label>
 									<!--end::Label-->
 									<!--begin::Input-->
-                                    <input id="email" type="email" class="form-control form-control-lg form-control-solid" name="email" value="{{ old('email') }}" data-msg-required="Email is required"  autocomplete="email" >
+                                    <input id="email" type="email" class="form-control form-control-lg form-control-solid" name="email" value="{{ old('email') }}" data-msg-required="Email is required."  autocomplete="email" >
                                     @error('email')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -81,7 +77,7 @@
 										<label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
 										<!--end::Label-->
 										<!--begin::Link-->
-										<a href="../../demo8/dist/authentication/flows/aside/password-reset.html" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
+										{{-- <a href="../../demo8/dist/authentication/flows/aside/password-reset.html" class="link-primary fs-6 fw-bolder">Forgot Password ?</a> --}}
 										<!--end::Link-->
 									</div>
 									<!--end::Wrapper-->

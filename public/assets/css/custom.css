@@ -23,3 +23,17 @@
     font-size: 1rem;
     line-height: 1.0;
 }
+.modal-header
+{
+    padding: 0.5rem 1.75rem;
+}
+.modal-footer
+{
+    padding: 0.5rem;
+}
+.swal2-popup
+{
+    padding: 0;
+    width: 24em;
+    height: 20em;
+}
