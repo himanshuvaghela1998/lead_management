@@ -125,7 +125,6 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->role_id = $request->role;
         $user->email = $request->email;
-        $user->password = isset($request->password) ? $request->password : $user->password;
         $user->save();
 
         if($user){
@@ -150,7 +149,6 @@ class UserController extends Controller
         $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
         $user->is_delete = 1;
         $user->save();
-
         if($user){
             $type = 'success';
             $msg = 'User deleted successfully';
@@ -177,7 +175,7 @@ class UserController extends Controller
             'valid' => $isValid,
             'message' => $message
         ]);
-    }    
+    }
 
     public function status_update(Request $request,$id){
         /* Record status update*/

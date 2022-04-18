@@ -20,11 +20,18 @@ class LeadController extends Controller
 
     public function index(Request $request)
     {
-        $leads = Lead::with('clients', 'projectType');
+        $leads = Lead::with('clients', 'projectType', 'getUser')->where('is_delete',0);
 
         if($request->has('search_keyword') && $request->search_keyword != ""){
             $leads = $leads->where(function($q) use($request){
                 $q->where('status', 'LIKE', '%'.$request->search_keyword.'%');
+                $q->orWhere('project_title', 'LIKE', '%'.$request->search_keyword.'%');
+                $q->orWhereHas('ProjectType', function($q1) use ($request){
+                    $q1->where('project_type', 'LIKE', '%' .$request->search_keyword. '%');
+                });
+                $q->orWhereHas('getUser', function($q2) use ($request){
+                    $q2->where('name', 'LIKE', '%' .$request->search_keyword. '%');
+                });
             });
         }
 
@@ -55,8 +62,18 @@ class LeadController extends Controller
                 'time_estimation' => 'required',
                 'client_name' => 'required',
                 'client_email' => 'required|email',
-                'client_other_details' => 'required'
-            ]);
+            ],
+        [
+            'project_title.required' => 'Project title is required',
+            'project_type_id.required' => 'Project type is required',
+            'source_id.required' => 'Lead source is required',
+            'user_id.required' => 'Assigned too is required',
+            'status.required' => 'Project status is required',
+            'billing_type.required' => 'Billing type is required',
+            'time_estimation.required' => 'Time estimation is required',
+            'client_name.required' => 'Client name is required',
+            'client_email.required' => 'Client email is required',
+        ]);
 
 
             $leads = new Lead();
@@ -79,7 +96,7 @@ class LeadController extends Controller
 
         }
 
-        $users = User::where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
+        $users = User::where([['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
         return view('leads.create', compact('projects', 'Sources', 'users'));
@@ -88,7 +105,7 @@ class LeadController extends Controller
 
     public function edit($id)
     {
-        $users = User::where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
+        $users = User::where([['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
         $leads = Lead::with('clients', 'projectType')->find($id);
@@ -112,8 +129,18 @@ class LeadController extends Controller
             'time_estimation' => 'required',
             'client_name' => 'required',
             'client_email' => 'required|email',
-            'client_other_details' => 'required'
-        ]);
+        ],
+    [
+        'project_title.required' => 'Project title is required',
+        'project_type_id.required' => 'Project type is required',
+        'source_id.required' => 'Lead source is required',
+        'user_id.required' => 'Assigned too is required',
+        'status.required' => 'Project status is required',
+        'billing_type.required' => 'Billing type is required',
+        'time_estimation.required' => 'Time estimation is required',
+        'client_name.required' => 'Client name is required',
+        'client_email.required' => 'Client email is required',
+    ]);
 
 
         $leads = Lead::find($id);
@@ -125,7 +152,7 @@ class LeadController extends Controller
         $leads->billing_type = $request->input('billing_type');
         $leads->time_estimation = $request->input('time_estimation');
         $leads->save();
-        $clients = new Client();
+        $clients = Client::find($id);
         $clients->lead_id = $leads->id;
         $clients->client_name = $request->input('client_name');
         $clients->client_email = $request->input('client_email');
@@ -138,5 +165,20 @@ class LeadController extends Controller
             return redirect()->route('lead')->with('error', 'Not update data');
         }
 
+    }
+
+    public function delete($id)
+    {
+        $leads = Lead::where('is_delete',0)->where('id',getDecrypted($id))->first();
+        if($leads){
+            $leads->is_delete = 1;
+            $leads->save();
+            $type = 'success';
+            $msg = 'Leads deleted successfully';
+        }else{
+            $type = 'error';
+            $msg = 'Error! something went to wrong!';
+        }
+        return response()->json(['status'=>$type,'message'=>$msg]);
     }
 }
