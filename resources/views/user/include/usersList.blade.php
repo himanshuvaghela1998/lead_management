@@ -8,11 +8,11 @@
                     <input class="form-check-input" type="checkbox" data-kt-check="true" name="select_all" value="1" id="search-select-all" />
                 </div>
             </th> --}}
-            <th class="min-w-125px">Name</th>
-            <th class="min-w-125px">Email</th>
-            <th class="min-w-125px">Role</th>
-            <th class="min-w-125px">Status</th>
-            <th class="min-w-70px">Actions</th>
+            <th style="width: 25%">Name</th>
+            <th style="width: 25%">Email</th>
+            <th style="width: 25%">Role</th>
+            <th style="width: 10%">Status</th>
+            <th style="width: 15%">Actions</th>
         </tr>
     </thead>
     <tbody class="fw-bold text-gray-600">

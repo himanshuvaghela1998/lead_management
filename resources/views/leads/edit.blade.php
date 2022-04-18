@@ -38,15 +38,16 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span>Project Type</span>
                                 </label>
-                                <select name="project_type_id" aria-label="Project type" data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid ">
+                                <select name="project_type_id" aria-label="Project type" data-error="#projectType" data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid ">
                                   @foreach ($projects as $project)
                                   <option value="">Project Type...</option>
                                   <option value="{{ $project->id }}" {{ ($project->id == $leads->project_type_id) ? 'selected' : '' }}>{{ $project->project_type }}</option>
                                   @endforeach
-                                  @error('project_type_id')
+                                </select>
+                                <div id="projectType"></div>
+                                @error('project_type_id')
                                   <span class="text-danger">{{ $message }}</span>
                               @enderror
-                                </select>
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -61,15 +62,16 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span>Lead Sources</span>
                                 </label>
-                                <select name="source_id" aria-label="Project type" data-control="select2" data-placeholder="Select a Lead Sources..." class="form-select form-select-solid">
+                                <select name="source_id" aria-label="Project type" data-error="#leadSource" data-control="select2" data-placeholder="Select a Lead Sources..." class="form-select form-select-solid">
                                   @foreach ($Sources as $Source)
                                   <option value="">Project Type...</option>
                                   <option value="{{ $Source->id }}"{{ ($Source->id == $leads->source_id) ? 'selected' : '' }}>{{ $Source->source }}</option>
                                   @endforeach
-                                  @error('source_id')
-                                  <span class="text-danger">{{ $message }}</span>
-                              @enderror
                                 </select>
+                                <div id="leadSource"></div>
+                                @error('source_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -77,12 +79,13 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span>Billing Type</span>
                                 </label>
-                                <select name="billing_type" aria-label="Billing type" data-control="select2" data-placeholder="Select a Billing Type..." class="form-select form-select-solid">
+                                <select name="billing_type" aria-label="Billing type" data-error="#billingType" data-control="select2" data-placeholder="Select a Billing Type..." class="form-select form-select-solid">
                                   <option value="">Billing Type...</option>
                                   <option value="hourly" {{ ($leads->billing_type == 'hourly') ? 'selected' :'' }} >Hourly</option>
                                   <option value="fixed_cost" {{ ($leads->billing_type == 'fixed_cost') ? 'selected' :'' }} >Fixed Cost </option>
                                   <option value="not_mentioned" {{ ($leads->billing_type == 'not_mentioned') ? 'selected' :'' }} >Not Mentioned</option>
                                 </select>
+                                <div id="billingType"></div>
                                 @error('billing_type')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -91,7 +94,7 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span>Status</span>
                                 </label>
-                                <select name="status" aria-label="Status" data-control="select2" data-placeholder="Select a Status..." class="form-select form-select-solid">
+                                <select name="status" aria-label="Status" data-error="#status" data-control="select2" data-placeholder="Select a Status..." class="form-select form-select-solid">
                                   <option value="">Status...</option>
                                   <option value="Open" {{ ($leads->status == 'open') ? 'selected' : '' }}>Open</option>
                                   <option value="in_Conversation" {{ ($leads->status == 'in_Conversation') ? 'selected' : '' }}>In Conversation</option>
@@ -99,6 +102,7 @@
                                   <option value="closed" {{ ($leads->status == 'closed') ? 'selected' : '' }}>Closed</option>
                                   <option value="converted" {{ ($leads->status == 'converted') ? 'selected' : '' }}>Converted</option>
                                 </select>
+                                <div id="status"></div>
                                 @error('status')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -110,12 +114,13 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span>Assigned Too</span>
                                 </label>
-                                <select name="user_id" aria-label="Assigned Too" data-control="select2" data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid">
+                                <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid">
                                 @foreach ($users as $user)
                                 <option value="">Project Type...</option>
                                 <option value="{{ $user->id }}" {{ ($user->id == $leads->user_id) ? 'selected' : '' }}>{{ $user->name }}</option>
                                 @endforeach
                                 </select>
+                                <div id="assignedTo"></div>
                                 @error('user_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -157,3 +162,42 @@
     </div>
 </div>
 @endsection
+<script>
+    $('#lead_store').validate({
+        rules: {
+            project_title : 'required',
+            project_type_id : 'required',
+            source_id : 'required',
+            user_id : 'required',
+            status : 'required',
+            billing_type :'required',
+            time_estimation : 'required',
+            client_name : 'required',
+            client_email : 'required'
+        },
+        message: {
+
+        project_title : 'Project title is required',
+        project_type_id : 'Project type is required',
+        source_id : 'Lead source is required',
+        user_id : 'Assigned too is required',
+        status : 'Project status is required',
+        billing_type : 'Billing type is required',
+        time_estimation : 'Time estimation is required',
+        client_name : 'Client name is required',
+        client_email : 'Client email is required',
+
+        },
+        errorPlacement: function(error, element){
+            var placement = $(element).data('error');
+            if(placement){
+                $(placement).append(error);
+            }else{
+                error.insertAfter(element);
+            }
+        },
+        submitHandler: function(form){
+            form.submit();
+        }
+    });
+</script>
