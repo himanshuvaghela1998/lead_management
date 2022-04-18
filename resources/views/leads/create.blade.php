@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('create') }}" class="horizontal-form" method="POST" id="user_store">
+                    <form action="{{ route('create') }}" class="horizontal-form" method="POST" id="lead_store">
                         {{ csrf_field() }}
                         <div class="row">
                         <div class="row mt-2">
