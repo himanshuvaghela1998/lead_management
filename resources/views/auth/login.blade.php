@@ -20,11 +20,11 @@
 				<!--begin::Aside-->
 				<div class="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative" style="background-color: #F2C98A">
 					<!--begin::Wrapper-->
-					<div class="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
+					<div class="d-flex flex-column position-xl-fixed top-0 bottom-5 w-xl-600px scroll-y"> 
 						<!--begin::Content-->
 						<div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
 							<!--begin::Logo-->
-							<a href="" class="pt-9">
+							<a class="pt-9">
 								<img alt="Logo" src="{{ asset('public/assets/media/logos/Aipxperts-logoTransparent.png')}}" class="h-100px" />
 							</a>
 							<!--end::Logo-->

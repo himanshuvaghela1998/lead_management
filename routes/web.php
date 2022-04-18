@@ -38,11 +38,11 @@ Route::middleware(['CheckAdmin'])->group(function(){
     Route::post('users/update/{id}', [UserController::class,'update'])->name('user.modify');
     // <!--- Lead Controller -->
 
-    Route::get('Leads', [LeadController::class, 'index'])->name('lead');
-    Route::match(['GET', 'POST'], 'create', [LeadController::class, 'create'])->name('create');
-    Route::get('edit/{id}', [LeadController::class, 'edit'])->name('edit');
-    Route::post('update/{id}', [LeadController::class, 'update'])->name('update');
-    Route::delete('delete/{id}', [LeadController::class, 'delete'])->name('lead.destroy');
+    Route::get('leads', [LeadController::class, 'index'])->name('lead');
+    Route::match(['GET', 'POST'], 'leads/create', [LeadController::class, 'create'])->name('create');
+    Route::get('leads/edit/{id}', [LeadController::class, 'edit'])->name('edit');
+    Route::post('leads/update/{id}', [LeadController::class, 'update'])->name('update');
+    Route::delete('leads/delete/{id}', [LeadController::class, 'delete'])->name('lead.destroy');
 });
 
 
