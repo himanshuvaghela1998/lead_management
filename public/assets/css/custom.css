@@ -31,3 +31,9 @@
 {
     padding: 0.5rem;
 }
+.swal2-popup
+{
+    padding: 0;
+    width: 24em;
+    height: 20em;
+}
