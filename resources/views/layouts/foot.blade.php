@@ -14,10 +14,9 @@
 <script src="{{asset('public/assets/js/jquery-validation/js/additional-methods.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/js/custom/custom.js')}}"></script>
 <!--end::Page Custom Javascript-->
-<!-- Start Validation -->
 <script src="{{ asset('public/assets/js/validation.js') }}"></script>
 <script src="{{ asset('public/assets/js/custom_validation/login_validation.js') }}"></script>
-<!-- End validation-->
+<!-- end login validation-->
 <!-- CKEditor -->
 {{-- <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script> --}}
 <script src="{{asset('public/assets/js/ckeditor/build/ckeditor.js')}}" type="text/javascript"></script>
