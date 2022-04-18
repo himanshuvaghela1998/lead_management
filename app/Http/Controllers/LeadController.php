@@ -28,7 +28,7 @@ class LeadController extends Controller
                 $q->orWhere('project_title', 'LIKE', '%'.$request->search_keyword.'%');
                 $q->orWhereHas('ProjectType', function($q1) use ($request){
                     $q1->where('project_type', 'LIKE', '%' .$request->search_keyword. '%');
-                    $qi->orWhereHas('')
+                    // $qi->orWhereHas('')
                 });
             });
         }
