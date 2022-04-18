@@ -130,14 +130,14 @@
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 <label class="fs-6 fw-bold mb-2">Client Name</label>
-                                <input type="text" class="form-control form-control-solid" placeholder="Enter client name" value="{{ $leads->clients->client_name }}" name="client_name" id="client_name"/>
+                                <input type="text" class="form-control form-control-solid" placeholder="Enter client name" value="{{ ($leads->clients) ? $leads->clients->client_name : '' }}" name="client_name" id="client_name"/>
                             @error('client_name')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                             </div>
                             <div class="col-md-6">
                                 <label class="fs-6 fw-bold mb-2">Client Email</label>
-                                <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" value="{{ $leads->clients->client_email }}" name="client_email" id="client Email"/>
+                                <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" value="{{ ($leads->clients) ? $leads->clients->client_email : '' }}" name="client_email" id="client Email"/>
                                   @error('client_email')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -146,7 +146,7 @@
                         <div class="row">
                             <div class="col-md-12 fv-row mb-15">
                                 <label class="fs-6 fw-bold mb-2">Client's Details </label>
-                                <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5">{{ $leads->clients->client_other_details }}</textarea>
+                                <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5">{{ ($leads->clients) ? $leads->clients->client_other_details : '' }}</textarea>
                             </div>
                         </div>
                         <div class="form-actions d-flex justify-content-end mt-5">
