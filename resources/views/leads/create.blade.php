@@ -128,9 +128,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                            <label class="fs-6 fw-bold mb-2 required">Lead Details</label>
+                            <label class="fs-6 fw-bold mb-2">Lead Details</label>
                             {!! Form::textarea('lead_details',str_replace( '&', '&amp;', null),["class"=>"form-control form-control-solid","placeholder"=>"","id"=>"lead_details"]) !!}
-                            <div class="has-error"><span class="help-block lead_details-error text-danger" style="text-align: left;" ></span></div>
                             </div>
                         </div>
                         <div class="form-actions d-flex justify-content-end mt-5">
@@ -154,13 +153,13 @@
 			desc_editor = newEditor;
 			desc_editor.model.document.on( 'change:data', ( evt, data ) => {
 				var lead_details =  desc_editor.getData();
-				if(lead_details==''){
-					$(".lead_details-error").html('Lead details is required');
-				    $(':input[type="submit"]').prop('disabled',true);
-				}else{
-					$(".lead_details-error").html('');
-				    $(':input[type="submit"]').prop('disabled',false);
-				}
+				// if(lead_details==''){
+				// 	$(".lead_details-error").html('Lead details is required');
+				//     $(':input[type="submit"]').prop('disabled',true);
+				// }else{
+				// 	$(".lead_details-error").html('');
+				//     $(':input[type="submit"]').prop('disabled',false);
+				// }
 			});
 		})
         .catch( error => {
