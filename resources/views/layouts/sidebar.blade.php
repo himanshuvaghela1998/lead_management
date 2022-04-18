@@ -2,8 +2,8 @@
     <!--begin::Brand-->
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         <!--begin::Logo-->
-        <a href="../../demo1/dist/index.html">
-            <img alt="Logo" src="{{ asset('assets/media/logos/aipexpert1.jpg') }}" class="h-25px logo" />
+        <a href="{{ route('home') }}">
+            <img alt="Logo" src="{{ asset('assets/media/logos/Aipxperts-logoTransparent.png') }}" class="h-65px logo" style="filter: invert(65%) brightness(100%) contrast(100%) grayscale(1);" />
         </a>
         <!--end::Logo-->
         <!--begin::Aside toggler-->
