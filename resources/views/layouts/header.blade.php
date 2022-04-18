@@ -142,31 +142,31 @@
                                     <!--end::Avatar-->
                                     <!--begin::Username-->
                                     <div class="d-flex flex-column">
-                                        <div class="fw-bolder d-flex align-items-center fs-5">Max Smith
+                                        <div class="fw-bolder d-flex align-items-center fs-5">{{ Auth::user()->name }}
                                         <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ Auth::user()->email }}</a>
                                     </div>
                                     <!--end::Username-->
                                 </div>
                             </div>
                             <!--end::Menu item-->
                             <!--begin::Menu separator-->
-                            <div class="separator my-2"></div>
+                            {{-- <div class="separator my-2"></div> --}}
                             <!--end::Menu separator-->
                             <!--begin::Menu item-->
-                            <div class="menu-item px-5">
+                            {{-- <div class="menu-item px-5">
                                 <a href="../../demo1/dist/account/overview.html" class="menu-link px-5">My Profile</a>
-                            </div>
+                            </div> --}}
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
-                            <div class="menu-item px-5">
+                            {{-- <div class="menu-item px-5">
                                 <a href="../../demo1/dist/pages/projects/list.html" class="menu-link px-5">
                                     <span class="menu-text">My Projects</span>
                                     <span class="menu-badge">
                                         <span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
                                     </span>
                                 </a>
-                            </div>
+                            </div> --}}
 
                             <div class="separator my-2"></div>
                             <div class="menu-item px-5">

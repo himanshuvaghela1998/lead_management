@@ -22,8 +22,8 @@ class CreateLeadsTable extends Migration
             $table->integer('source_id')->index('source_id');
             $table->string('billing_type');
             $table->string('time_estimation');
-            $table->string('cost_estimation');
-            $table->longText('lead_details');
+            $table->string('cost_estimation')->default(0);
+            $table->longText('lead_details')->default('null');
             $table->timestamps();
         });
     }

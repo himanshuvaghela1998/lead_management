@@ -1,6 +1,17 @@
 @extends('layouts.main')
-@section('page_name','Users')
+
 @section('content')
+<div class="px-10 mt-0 mb-4">
+    <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 pt-1">
+        <li class="breadcrumb-item text-muted">
+            <a href="{{ route('home') }}" class="text-muted text-hover-primary">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <span class="bullet bg-gray-200 w-5px h-2px"></span>
+        </li>
+        <li class="breadcrumb-item text-dark">Leads</li>
+    </ul>
+</div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">

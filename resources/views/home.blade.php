@@ -2,9 +2,15 @@
 @section('page_name','Dashboard')
 @section('breadcrumb','Dashboard')
 @section('content')
+<div class="px-10 mt-0 mb-4">
+    <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 pt-1">
+        <li class="breadcrumb-item text-dark">Home</li>
+
+    </ul>
+</div>
 <div id="kt_content_container" class="container">
     <!--begin::Row-->
-    <div class="row g-5 g-xl-8">
+    {{-- <div class="row g-5 g-xl-8">
         <div class="col-xl-4">
             <!--begin::Statistics Widget 5-->
             <a href="#" class="card bg-body-white hoverable card-xl-stretch mb-xl-8">
@@ -70,6 +76,6 @@
             </a>
             <!--end::Statistics Widget 5-->
         </div>
-    </div>
+    </div> --}}
 </div>
 @endsection
