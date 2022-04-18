@@ -4,7 +4,7 @@
         <!--begin::Table row-->
         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
             <th class="min-w-125px">Project Title</th>
-            <th class="min-w-125px">Project Status</th>
+            <th class="min-w-125px">Project Status </th>
             <th class="min-w-125px">Project Type</th>
             <th class="min-w-125px">Assign To</th>
             <th class="min-w-125px">Project Status</th>
@@ -15,13 +15,13 @@
         @foreach ($leads as $lead)
         <tr id="user_{{$lead->secret}}">
             <td>{{ $lead->project_title }}</td>
-            <td>{{ $lead->status }}</td>
-            <td>{{ ($lead->ProjectType) ? $lead->ProjectType->project_type : '' }}</td>
-            <td>{{ ($lead->getUser) ? $lead->getUser->name : ''  }}</td>
+            <td> <p class="capitalize-letter">{{ str_replace('_', ' ', $lead->status) }} </p></td>
+            <td> <p class="capitalize-letter">{{ ($lead->ProjectType) ? $lead->ProjectType->project_type : '' }} </p></td>
+            <td> <p class="capitalize-letter">{{ ($lead->getUser) ? $lead->getUser->name : ''  }}</p></td>
             <!-- Start drop down list -->
             <td>
-                <div class="d-flex flex-column  col-md-6">
-                    <select name="status" aria-label="Status" data-control="select2" data-placeholder="Select a Project Status..." class="form-select form-select-solid">
+                <div class="d-flex flex-column ">
+                    <select name="status" aria-label="Status" data-control="select2" data-placeholder="Project Status..." class="form-select form-select-solid">
                       <option value="">Project Status...</option>
                       <option value="Open">Open</option>
                       <option value="in_Conversation">In Conversation</option>
