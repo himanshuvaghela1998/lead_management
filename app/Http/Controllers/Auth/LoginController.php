@@ -51,6 +51,9 @@ class LoginController extends Controller
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|min:8|string|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'
+            ], [
+                'login' => 'Email is required.',
+                'password' => 'Password is required.'
             ]);
 
             $user = User::where('email', $request->email)->first();

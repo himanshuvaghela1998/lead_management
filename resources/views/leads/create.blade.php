@@ -29,21 +29,20 @@
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 <label class="fs-6 fw-bold mb-2">Project Title</label>
-                                <input type="text" class="form-control form-control-solid" placeholder="Enter Project Title" name="project_title" id="project_title"/>
+                                <input type="text" class="form-control form-control-solid" data-msg-required="Project title is required." placeholder="Enter Project Title" name="project_title" id="project_title"/>
                             @error('project_title')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                             </div>
                             <div class="col-md-6">
-                                <label class="fs-6 fw-bold mb-2">
-                                    <span>Project Type</span>
-                                </label>
-                                <select name="project_type_id" aria-label="Project type" data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid fw-bolder">
+                                <label class="fs-6 fw-bold mb-2">Project Type</label>
+                                <select name="project_type_id" aria-label="Project type" data-error="#projectType" data-msg="Project type is required." data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid fw-bolder">
                                   @foreach ($projects as $project)
                                   <option value="">Project Type...</option>
                                   <option value="{{ $project->id }}">{{ $project->project_type }}</option>
                                   @endforeach
                                 </select>
+                                <div id="projectType"></div>
                                 @error('project_type_id')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -52,7 +51,7 @@
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 <label class="fs-6 fw-bold mb-2">Time Estimation</label>
-                                <input type="text" class="form-control form-control-solid" placeholder="Enter Time Estimation" name="time_estimation" id="time_estimation"/>
+                                <input type="text" class="form-control form-control-solid" data-msg-required="Time estimation is required." placeholder="Enter Time Estimation" name="time_estimation" id="time_estimation"/>
                             @error('time_estimation')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -61,12 +60,13 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span >Lead Sources</span>
                                 </label>
-                                <select name="source_id" aria-label="Project type" data-control="select2" data-placeholder="Select a Lead Sources..." class="form-select form-select-solid fw-bolder">
+                                <select name="source_id" aria-label="Project type" data-error="#leadSource" data-control="select2" data-msg-required="Lead source is required." data-placeholder="Select a Lead Sources..." class="form-select form-select-solid fw-bolder">
                                   @foreach ($Sources as $Source)
                                   <option value="">Project Type...</option>
                                   <option value="{{ $Source->id }}">{{ $Source->source }}</option>
                                   @endforeach
                                 </select>
+                                <div id="leadSource"></div>
                                 @error('source_id')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -77,12 +77,13 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span>Billing Type</span>
                                 </label>
-                                <select name="billing_type" aria-label="Billing type" data-control="select2" data-placeholder="Select a Billing Type..." class="form-select form-select-solid fw-bolder">
+                                <select name="billing_type" aria-label="Billing type" data-error="#billingType" data-control="select2" data-msg-required="Billing type is required." data-placeholder="Select a Billing Type..." class="form-select form-select-solid fw-bolder">
                                   <option value="">Billing Type...</option>
                                   <option value="hourly">Hourly</option>
                                   <option value="fixed_cost">Fixed Cost </option>
                                   <option value="not_mentioned">Not Mentioned</option>
                                 </select>
+                                <div id="billingType"></div>
                                 @error('billing_type')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -91,7 +92,7 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span>Project Status</span>
                                 </label>
-                                <select name="status" aria-label="Status" data-control="select2" data-placeholder="Select a Project Status..." class="form-select form-select-solid fw-bolder">
+                                <select name="status" aria-label="Status" data-control="select2" data-error="#status" data-msg-required="Project status is required." data-placeholder="Select a Project Status..." class="form-select form-select-solid fw-bolder">
                                   <option value="">Status...</option>
                                   <option value="Open">Open</option>
                                   <option value="in_Conversation">In Conversation</option>
@@ -99,6 +100,7 @@
                                   <option value="closed">Closed</option>
                                   <option value="converted">Converted</option>
                                 </select>
+                                <div id="status"></div>
                                 @error('status')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -109,12 +111,13 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span class="">Assigned Too</span>
                                 </label>
-                                <select name="user_id" aria-label="Assigned Too" data-control="select2" data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid fw-bolder">
+                                <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-msg-required="Assigned too is required." data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid fw-bolder">
                                 @foreach ($users as $user)
                                 <option value="">Assigned Too...</option>
                                 <option value="{{ $user->id }}" >{{ $user->name }}</option>
                                 @endforeach
                                 </select>
+                                <div id="assignedTo"></div>
                                 @error('user_id')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -123,14 +126,14 @@
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 <label class="fs-6 fw-bold mb-2">Client Name</label>
-                                <input type="text" class="form-control form-control-solid" placeholder="Enter client name" name="client_name" id="client_name"/>
+                                <input type="text" class="form-control form-control-solid" placeholder="Enter client name" name="client_name" data-msg-required="Client name is required." id="client_name"/>
                             @error('client_name')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                             </div>
                             <div class="col-md-6">
                                 <label class="fs-6 fw-bold mb-2">Client Email</label>
-                                <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" name="client_email" id="client Email"/>
+                                <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" data-msg-required="Client email is required." name="client_email" id="client Email"/>
                                   @error('client_email')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -163,6 +166,45 @@
 </div>
 @endsection
 @section('scripts')
+<script>
+    $('#lead_store').validate({
+        rules: {
+            project_title : 'required',
+            project_type_id : 'required',
+            source_id : 'required',
+            user_id : 'required',
+            status : 'required',
+            billing_type :'required',
+            time_estimation : 'required',
+            client_name : 'required',
+            client_email : 'required'
+        },
+        message: {
+
+        project_title : 'Project title is required',
+        project_type_id : 'Project type is required',
+        source_id : 'Lead source is required',
+        user_id : 'Assigned too is required',
+        status : 'Project status is required',
+        billing_type : 'Billing type is required',
+        time_estimation : 'Time estimation is required',
+        client_name : 'Client name is required',
+        client_email : 'Client email is required',
+
+        },
+        errorPlacement: function(error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        submitHandler: function(form){
+            form.submit();
+        }
+    });
+</script>
 {{-- <script type="text/javascript">
     $(document).ready(function () {
 		ClassicEditor.create( document.querySelector( '#lead_details' ) )

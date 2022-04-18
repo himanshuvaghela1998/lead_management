@@ -38,7 +38,7 @@ Route::middleware(['CheckAdmin'])->group(function(){
     Route::post('users/update/{id}', [UserController::class,'update'])->name('user.modify');
     // <!--- Lead Controller -->
 
-    Route::get('Leads', [LeadController::class, 'index'])->name('lead');
+    Route::get('leads', [LeadController::class, 'index'])->name('lead');
     Route::match(['GET', 'POST'], 'create', [LeadController::class, 'create'])->name('create');
     Route::get('edit/{id}', [LeadController::class, 'edit'])->name('edit');
     Route::post('update/{id}', [LeadController::class, 'update'])->name('update');
