@@ -23,7 +23,10 @@ return [
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
-
+    'encryption' => [
+        'type' => env("ENC_TYPE","AES-128-ECB"),
+        'secret' => env("ENC_SECRET","4pU3$(`v&[l!`V`y"),
+    ],
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),

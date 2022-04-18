@@ -1,0 +1,18 @@
+.capitalize-letter
+{
+    text-transform: capitalize;
+}
+.error
+{
+    color: red;
+}
+.table.gy-5 td, .table.gy-5 th {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+@media (min-width: 992px)
+{
+.header-fixed.toolbar-fixed .wrapper {
+    padding-top: 70px;
+}}

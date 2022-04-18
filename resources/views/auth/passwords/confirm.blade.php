@@ -1,14 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Confirm Password') }}</div>
+                <div class="card-header" style="    margin: auto;">{{ __('Confirm Password') }}</div>
 
                 <div class="card-body">
-                    {{ __('Please confirm your password before continuing.') }}
+                    <p style="margin-left: 200px;">{{ __('Please confirm your password before continuing.') }}</p>
 
                     <form method="POST" action="{{ route('password.confirm') }}">
                         @csrf

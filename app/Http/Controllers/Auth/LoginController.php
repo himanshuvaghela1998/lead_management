@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Session\Session;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -37,4 +42,40 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function login(Request $request)
+    {
+        if ($request->method() == 'POST') {
+
+
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|min:8|string|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'
+            ]);
+
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+
+                if ($user->status == 1) {
+
+                    $data = $request->only('email', 'password');
+
+                    if (Auth::attempt($data)) {
+                        return redirect()->route('home')->with('message','Login successfully');
+                    }else{
+                        return back()->with('error','Please use correct password!');
+                    }
+
+                }else{
+                    return back()->with('error', 'Your status is inactive please contact your admin');
+                }
+
+            }else{
+                return back()->with('error', 'The recipient`s email address doesn`t exist.');
+            }
+
+        }
+        return view('auth.login');
+    }
+
 }

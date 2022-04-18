@@ -41,4 +41,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    function getRole()
+    {
+        return $this->belongsto(Role::class,'role_id','id');
+    }
+
+    protected $appends = ['secret'];
+
+    public function getSecretAttribute()
+    {
+        $encrypted_string=openssl_encrypt($this->id,config('services.encryption.type'),config('services.encryption.secret'));
+        return base64_encode($encrypted_string);
+    }
+
 }

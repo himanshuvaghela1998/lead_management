@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-	<!--begin::Head-->
 	<head>
-        <base href="../../../">
 		<title>{{env('APP_NAME')}}</title>
-		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico')}}" />
-		{{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" /> --}}
-		<link href="{{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link rel="shortcut icon" href="{{ asset('public/assets/media/logos/512x512bb.jpg')}}" />
+		<link href="{{ asset('public/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('public/assets/css/style.toastr.css') }}">
+        <style>
+            label.error {
+                 color: #dc3545;
+                 font-size: 14px;
+            }
+        </style>
 	</head>
 	<body id="kt_body" class="bg-body">
 		<!--begin::Main-->
@@ -22,20 +26,20 @@
 						<div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
 							<!--begin::Logo-->
 							<a href="../../demo8/dist/index.html" class="py-9 mb-5">
-								<img alt="Logo" src="{{ asset('assets/media/logos/logo-2.svg')}}" class="h-60px" />
+								<img alt="Logo" src="{{ asset('public/assets/media/logos/aipexpert.png')}}" class="h-60px" />
 							</a>
 							<!--end::Logo-->
 							<!--begin::Title-->
-							<h1 class="fw-bolder fs-2qx pb-5 pb-md-10" style="color: #986923;">Welcome to Metronic</h1>
+							<h1 class="fw-bolder fs-2qx pb-5 pb-md-10" style="color: #986923;">{{env('APP_NAME')}}</h1>
 							<!--end::Title-->
 							<!--begin::Description-->
-							<p class="fw-bold fs-2" style="color: #986923;">Discover Amazing Metronic
-							<br />with great build tools</p>
+							<p class="fw-bold fs-2" style="color: #986923;">Discover lead Management
+							<br />with great build</p>
 							<!--end::Description-->
 						</div>
 						<!--end::Content-->
 						<!--begin::Illustration-->
-						<div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px" style="background-image: url(assets/media/illustrations/sketchy-1/13.png"></div>
+						<div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px" style="background-image: url('public/assets/media/illustrations/sketchy-1/13.png')"></div>
 						<!--end::Illustration-->
 					</div>
 					<!--end::Wrapper-->
@@ -48,17 +52,12 @@
 						<!--begin::Wrapper-->
 						<div class="w-lg-500px p-10 p-lg-15 mx-auto">
 							<!--begin::Form-->
-							<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="{{ route('login') }}">
+							<form class="form w-100" method="post" action="{{ route('login') }}" id="login_form">
 								@csrf
                                 <!--begin::Heading-->
 								<div class="text-center mb-10">
 									<!--begin::Title-->
-									<h1 class="text-dark mb-3">Sign In to Metronic</h1>
-									<!--end::Title-->
-									<!--begin::Link-->
-									<div class="text-gray-400 fw-bold fs-4">New Here?
-									<a href="{{ route('register') }}" class="link-primary fw-bolder">Create an Account</a></div>
-									<!--end::Link-->
+									<h1 class="text-dark mb-3">Sign In to Lead Management</h1>
 								</div>
 								<!--begin::Heading-->
 								<!--begin::Input group-->
@@ -67,7 +66,10 @@
 									<label class="form-label fs-6 fw-bolder text-dark">Email</label>
 									<!--end::Label-->
 									<!--begin::Input-->
-									<input class="form-control form-control-lg form-control-solid" type="text" name="email" autocomplete="off" />
+                                    <input id="email" type="email" class="form-control form-control-lg form-control-solid" name="email" value="{{ old('email') }}" data-msg-required="Email is required"  autocomplete="email" >
+                                    @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
 									<!--end::Input-->
 								</div>
 								<!--end::Input group-->
@@ -84,15 +86,21 @@
 									</div>
 									<!--end::Wrapper-->
 									<!--begin::Input-->
-									<input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" />
+                                    <input id="password" type="password" class="form-control form-control-lg form-control-solid" name="password" data-msg="Password is required."  autocomplete="current-password">
+                                    @error('password')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
 									<!--end::Input-->
 								</div>
 								<!--end::Input group-->
 								<!--begin::Actions-->
 								<div class="text-center">
+                                    <!--Popup -->
+                                    {{-- id="kt_sign_in_submit" --}}
+                                    <!--end-->
 									<!--begin::Submit button-->
-									<button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-										<span class="indicator-label">Continue</span>
+									<button type="submit"  class="btn btn-lg btn-primary w-100 mb-5">
+										<span class="indicator-label">Login</span>
 										<span class="indicator-progress">Please wait...
 										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 									</button>
@@ -138,11 +146,36 @@
 		</div>
 
 		<!--begin::Global Javascript Bundle(used by all pages)-->
-		<script src="{{ asset('assets/plugins/global/plugins.bundle.js')}}"></script>
-		<script src="{{ asset('assets/js/scripts.bundle.js')}}"></script>
+		<script src="{{ asset('public/assets/plugins/global/plugins.bundle.js')}}"></script>
+		<script src="{{ asset('public/assets/js/scripts.bundle.js')}}"></script>
 		<!--end::Global Javascript Bundle-->
+        <!--Start login validation -->
+        <script src="{{ asset('public/assets/js/validation.js') }}"></script>
+        <script src="{{ asset('public/assets/js/custom_validation/login_validation.js') }}"></script>
+        <!-- end login validation-->
+        <!-- strat Toastr -->
+        <script src="{{ asset('public/assets/js/toastr.js') }}"></script>
+        <script>
+        @if (Session::has('error'))
+        toastr.options =
+        {
+        "closeButton" : true,
+        "progressbar" : true
+        }
+        toastr.error("{{ session('error') }}")
+
+        @endif
+        @if (Session::has('success'))
+        toastr.options =
+        {
+            "closeButton" = true,
+            "progressbar" = true
+        }
+            toastr.success("{{ session('success') }}")
+        @endif
+        </script>
+        <!-- end Toastr -->
 		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="{{ asset('assets/js/custom/authentication/sign-in/general.js')}}"></script>
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->
 	</body>
