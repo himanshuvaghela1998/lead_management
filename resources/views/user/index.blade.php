@@ -51,7 +51,7 @@
                             </div>
                             <!--end::Filter-->
                             <!--begin::Add customer-->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_user_modal" id="add_user_btn">Add User</button>
+                            <button type="button" class="btn btn-primary" id="add_user_btn">Add User</button>
                             <!--end::Add customer-->
                         </div>
                     </div>

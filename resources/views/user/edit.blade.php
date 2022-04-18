@@ -38,10 +38,6 @@
                         <label class="required fs-6 fw-bold mb-2">Email</label>
                         <input type="text" class="form-control form-control-solid" value="{{ $user->email }}" placeholder="Enter email address" name="email" id="email"/>
                     </div>
-                    <div class="fv-row mb-7">
-                        <label class="required fs-6 fw-bold mb-2">Password</label>
-                        <input type="password" class="form-control form-control-solid" placeholder="Enter password" name="password" id="password"/>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer flex-center">

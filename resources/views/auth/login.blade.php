@@ -25,8 +25,8 @@
 						<!--begin::Content-->
 						<div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
 							<!--begin::Logo-->
-							<a href="../../demo8/dist/index.html" class="py-9 mb-5">
-								<img alt="Logo" src="{{ asset('public/assets/media/logos/aipexpert.png')}}" class="h-60px" />
+							<a href="" class="py-9 mb-5">
+								<img alt="Logo" src="{{ asset('public/assets/media/logos/Aipxperts-logoTransparent.png')}}" class="h-60px" />
 							</a>
 							<!--end::Logo-->
 							<!--begin::Title-->

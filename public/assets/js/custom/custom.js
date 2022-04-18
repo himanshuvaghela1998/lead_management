@@ -70,28 +70,7 @@ $('#add_user_btn').on('click',function(){
     $('#add_user_modal').modal('show')
 })
 $('.close-modal').on('click',function(){
-    Swal.fire({
-        text: "Are you sure you would like to cancel?",
-        icon: "warning",
-        showCancelButton: !0,
-        buttonsStyling: !1,
-        confirmButtonText: "Yes, cancel it!",
-        cancelButtonText: "No, return",
-        customClass: {
-            confirmButton: "btn btn-primary",
-            cancelButton: "btn btn-active-light"
-        }
-    }).then((function(t) {
-        t.value ? ($('#add_user_modal').modal('hide')) : "cancel" === t.dismiss && Swal.fire({
-            text: "Your form has not been cancelled!.",
-            icon: "error",
-            buttonsStyling: !1,
-            confirmButtonText: "Ok, got it!",
-            customClass: {
-                confirmButton: "btn btn-primary"
-            }
-        })
-    }))
+    $('#add_user_modal').modal('hide')
 })
 // End add User
 
@@ -121,28 +100,7 @@ $('.edit_user').on('click',function(e){
                     }
                 });
                 $('.close-modal').on('click',function(){
-                    Swal.fire({
-                        text: "Are you sure you would like to cancel?",
-                        icon: "warning",
-                        showCancelButton: !0,
-                        buttonsStyling: !1,
-                        confirmButtonText: "Yes, cancel it!",
-                        cancelButtonText: "No, return",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                            cancelButton: "btn btn-active-light"
-                        }
-                    }).then((function(t) {
-                        t.value ? ($('#edit_user_modal').modal('hide')) : "cancel" === t.dismiss && Swal.fire({
-                            text: "Your form has not been cancelled!.",
-                            icon: "error",
-                            buttonsStyling: !1,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        })
-                    }))
+                    $('#edit_user_modal').modal('hide')
                 })
             }else{
                 toastr.error('No user found');
