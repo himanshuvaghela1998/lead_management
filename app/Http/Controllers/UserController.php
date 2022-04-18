@@ -125,7 +125,6 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->role_id = $request->role;
         $user->email = $request->email;
-        $user->password = isset($request->password) ? $request->password : $user->password;
         $user->save();
 
         if($user){
