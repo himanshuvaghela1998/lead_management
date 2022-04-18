@@ -10,8 +10,8 @@
 </div>
 <div id="kt_content_container" class="container">
     <!--begin::Row-->
-    {{-- <div class="row g-5 g-xl-8">
-        <div class="col-xl-4">
+    <div class="row g-5 g-xl-8">
+        {{-- <div class="col-xl-4">
             <!--begin::Statistics Widget 5-->
             <a href="#" class="card bg-body-white hoverable card-xl-stretch mb-xl-8">
                 <!--begin::Body-->
@@ -31,51 +31,55 @@
                 <!--end::Body-->
             </a>
             <!--end::Statistics Widget 5-->
-        </div>
-        <div class="col-xl-4">
+        </div> --}}
+        <div class="col-xl-3">
             <!--begin::Statistics Widget 5-->
-            <a href="#" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
+            <a href="{{ route('users.index') }}" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
                 <!--begin::Body-->
                 <div class="card-body">
-                    <!--begin::Svg Icon | path: icons/duotune/general/gen008.svg-->
-                    <span class="svg-icon svg-icon-white svg-icon-3x ms-n1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M3 2H10C10.6 2 11 2.4 11 3V10C11 10.6 10.6 11 10 11H3C2.4 11 2 10.6 2 10V3C2 2.4 2.4 2 3 2Z" fill="black" />
-                            <path opacity="0.3" d="M14 2H21C21.6 2 22 2.4 22 3V10C22 10.6 21.6 11 21 11H14C13.4 11 13 10.6 13 10V3C13 2.4 13.4 2 14 2Z" fill="black" />
-                            <path opacity="0.3" d="M3 13H10C10.6 13 11 13.4 11 14V21C11 21.6 10.6 22 10 22H3C2.4 22 2 21.6 2 21V14C2 13.4 2.4 13 3 13Z" fill="black" />
-                            <path opacity="0.3" d="M14 13H21C21.6 13 22 13.4 22 14V21C22 21.6 21.6 22 21 22H14C13.4 22 13 21.6 13 21V14C13 13.4 13.4 13 14 13Z" fill="black" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->
-                    <div class="text-white fw-bolder fs-2 mb-2 mt-5">Total Users</div>
-                    <div class="fw-bold text-white"></div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen008.svg-->
+                            <span class="svg-icon svg-icon-white svg-icon-3x ms-n1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="currentColor"></path>
+                                    <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="currentColor"></rect>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                            <div class="text-white fw-bolder fs-2 mb-2 mt-5">Total Users</div>
+                        </div>
+                        <div class="fw-bold text-white count-text">{{ $user_count }}</div>
+                    </div>
                 </div>
                 <!--end::Body-->
             </a>
             <!--end::Statistics Widget 5-->
         </div>
-        <div class="col-xl-4">
+        <div class="col-xl-3">
             <!--begin::Statistics Widget 5-->
-            <a href="#" class="card bg-dark hoverable card-xl-stretch mb-5 mb-xl-8">
+            <a href="{{ route('lead') }}" class="card bg-dark hoverable card-xl-stretch mb-5 mb-xl-8">
                 <!--begin::Body-->
                 <div class="card-body">
-                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr070.svg-->
-                    <span class="svg-icon svg-icon-gray-100 svg-icon-3x ms-n1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect x="8" y="9" width="3" height="10" rx="1.5" fill="black" />
-                            <rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5" fill="black" />
-                            <rect x="18" y="11" width="3" height="8" rx="1.5" fill="black" />
-                            <rect x="3" y="13" width="3" height="6" rx="1.5" fill="black" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->
-                    <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">Total Leads</div>
-                    <div class="fw-bold text-gray-100"></div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr070.svg-->
+                            <span class="svg-icon svg-icon-gray-100 svg-icon-3x ms-n1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.3" d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z" fill="black"></path>
+                                    <path d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z" fill="black"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                            <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">Total Leads</div>
+                        </div>
+                        <div class="fw-bold text-gray-100 count-text">{{ $lead_count }}</div>
+                    </div>
                 </div>
                 <!--end::Body-->
             </a>
             <!--end::Statistics Widget 5-->
         </div>
-    </div> --}}
+    </div>
 </div>
 @endsection
