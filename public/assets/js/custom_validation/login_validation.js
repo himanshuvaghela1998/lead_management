@@ -12,7 +12,7 @@ $(document).ready(function () {
         message: {
             email: {
                 required: "Enter your Email",
-                email: "Please enter a valid email address.",
+                email: "Please enter a valid email address",
             },
             password: "Password is required",
         },

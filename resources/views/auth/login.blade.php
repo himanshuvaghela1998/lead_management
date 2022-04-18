@@ -5,7 +5,6 @@
 		<link rel="icon" href="{{asset('public/assets/media/logos/Aipxperts-logo_1.png')}}" type = "image/x-icon"/>
 		<link href="{{ asset('public/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('public/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="{{ asset('public/assets/css/style.toastr.css') }}">
         <style>
             label.error {
                  color: #dc3545;
@@ -25,13 +24,10 @@
 						<!--begin::Content-->
 						<div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
 							<!--begin::Logo-->
-							<a href="" class="py-9 mb-5">
-								<img alt="Logo" src="{{ asset('public/assets/media/logos/Aipxperts-logoTransparent.png')}}" class="h-60px" />
+							<a href="" class="pt-9">
+								<img alt="Logo" src="{{ asset('public/assets/media/logos/Aipxperts-logoTransparent.png')}}" class="h-100px" />
 							</a>
 							<!--end::Logo-->
-							<!--begin::Title-->
-							<h1 class="fw-bolder fs-2qx pb-5 pb-md-10" style="color: #986923;">{{env('APP_NAME')}}</h1>
-							<!--end::Title-->
 							<!--begin::Description-->
 							<p class="fw-bold fs-2" style="color: #986923;">Discover lead Management
 							<br />with great build</p>
@@ -39,7 +35,8 @@
 						</div>
 						<!--end::Content-->
 						<!--begin::Illustration-->
-						<div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px" style="background-image: url('public/assets/media/illustrations/sketchy-1/13.png')"></div>
+						<div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px" style="background-image: url('public/assets/media/illustrations/sketchy-1/13.png')">
+						</div>
 						<!--end::Illustration-->
 					</div>
 					<!--end::Wrapper-->
@@ -66,7 +63,7 @@
 									<label class="form-label fs-6 fw-bolder text-dark">Email</label>
 									<!--end::Label-->
 									<!--begin::Input-->
-                                    <input id="email" type="email" class="form-control form-control-lg form-control-solid" name="email" value="{{ old('email') }}" data-msg-required="Email is required"  autocomplete="email" >
+                                    <input id="email" type="email" class="form-control form-control-lg form-control-solid" name="email" value="{{ old('email') }}" data-msg-required="Email is required."  autocomplete="email" >
                                     @error('email')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

@@ -22,7 +22,7 @@
             </div>
             <!--end::Modal header-->
             <!--begin::Modal body-->
-            <div class="modal-body py-10 px-lg-17">
+            <div class="modal-body">
                 <!--begin::Scroll-->
                 <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
                     <!--begin::Input group-->
@@ -36,7 +36,7 @@
                             {!! Form::select('role',$roles,old('role',isset($user->role_id)?$user->role_id:''),['class'=>'form-control form-control-solid capitalize-letter']) !!}
                         </div>
                     </div>
-                    <div class="fv-row mb-7">
+                    <div class="row mt-2">
                         <label class="required fs-6 fw-bold mb-2">Email</label>
                         <input type="text" class="form-control form-control-solid" value="{{ $user->email }}" placeholder="Enter email address" name="email" id="email"/>
                     </div>
