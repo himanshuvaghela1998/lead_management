@@ -15,9 +15,9 @@
         @foreach ($leads as $lead)
         <tr id="user_{{$lead->secret}}">
             <td> <p class="capitalize-letter">{{ $lead->project_title }} </p></td>
-            <td> <p class="capitalize-letter">{{ str_replace('_', ' ', $lead->status) }} </p>
-                {{-- <td>
-                    <div class="d-flex flex-column ">
+            <td><p id="read_status" class="capitalize-letter status">{{ str_replace('_', ' ', $lead->status) }} </p>
+
+                    <div id="status_droupdown" class="d-flex flex-column ">
                         <select name="status" aria-label="Status" data-control="select2" data-placeholder="Project Status..." class="form-select form-select-solid">
                           <option value="">Project Status...</option>
                           <option value="Open">Open</option>
@@ -27,7 +27,6 @@
                           <option value="converted">Converted</option>
                         </select>
                     </div>
-                </td> --}}
             </td>
             <td> <p class="capitalize-letter">{{ ($lead->ProjectType) ? $lead->ProjectType->project_type : '' }} </p></td>
             <td> <p class="capitalize-letter">{{ ($lead->getUser) ? $lead->getUser->name : ''  }}</p></td>
@@ -65,3 +64,27 @@
     {{ $leads->render('vendor.pagination.default') }}
 </div>
 {{-- END Pagination --}}
+<!-- Start drop down list -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+
+    // $('#read_status').hide();
+    $('#status_droupdown').hide();
+
+    $(document).on('click', ' #read_status ', function(e){
+    e.preventDefault();
+    $(this).hide();
+    });
+
+    $(document).on('click', ' #status_droupdown ', function(e){
+    e.preventDefault();
+    $(this).show();
+    });
+
+
+    });
+</script>
+
+<!-- End dropdown list-->

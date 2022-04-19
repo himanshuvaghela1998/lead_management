@@ -1,0 +1,6 @@
+.status
+{
+    text-transform: capitalize;
+    text-align: center;
+    border-bottom: 1px dotted;
+}

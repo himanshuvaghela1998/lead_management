@@ -1,12 +1,14 @@
 <head>
     <base href="">
-    <title>Lead Management</title> 
+    <title>Lead Management</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{asset('public/assets/media/logos/Aipxperts-logo_1.png')}}" type = "image/x-icon"/>
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
-
+    <!-- Start css in dropdown list-->
+    <link rel="stylesheet" href="{{ asset('assets/css/status.css') }}">
+    <!--End css-->
     <!--begin::Page Vendor Stylesheets(used by this page)-->
     <link href="{{asset('public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
     <!--end::Page Vendor Stylesheets-->
