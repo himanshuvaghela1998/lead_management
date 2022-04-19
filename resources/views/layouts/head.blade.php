@@ -18,4 +18,5 @@
     <!-- highlight Js for ckeditor code block -->
 	<link rel="stylesheet" href="{{asset('public/assets/js/ckeditor/highlight/default.min.css')}}">
 	<link rel="stylesheet" href="{{asset('public/assets/js/ckeditor/style.css')}}">
+
 </head>
