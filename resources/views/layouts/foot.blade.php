@@ -17,6 +17,7 @@
 <script src="{{ asset('public/assets/js/custom_validation/login_validation.js') }}"></script>
 <!-- end login validation-->
 <!-- CKEditor -->
+
 {{-- <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script> --}}
 <script src="{{asset('public/assets/js/ckeditor/build/ckeditor.js')}}" type="text/javascript"></script>
  <!-- strat Toastr -->
