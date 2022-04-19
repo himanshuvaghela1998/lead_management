@@ -36,6 +36,8 @@ Route::middleware(['CheckAdmin'])->group(function(){
     Route::post('users/email-exists', [UserController::class,'isEmailExists'])->name('isEmailExists');
     Route::post('users/update_status/{id}', [UserController::class,'status_update'])->name('user.update_status');
     Route::post('users/update/{id}', [UserController::class,'update'])->name('user.modify');
+    Route::get('users/edit-confirmPassword/{id}', [UserController::class, 'editPassword'])->name('user.edit_confirmPassword');
+    Route::post('users/update-confirmPassword/{id}', [UserController::class, 'updatePassword'])->name('user.update_confirmPassword');
     // <!--- Lead Controller -->
 
     Route::get('leads', [LeadController::class, 'index'])->name('lead');

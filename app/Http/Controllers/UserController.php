@@ -84,6 +84,36 @@ class UserController extends Controller
         return redirect()->route('users.index')->with($type,$msg);
     }
 
+    public function editPassword($id)
+    {
+        $user = User::find(getDecrypted($id));
+        // dd($user);
+        if ($user) {
+            $roles = Role::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
+            $view = view('user.confirmPassword',compact('user','roles'))->render();
+            return response()->json(['status'=>'success','content'=>$view]);
+        }
+        return response()->json(['status'=>'error']);
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $request->validate([
+            'password' => 'required|password|min:6',
+            'new_password' => 'required',
+            'confirm_password' => 'required|required_with:new_password|same:new_password|min:6'
+        ], [
+            'password' => 'Password is required.',
+            'confirm_password' => 'Password and confirm password must same.'
+        ]);
+
+
+        $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
+        $user->password = Hash::make($request->password);
+        dd($user);
+        $user->save();
+    }
+
     /**
      * Display the specified resource.
      *
