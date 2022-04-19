@@ -41,7 +41,7 @@
                                 <select name="project_type_id" aria-label="Project type" data-error="#projectType" data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid ">
                                   @foreach ($projects as $project)
                                   <option value="">Project Type...</option>
-                                  <option value="{{ $project->id }}" {{ ($project->id == $leads->project_type_id) ? 'selected' : '' }}>{{ $project->project_type }}</option>
+                                  <option value="{{ $project->id }}" {{ ($project->id == $leads->project_type_id) ? 'selected' : '' }}>{{ucfirst(trans($project->project_type))}}</option>
                                   @endforeach
                                 </select>
                                 <div id="projectType"></div>
@@ -116,8 +116,8 @@
                                 </label>
                                 <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid">
                                 @foreach ($users as $user)
-                                <option value="">Project Type...</option>
-                                <option value="{{ $user->id }}" {{ ($user->id == $leads->user_id) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                <option value="">Assigned Too...</option>
+                                <option value="{{ $user->id }}" {{ ($user->id == $leads->user_id) ? 'selected' : '' }}>{{ucfirst(trans($user->name))}} ({{ucfirst(trans($user->getRole->name))}}) </option>
                                 @endforeach
                                 </select>
                                 <div id="assignedTo"></div>

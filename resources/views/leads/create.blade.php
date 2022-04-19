@@ -39,7 +39,7 @@
                                 <select name="project_type_id" aria-label="Project type" data-error="#projectType" data-msg="Project type is required." data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid fw-bolder">
                                   @foreach ($projects as $project)
                                   <option value="">Project Type...</option>
-                                  <option value="{{ $project->id }}">{{ $project->project_type }}</option>
+                                  <option value="{{ $project->id }}">{{ucfirst(trans($project->project_type))}}</option>
                                   @endforeach
                                 </select>
                                 <div id="projectType"></div>
@@ -92,7 +92,7 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span>Project Status</span>
                                 </label>
-                                <select name="status" aria-label="Status" data-control="select2" data-error="#status" data-msg-required="Project status is required." data-placeholder="Select a Project Status..." class="form-select form-select-solid fw-bolder">
+                                <select name="status" aria-label="Status" data-control="select2" data-error="#status" data-msg-required="Project status is required." data-placeholder="Select a Project Status..." class="form-select capitalize-letter form-select-solid fw-bolder">
                                   <option value="">Status...</option>
                                   <option value="Open">Open</option>
                                   <option value="in_Conversation">In Conversation</option>
@@ -107,14 +107,15 @@
                             </div>
                         </div>
                         <div class="row mt-2">
+                            {{-- @dd($users) --}}
                             <div class="d-flex flex-column col-md-12">
                                 <label class="fs-6 fw-bold mb-2">
                                     <span class="">Assigned Too</span>
                                 </label>
-                                <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-msg-required="Assigned too is required." data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid fw-bolder">
+                                <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-msg-required="Assigned too is required." data-placeholder="Select a Assigned Too ..." class=" form-select form-select-solid fw-bolder">
                                 @foreach ($users as $user)
                                 <option value="">Assigned Too...</option>
-                                <option value="{{ $user->id }}" >{{ $user->name }}</option>
+                                <option value="{{ $user->id }}" >{{ucfirst(trans($user->name))}}  ({{ucfirst(trans($user->getRole->name))}})</option>
                                 @endforeach
                                 </select>
                                 <div id="assignedTo"></div>
