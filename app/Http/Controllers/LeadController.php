@@ -96,7 +96,7 @@ class LeadController extends Controller
 
         }
 
-        $users = User::where([['status',1],['is_delete', 0]])->get();
+        $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
         return view('leads.create', compact('projects', 'Sources', 'users'));
@@ -105,7 +105,7 @@ class LeadController extends Controller
 
     public function edit($id)
     {
-        $users = User::where([['status',1],['is_delete', 0]])->get();
+        $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
         $leads = Lead::with('clients', 'projectType')->find($id);
