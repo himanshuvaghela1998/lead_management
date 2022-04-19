@@ -28,112 +28,111 @@
                         <div class="row">
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                <label class="fs-6 fw-bold mb-2">Project Title</label>
+                                <label class="required fs-6 fw-bold mb-2">Project Title</label>
                                 <input type="text" class="form-control form-control-solid" data-msg-required="Project title is required." placeholder="Enter Project Title" name="project_title" id="project_title"/>
-                            @error('project_title')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                                    @error('project_title')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                             <div class="col-md-6">
-                                <label class="fs-6 fw-bold mb-2">Project Type</label>
-                                <select name="project_type_id" aria-label="Project type" data-error="#projectType" data-msg="Project type is required." data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid fw-bolder">
-                                  @foreach ($projects as $project)
-                                  <option value="">Project Type...</option>
-                                  <option value="{{ $project->id }}">{{ucfirst(trans($project->project_type))}}</option>
-                                  @endforeach
-                                </select>
-                                <div id="projectType"></div>
-                                @error('project_type_id')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                <label class="required fs-6 fw-bold mb-2">Project Type</label>
+                                    <select name="project_type_id" aria-label="Project type" data-error="#projectType" data-msg="Project type is required." data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid fw-bolder">
+                                        @foreach ($projects as $project)
+                                        <option value="">Project Type...</option>
+                                        <option value="{{ $project->id }}">{{ucfirst(trans($project->project_type))}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div id="projectType"></div>
+                                    @error('project_type_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                <label class="fs-6 fw-bold mb-2">Time Estimation</label>
+                                <label class="required fs-6 fw-bold mb-2">Time Estimation</label>
                                 <input type="text" class="form-control form-control-solid" data-msg-required="Time estimation is required." placeholder="Enter Time Estimation" name="time_estimation" id="time_estimation"/>
-                            @error('time_estimation')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                                    @error('time_estimation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                             <div class="d-flex flex-column col-md-6">
-                                <label class="fs-6 fw-bold mb-2">
+                                <label class="required fs-6 fw-bold mb-2">
                                     <span >Lead Sources</span>
                                 </label>
-                                <select name="source_id" aria-label="Project type" data-error="#leadSource" data-control="select2" data-msg-required="Lead source is required." data-placeholder="Select a Lead Sources..." class="form-select form-select-solid fw-bolder">
-                                  @foreach ($Sources as $Source)
-                                  <option value="">Project Type...</option>
-                                  <option value="{{ $Source->id }}">{{ $Source->source }}</option>
-                                  @endforeach
-                                </select>
-                                <div id="leadSource"></div>
-                                @error('source_id')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                    <select name="source_id" aria-label="Project type" data-error="#leadSource" data-control="select2" data-msg-required="Lead source is required." data-placeholder="Select a Lead Sources..." class="form-select form-select-solid fw-bolder">
+                                        @foreach ($Sources as $Source)
+                                        <option value="">Project Type...</option>
+                                        <option value="{{ $Source->id }}">{{ $Source->source }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div id="leadSource"></div>
+                                    @error('source_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="d-flex flex-column  col-md-6">
-                                <label class="fs-6 fw-bold mb-2">
+                                <label class="required fs-6 fw-bold mb-2">
                                     <span>Billing Type</span>
                                 </label>
-                                <select name="billing_type" aria-label="Billing type" data-error="#billingType" data-control="select2" data-msg-required="Billing type is required." data-placeholder="Select a Billing Type..." class="form-select form-select-solid fw-bolder">
-                                  <option value="">Billing Type...</option>
-                                  <option value="hourly">Hourly</option>
-                                  <option value="fixed_cost">Fixed Cost </option>
-                                  <option value="not_mentioned">Not Mentioned</option>
-                                </select>
-                                <div id="billingType"></div>
-                                @error('billing_type')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                                    <select name="billing_type" aria-label="Billing type" data-error="#billingType" data-control="select2" data-msg-required="Billing type is required." data-placeholder="Select a Billing Type..." class="form-select form-select-solid fw-bolder">
+                                    <option value="">Billing Type...</option>
+                                    <option value="hourly">Hourly</option>
+                                    <option value="fixed_cost">Fixed Cost </option>
+                                    <option value="not_mentioned">Not Mentioned</option>
+                                    </select>
+                                    <div id="billingType"></div>
+                                    @error('billing_type')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                             <div class="d-flex flex-column  col-md-6">
-                                <label class="fs-6 fw-bold mb-2">
+                                <label class="required fs-6 fw-bold mb-2">
                                     <span>Project Status</span>
                                 </label>
-                                <select name="status" aria-label="Status" data-control="select2" data-error="#status" data-msg-required="Project status is required." data-placeholder="Select a Project Status..." class="form-select capitalize-letter form-select-solid fw-bolder">
-                                  <option value="">Status...</option>
-                                  <option value="Open">Open</option>
-                                  <option value="in_Conversation">In Conversation</option>
-                                  <option value="estimation_submitted">Estimation Submitted</option>
-                                  <option value="closed">Closed</option>
-                                  <option value="converted">Converted</option>
-                                </select>
-                                <div id="status"></div>
-                                @error('status')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                    <select name="status" aria-label="Status" data-control="select2" data-error="#status" data-msg-required="Project status is required." data-placeholder="Select a Project Status..." class="form-select capitalize-letter form-select-solid fw-bolder">
+                                        <option value="">Status...</option>
+                                        <option value="Open">Open</option>
+                                        <option value="in_Conversation">In Conversation</option>
+                                        <option value="estimation_submitted">Estimation Submitted</option>
+                                        <option value="closed">Closed</option>
+                                        <option value="converted">Converted</option>
+                                    </select>
+                                    <div id="status"></div>
+                                    @error('status')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                         </div>
                         <div class="row mt-2">
-                            {{-- @dd($users) --}}
                             <div class="d-flex flex-column col-md-12">
-                                <label class="fs-6 fw-bold mb-2">
+                                <label class="required fs-6 fw-bold mb-2">
                                     <span class="">Assigned Too</span>
                                 </label>
-                                <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-msg-required="Assigned too is required." data-placeholder="Select a Assigned Too ..." class=" form-select form-select-solid fw-bolder">
-                                @foreach ($users as $user)
-                                <option value="">Assigned Too...</option>
-                                <option value="{{ $user->id }}" >{{ucfirst(trans($user->name))}}  ({{ucfirst(trans($user->getRole->name))}})</option>
-                                @endforeach
-                                </select>
-                                <div id="assignedTo"></div>
-                                @error('user_id')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                    <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-msg-required="Assigned too is required." data-placeholder="Select a Assigned Too ..." class=" form-select form-select-solid fw-bolder">
+                                        @foreach ($users as $user)
+                                        <option value="">Assigned Too...</option>
+                                        <option value="{{ $user->id }}" >{{ucfirst(trans($user->name))}}  ({{ucfirst(trans($user->getRole->name))}})</option>
+                                        @endforeach
+                                    </select>
+                                    <div id="assignedTo"></div>
+                                    @error('user_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                <label class="fs-6 fw-bold mb-2">Client Name</label>
+                                <label class="required fs-6 fw-bold mb-2">Client Name</label>
                                 <input type="text" class="form-control form-control-solid" placeholder="Enter client name" name="client_name" data-msg-required="Client name is required." id="client_name"/>
-                            @error('client_name')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                                    @error('client_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                             <div class="col-md-6">
-                                <label class="fs-6 fw-bold mb-2">Client Email</label>
+                                <label class="required fs-6 fw-bold mb-2">Client Email</label>
                                 <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" data-msg-required="Client email is required." name="client_email" id="client Email"/>
                                   @error('client_email')
                             <span class="text-danger">{{ $message }}</span>
@@ -145,18 +144,12 @@
                                 <label class="fs-6 fw-bold mb-2">Client's Details </label>
                                 <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5"></textarea>
                             </div>
-                            {{-- <div class="row">
-                                <div class="col-md-12">
-                                <label class="fs-6 fw-bold mb-2">Lead Details</label>
-                                {!! Form::textarea('lead_details',str_replace( '&', '&amp;', null),["class"=>"form-control form-control-solid","placeholder"=>"","id"=>"lead_details"]) !!}
-                                </div>
-                            </div> --}}
                         </div>
                         <div class="row">
                             <div class="form-actions d-flex justify-content-end mt-5">
-                                <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary me-3">Cancel</button></a>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-check"></i> Submit</button>
+                                <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary btn-sm me-3">Cancel</button></a>
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-check "></i> Submit</button>
                             </div>
                         </div>
                     </form>

@@ -157,6 +157,7 @@ class LeadController extends Controller
         $clients->client_name = $request->input('client_name');
         $clients->client_email = $request->input('client_email');
         $clients->client_other_details = $request->input('client_other_details');
+        // dd($clients);
         $clients->save();
 
         if ($clients) {

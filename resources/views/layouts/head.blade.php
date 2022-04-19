@@ -1,6 +1,6 @@
 <head>
     <base href="">
-    <title>Lead Management</title> 
+    <title>Lead Management</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{asset('public/assets/media/logos/Aipxperts-logo_1.png')}}" type = "image/x-icon"/>
     <!--begin::Fonts-->
