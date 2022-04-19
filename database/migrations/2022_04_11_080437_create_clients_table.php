@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
             $table->integer('lead_id')->index('lead_id');
             $table->string('client_name', 100);
             $table->string('client_email', 120);
-            $table->longText('client_other_details');
+            $table->longText('client_other_details')->nullable();
             $table->timestamps();
         });
     }

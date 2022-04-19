@@ -43,6 +43,7 @@ Route::middleware(['CheckAdmin'])->group(function(){
     Route::get('leads/edit/{id}', [LeadController::class, 'edit'])->name('edit');
     Route::post('leads/update/{id}', [LeadController::class, 'update'])->name('update');
     Route::delete('leads/delete/{id}', [LeadController::class, 'delete'])->name('lead.destroy');
+    Route::post('leads/upload-media/{id}', [LeadController::class,'uploadLeadMedia'])->name('lead.upload.media');
 });
 
 

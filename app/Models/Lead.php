@@ -29,6 +29,9 @@ class Lead extends Model
     {
         return $this->belongsTo(ProjectType::class, 'project_type_id', 'id');
     }
+
+    protected $appends = ['secret'];
+
     public function getSecretAttribute()
     {
         $encrypted_string=openssl_encrypt($this->id,config('services.encryption.type'),config('services.encryption.secret'));
@@ -39,4 +42,8 @@ class Lead extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function leadAttachments()
+    {
+        return $this->hasMany(LeadAttachment::class, 'id', 'lead_id');
+    }
 }

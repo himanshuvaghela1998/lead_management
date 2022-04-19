@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Lead;
 use App\Models\Client;
+use App\Models\LeadAttachment;
 use App\Models\ProjectType;
 use App\Models\LeadSources;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use Thumbnail;
+use Exception;
+use Image;
 
 class LeadController extends Controller
 {
@@ -108,9 +113,10 @@ class LeadController extends Controller
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
-        $leads = Lead::with('clients', 'projectType')->find($id);
+        $leads = Lead::with('clients', 'projectType','leadAttachments')->find($id);
+        $lead_attachments = $leads->leadAttachments;
         if (!$leads == null) {
-        return view('leads.edit', compact('leads', 'projects', 'Sources', 'users'));
+        return view('leads.edit', compact('leads', 'projects', 'Sources', 'users','lead_attachments'));
         }else{
             return redirect(route('lead'));
         }
@@ -181,5 +187,78 @@ class LeadController extends Controller
             $msg = 'Error! something went to wrong!';
         }
         return response()->json(['status'=>$type,'message'=>$msg]);
+    }
+
+    public function uploadLeadMedia(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'status' => 401, 'message' => $validator->errors()->first()]);
+        } else {
+            $ismime = $request->file->getClientMimeType();
+            if (strstr($ismime, "image/")) {
+                $validator = Validator::make($request->all(), [
+                    'file' => 'mimetypes:image/jpg,image/jpeg,image/png|max:1024'
+                ], [
+                    'file.max' => 'File is larger than 1MB'
+                ]);
+            } else {
+                $validator = Validator::make($request->all(), [
+                    'file' => 'mimetypes:video/mp4,video/x-msvideo,video/quicktime|max:204800'
+                ], [
+                    'file.max' => 'File is larger than 200MB'
+                ]);
+            }
+
+            if ($validator->fails()) {
+                return response()->json(['success' => false, 'status' => 401, 'message' => $validator->errors()->first()]);
+            }
+        } 
+        try {
+            $lead_id = getDecrypted($id);
+            $original_name = $request->file->getClientOriginalName();
+            $mime = $request->file->getClientMimeType();
+            $filesize = formatBytes($request->file->getSize(), 2);
+            $extension = $request->file->extension();
+            $file_name = time() . rand() . '.' . $extension;
+            $image_extension = ['jpg', 'jpeg', 'png'];
+            $thumb_name = 'thumb_' . time() . rand() . '.png';
+            $destination_path = 'public/uploads/lead_attachments';
+            $thumbnail_source_path = '';
+            $media_type = '';
+            if (!in_array($extension, $image_extension)) {
+                $media_type = 'video';
+                // Video thumbnail
+                $thumbnail_status = Thumbnail::getThumbnail($request->file->getRealPath(), $destination_path, $thumb_name, env('TIME_TO_TAKE_SCREENSHOT'));
+                if ($thumbnail_status) {
+                    $thumbnail_source_path = $destination_path . '/' . $thumb_name;
+                } else {
+                    return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
+                }
+            } else {
+                $media_type = 'image';
+                // Image thumbnail
+                $thumbnail_source_path = $destination_path . '/' . $thumb_name;
+                // Local Thumbnail Url
+                Image::make($request->file->getRealPath())->fit(env('THUMBNAIL_IMAGE_WIDTH'), env('THUMBNAIL_IMAGE_HEIGHT'), NULL, 'top')->save($thumbnail_source_path, 85);
+                //End Generate thumbnail
+            }
+            
+            $lead_attachment = new LeadAttachment;
+            $lead_attachment->lead_id = $lead_id;
+            $lead_attachment->type = $media_type;
+            $lead_attachment->url = $thumbnail_source_path;
+            $lead_attachment->s3_key = $thumbnail_source_path;
+            $lead_attachment->save();
+
+            $lead_attachments = LeadAttachment::where('lead_id', $lead_id)->orderBy('id', 'desc')->get();
+            $view = view('leads.compact.attachments', compact('lead_attachments'))->render();
+            return response()->json(['success' => true, 'status' => 200, 'html' => $view, 'message' => 'Media uploaded successfully.', '']);
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
+        } 
     }
 }

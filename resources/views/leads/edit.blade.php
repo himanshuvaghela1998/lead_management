@@ -148,55 +148,133 @@
                                 <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5">{{ ($leads->clients) ? $leads->clients->client_other_details : '' }}</textarea>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12 fv-row mb-15">
+                                
+                            
+                                <div class="container" id="load-lead-media">
+                                    @include('leads.compact.attachments')
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-actions d-flex justify-content-end mt-5">
                             <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary me-3 btn-sm">Cancel</button></a>
                             <button type="submit" class="btn btn-primary btn-sm">
                                 <i class="fa fa-check"></i> Update</button>
                         </div>
-                        </form>
                     </form>
+
+                    {{ Form::open(['route' => ['lead.upload.media',$leads->secret], 'method' => 'POST','class' => 'dropzone','id'=>'dropzoneForm','files'=>'true']) }}
+                    {{-- <div class="dropzone" id="dropzoneForm"> --}}
+                        <div class="fallback">
+                            <input name="file" type="file" id="file1" class="hide" />
+                        </div>
+                    {{-- </div> --}}
+                    {{Form::close()}}
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-<script>
-    $('#lead_store').validate({
-        rules: {
-            project_title : 'required',
-            project_type_id : 'required',
-            source_id : 'required',
-            user_id : 'required',
-            status : 'required',
-            billing_type :'required',
-            time_estimation : 'required',
-            client_name : 'required',
-            client_email : 'required'
-        },
-        message: {
 
-        project_title : 'Project title is required',
-        project_type_id : 'Project type is required',
-        source_id : 'Lead source is required',
-        user_id : 'Assigned too is required',
-        status : 'Project status is required',
-        billing_type : 'Billing type is required',
-        time_estimation : 'Time estimation is required',
-        client_name : 'Client name is required',
-        client_email : 'Client email is required',
 
-        },
-        errorPlacement: function(error, element){
-            var placement = $(element).data('error');
-            if(placement){
-                $(placement).append(error);
-            }else{
-                error.insertAfter(element);
+@section('css')
+ {{-- Dropzone --}}
+ <link rel="stylesheet" href="{{ asset('public/assets/plugins/dropzone/dropzone.css') }}" />
+@endsection
+
+@section('scripts')
+{{-- dropzone --}}
+<script src="{{ asset('public/assets/plugins/dropzone/dropzone.js') }}"></script>
+    <script>
+        $('#lead_store').validate({
+            rules: {
+                project_title : 'required',
+                project_type_id : 'required',
+                source_id : 'required',
+                user_id : 'required',
+                status : 'required',
+                billing_type :'required',
+                time_estimation : 'required',
+                client_name : 'required',
+                client_email : 'required'
+            },
+            message: {
+
+            project_title : 'Project title is required',
+            project_type_id : 'Project type is required',
+            source_id : 'Lead source is required',
+            user_id : 'Assigned too is required',
+            status : 'Project status is required',
+            billing_type : 'Billing type is required',
+            time_estimation : 'Time estimation is required',
+            client_name : 'Client name is required',
+            client_email : 'Client email is required',
+
+            },
+            errorPlacement: function(error, element){
+                var placement = $(element).data('error');
+                if(placement){
+                    $(placement).append(error);
+                }else{
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function(form){
+                form.submit();
             }
-        },
-        submitHandler: function(form){
-            form.submit();
-        }
-    });
-</script>
+        });
+
+        /* lead attachments */
+        Dropzone.options.dropzoneForm = {
+            maxFilesize: 200,
+            parallelUploads: 20,
+            acceptedFiles: "jpeg,.jpg,.png,.mp4,.mov,.webm",
+            dictFileTooBig: 'File is bigger than 200MB',
+            clickable: true,
+            maxFiles: 20,
+            init: function() {
+                console.log('init');
+                var msg = 'Maximum File Size Video 200MB / Image 1MB';
+                var brswr_img = "{{ asset('public/assets/media/misc/upload-cloud.png') }}";
+                var apnd_msg = '<img class="center-item" height="40" width="40" src="' + brswr_img +
+                    '" alt=""><h1 class="pt-2 mb-1 font-20 text-color-4 font-weight-normal">Drop files here or  <svp class="text-color-1">browse</svp></h1><h3 class="font-14 text-color-4 font-weight-normal">' +
+                    msg + '</h3>';
+                $('#dropzoneForm .dz-message').append(apnd_msg);
+                $('#dropzoneForm .dz-message span').hide();
+            },
+            error: function(file, response) {
+                console.log('error');
+
+                if ($.type(response) === "string") {
+                    var message = response;
+                } else {
+                    var message = response.message;
+                }
+                file.previewElement.classList.add("dz-error");
+                _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                _results = [];
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i];
+                    _results.push(node.textContent = message);
+                }
+                return _results;
+            },
+            success: function(file, data) {
+                console.log('sucess');
+
+                if (data.status == 200) {
+                    $('#load-lead-media').empty().append(data.html);
+                } else {
+                    if (!data.message) {
+                        toastr.error("Something wrong went");
+                    } else {
+                        toastr.error(data.message);
+                    }
+                }
+            }
+        };
+
+    </script>
+@endsection

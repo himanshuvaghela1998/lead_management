@@ -41,3 +41,29 @@
 {
     font-size: 3em;
 }
+.dz-message
+{
+    flex-direction: column;
+}
+.font-12{
+    font-size: 12px;
+}
+.font-14{
+    font-size: 14px;
+}
+.font-16{
+    font-size: 16px;
+}
+.font-18{
+    font-size: 18px;
+}
+.font-24{
+    font-size: 24px;
+}
+.font-40{
+    font-size: 40px;
+}
+.center-item
+{
+    align-self: center;
+}
