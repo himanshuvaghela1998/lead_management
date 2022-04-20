@@ -266,7 +266,8 @@
                 console.log('sucess');
 
                 if (data.status == 200) {
-                    $('#load-lead-media').empty().append(data.html);
+                    $('#load-lead-media').html(data.html);
+                    toastr.success("File uploaded successfully");
                 } else {
                     if (!data.message) {
                         toastr.error("Something wrong went");
