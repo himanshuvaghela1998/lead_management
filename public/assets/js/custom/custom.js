@@ -3,6 +3,9 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
+
+
 var _token = $("meta[name='_token']").attr('content');
 var user_rules = {
     email: {
@@ -14,13 +17,19 @@ var user_rules = {
     },
     password: {
         required: true,
-        noSpacePwd : true,
+        // noSpacePwd : true,
         minlength : 8,
-        pwcheck: true,
+        // pwcheck: true,
     },
     name: {
         required: true,
         minlength:1,
+    },
+    confirm_password: {
+        required: true,
+        equalTo : "#password",
+        // noSpacePwd : true,
+        minlength : 8,
     },
 }
 
@@ -40,7 +49,13 @@ var user_msgs = {
     "name":{
         required:"Name is required.",
     },
+    "confirm_password":{
+        required:"Confirm Password is required.",
+        minlength:"Confirm Password may not be less than 8 character.",
+        equalTo : "Password and Confirm password are not same."
+    },
 }
+
 // Start add user
 jQuery.validator.addMethod('checkemail', function (value) {
     return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value);
@@ -56,6 +71,7 @@ jQuery.validator.addMethod("noSpacePwd", function(value, element) {
 jQuery.validator.addMethod("pwcheck", function(value) {
     return /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/.test(value) // consists of only these
 });
+
 $("#user_store").validate({
     ignore: [],
     rules: user_rules,
@@ -73,6 +89,37 @@ $('.close-modal').on('click',function(){
     $('#add_user_modal').modal('hide')
 })
 // End add User
+
+// Start Edit User pass
+$('.change_password').on('click',function(e){
+    e.preventDefault();
+    var id = $(this).attr('id');
+    var url = $(this).data('url');
+    console.log(url)
+    var _modal = $('#change_password_modal');
+    $.ajax({
+        url: url,
+        type: 'get',
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            if (response.status == 'success') {
+                $('#change_password_modal').html(response.content);
+                _modal.modal('show');
+                $('.close-modal').on('click', function(){
+                    $('#change_password_modal').modal('hide');
+                });
+            }else{
+                toastr.error('No user found');
+            }
+        }
+    })
+})
+
+// end edit user
+
+
 
 // Start Edit User
 $('.edit_user').on('click',function(e){
@@ -287,3 +334,4 @@ $(document).on('click','.delete_row',function(e){
     });
 });
 /* END Delete Record Jquery */
+

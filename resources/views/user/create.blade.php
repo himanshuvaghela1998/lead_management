@@ -36,24 +36,27 @@
                             {{Form::select('role',[''=>'Select Role']+$roles,null,['class'=>'form-control form-control-solid capitalize-letter','id'=>'role'])}}
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <label class="required fs-6 fw-bold mb-2">Email</label>
+                        <input type="text" class="form-control form-control-solid" placeholder="Enter email address" name="email" id="email"/>
+                    </div>
                     <div class="row mt-2">
-                        <div class="col-md-6">
-                            <label class="required fs-6 fw-bold mb-2">Email</label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Enter email address" name="email" id="email"/>
-                        </div>
                         <div class="col-md-6">
                             <label class="required fs-6 fw-bold mb-2">Password</label>
                             <input type="password" class="form-control form-control-solid" placeholder="Enter password" name="password" id="password"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="required fs-6 fw-bold mb-2">Confirm Password</label>
+                            <input type="password" class="form-control form-control-solid" placeholder="Enter confirm password" name="confirm_password" id="confirm_password"/>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer flex-center">
-                <button type="reset" class="btn btn-light me-3 close-modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-check"></i> Save</button>
+                <button type="reset" class="btn btn-light me-3 btn-sm close-modal">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fa fa-check"></i> Create</button>
                 </div>
-            </form>
         </form>
     </div>
 </div>

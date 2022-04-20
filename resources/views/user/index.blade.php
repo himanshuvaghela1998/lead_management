@@ -51,7 +51,7 @@
                             </div>
                             <!--end::Filter-->
                             <!--begin::Add customer-->
-                            <button type="button" class="btn btn-primary" id="add_user_btn">Add User</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="add_user_btn">Add User</button>
                             <!--end::Add customer-->
                         </div>
                     </div>
@@ -75,4 +75,11 @@
 <div class="modal fade" id="edit_user_modal" tabindex="-1" aria-hidden="true">
 </div>
 <!--end::Modal - User - Edit-->
+<!--begin::Modal - User - cgange password-->
+
+<div class="modal fade" id="change_password_modal" tabindex="-1" aria-hidden="true">
+
+</div>
+<!--end::Modal - User - Edit-->
+
 @endsection

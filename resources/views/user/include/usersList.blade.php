@@ -59,6 +59,11 @@
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-3">
+                        <a class="menu-link px-3 change_password" data-url="{{ route('user.edit_confirmPassword',[$user->secret])}}" id="{{ $user->secret }}">Chnage Password</a>
+                    </div>
+                    <!--end::Menu item-->
+                    <!--begin::Menu item-->
+                    <div class="menu-item px-3">
                         <a class="menu-link px-3 delete_row" data-title="user" data-user_id ="{{$user->secret}}" data-href="{{route('users.destroy',$user->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>
                     </div>
                     <!--end::Menu item-->
