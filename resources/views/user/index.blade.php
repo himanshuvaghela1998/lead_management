@@ -34,24 +34,25 @@
                             </form>
                         </div>
                         <!--end::Search-->
+                        <!--begin::Filter-->
+                        <div class="w-150px mx-3">
+                            <!--begin::Select2-->
+                            <select class="form-select form-select-solid" id="status_filter" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
+                                <option></option>
+                                <option value="-1">All</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                            <!--end::Select2-->
+                        </div>
+                        <!--end::Filter-->
                     </div>
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                            <!--begin::Filter-->
-                            <div class="w-150px me-3">
-                                <!--begin::Select2-->
-                                <select class="form-select form-select-solid" id="status_filter" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
-                                    <option></option>
-                                    <option value="-1">All</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>
-                                <!--end::Select2-->
-                            </div>
-                            <!--end::Filter-->
+
                             <!--begin::Add customer-->
-                            <button type="button" class="btn btn-primary btn-sm" id="add_user_btn">Add User</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="add_user_btn"><i class="fas fa-user-plus"></i>Add User</button>
                             <!--end::Add customer-->
                         </div>
                     </div>

@@ -2,6 +2,11 @@
     <base href="">
     <title>Lead Management</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+
+
     <link rel="icon" href="{{asset('public/assets/media/logos/Aipxperts-logo_1.png')}}" type = "image/x-icon"/>
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
