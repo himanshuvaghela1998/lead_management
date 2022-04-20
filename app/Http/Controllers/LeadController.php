@@ -242,7 +242,6 @@ class LeadController extends Controller
                 // Image thumbnail
                 $thumbnail_source_path = $destination_path . '/' . $thumb_name;
                 // Local Thumbnail Url
-                info('1');
                 Image::make($request->file->getRealPath())->fit(env('THUMBNAIL_IMAGE_WIDTH'), env('THUMBNAIL_IMAGE_HEIGHT'), NULL, 'top')->save($thumbnail_source_path, 85);
                 //End Generate thumbnail
             }
