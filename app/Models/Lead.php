@@ -44,6 +44,6 @@ class Lead extends Model
 
     public function leadAttachments()
     {
-        return $this->hasMany(LeadAttachment::class, 'id', 'lead_id');
+        return $this->hasMany(LeadAttachment::class, 'lead_id', 'id');
     }
 }

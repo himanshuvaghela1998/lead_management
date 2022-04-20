@@ -253,9 +253,20 @@ class LeadController extends Controller
             $lead_attachment->save();
             $lead_attachments = LeadAttachment::where('lead_id', $lead_id)->orderBy('id', 'desc')->get();
             $view = view('leads.compact.attachments', compact('lead_attachments'))->render();
-            return response()->json(['success' => true, 'status' => 200, 'html' => $view, 'message' => 'Media uploaded successfully.', '']);
+            return response()->json(['success' => true, 'status' => 200, 'html' => $view, 'message' => 'Attachment uploaded successfully.', '']);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
         } 
+    }
+    
+    public function lead_media_delete(Request $request)
+    {
+        $lead_attachment =LeadAttachment::where('id',$request->id)->delete();
+        if($lead_attachment){
+            return response()->json(['status'=>"success",'message'=>'Lead attachment deleted successfully.']);
+        }
+        else{
+            return response()->json(['status'=>"success",'message'=>'Something went wrong.']);
+        }
     }
 }

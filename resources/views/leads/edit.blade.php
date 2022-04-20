@@ -151,7 +151,7 @@
                         <div class="row">
                             <div class="col-md-12 fv-row mb-15">
                                 <label class="fs-6 fw-bold mb-2">Lead Attachments </label>
-                                <div class="container" id="load-lead-media">
+                                <div class="" id="load-lead-media">
                                     @include('leads.compact.attachments')
                                 </div>
                                 <div class="dropzone" id="dropzoneForm">
@@ -261,7 +261,7 @@
             success: function(file, data) {
                 if (data.status == 200) {
                     $('#load-lead-media').html(data.html);
-                    toastr.success("File uploaded successfully");
+                    toastr.success("Attachment uploaded successfully");
                 } else {
                     if (!data.message) {
                         toastr.error("Something wrong went");
@@ -272,5 +272,37 @@
             }
         };
 
+        /* delete lead attachment */
+        $(document).on('click','.image_trash',function(){
+            var id =$(this).attr('data-value');
+            Swal.fire({
+                text: "Are you want to delete this attachment?",
+                icon: "warning",
+                showCancelButton: !0,
+                buttonsStyling: !1,
+                confirmButtonText: "Confirm",
+                cancelButtonText: "Cancel",
+                customClass: { confirmButton: "btn fw-bold btn-danger", cancelButton: "btn fw-bold btn-active-light-primary" },
+            }).then(function (result) {
+                console.log(result.isConfirmed);
+                if(result.isConfirmed){
+                    $.ajax({
+                        url: "{{route('lead_media.delete')}}",
+                        type: "POST",
+                        data: {
+                            id: id,
+                            _token: '{{csrf_token()}}'
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            $('.pic_'+id+'_delete').remove();
+                            toastr.success('Attachment deleted successfully');
+                        }
+                    });
+                }else{
+
+                }
+            });
+        });  
     </script>
 @endsection
