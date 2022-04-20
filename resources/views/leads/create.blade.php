@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('create') }}" class="horizontal-form" method="POST" id="lead_store">
+                    <form action="{{ route('create') }}" class="horizontal-form" method="POST" id="lead_store" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="row">
                         <div class="row mt-2">
@@ -153,6 +153,19 @@
                             </div> --}}
                         </div>
                         <div class="row">
+                            <div class="col-md-12 fv-row mb-15">
+                                <label class="fs-6 fw-bold mb-2">Lead Attachments </label>
+                                <div class="" id="load-lead-media">
+                                    {{-- @include('leads.compact.attachments') --}}
+                                </div>
+                                <div class="dropzone" id="dropzoneForm">
+                                    <div class="fallback">
+                                        <input name="file" type="file" id="file1" class="hide" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="form-actions d-flex justify-content-end mt-5">
                                 <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary me-3">Cancel</button></a>
                                 <button type="submit" class="btn btn-primary">
@@ -166,7 +179,15 @@
     </div>
 </div>
 @endsection
+
+@section('css')
+ {{-- Dropzone --}}
+ <link rel="stylesheet" href="{{ asset('public/assets/plugins/dropzone/dropzone.css') }}" />
+@endsection
+
 @section('scripts')
+{{-- dropzone --}}
+<script src="{{ asset('public/assets/plugins/dropzone/dropzone.js') }}"></script>
 <script>
     $('#lead_store').validate({
         rules: {
@@ -202,9 +223,76 @@
             }
         },
         submitHandler: function(form){
-            form.submit();
+            // form.submit();
+            $.ajax({
+                url:"{{ route('create') }}",
+                type:'post',
+                dataType: "JSON",
+                data: $("#lead_store").serialize(),
+                success: function (response)
+                {
+                    lead_id = response.secret_id;
+                    var leadCreateDropzone = Dropzone.forElement('.dropzone');
+                    leadCreateDropzone.options.url= "{{ url('leads/upload-media') }}/"+lead_id;
+                    leadCreateDropzone.processQueue();
+                },
+                error: function(xhr) {
+                   
+                }
+            });
         }
     });
+
+     /* lead attachments */
+        var lead_id = 0;
+        Dropzone.options.dropzoneForm = {
+            url: "{{ url('leads/upload-media') }}/"+lead_id,
+            autoProcessQueue: false,
+            maxFilesize: 200,
+            parallelUploads: 20,
+            acceptedFiles: "jpeg,.jpg,.png,.mp4,.mov,.webm",
+            dictFileTooBig: 'File is bigger than 200MB',
+            clickable: true,
+            addRemoveLinks: true,
+            maxFiles: 20,
+            init: function() {
+                var msg = 'Maximum File Size Video 200MB / Image 1MB';
+                var brswr_img = "{{ asset('public/assets/media/misc/upload-cloud.png') }}";
+                var apnd_msg = '<img class="center-item" height="40" width="40" src="' + brswr_img +
+                    '" alt=""><h1 class="pt-2 mb-1 font-20 text-color-4 font-weight-normal">Drop files here or  <svp class="text-color-1">browse</svp></h1><h3 class="font-14 text-color-4 font-weight-normal">' +
+                    msg + '</h3>';
+                $('#dropzoneForm .dz-message').append(apnd_msg);
+                $('#dropzoneForm .dz-message span').hide();
+            },
+            error: function(file, response) {
+                if ($.type(response) === "string") {
+                    var message = response;
+                } else {
+                    var message = response.message;
+                }
+                file.previewElement.classList.add("dz-error");
+                _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                _results = [];
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i];
+                    _results.push(node.textContent = message);
+                }
+                return _results;
+            },
+            success: function(file, data) {
+                if (data.status == 200) {
+                    $('#load-lead-media').html(data.html);
+                    toastr.success("Attachment uploaded successfully");
+                    window.location.replace("{{ route('lead') }}")
+                } else {
+                    if (!data.message) {
+                        toastr.error("Something wrong went");
+                    } else {
+                        toastr.error(data.message);
+                    }
+                }
+            }
+        };
 </script>
 {{-- <script type="text/javascript">
     $(document).ready(function () {

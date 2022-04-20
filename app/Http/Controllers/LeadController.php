@@ -97,7 +97,7 @@ class LeadController extends Controller
             $clients->client_other_details = $request->input('client_other_details');
             $clients->save();
 
-            return redirect()->route('lead')->with('message','Insert successfully');
+            return response()->json(['success' => true,'secret_id' => $leads->secret]);
 
         }
 

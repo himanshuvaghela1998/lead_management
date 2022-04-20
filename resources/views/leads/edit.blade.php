@@ -233,6 +233,7 @@
             acceptedFiles: "jpeg,.jpg,.png,.mp4,.mov,.webm",
             dictFileTooBig: 'File is bigger than 200MB',
             clickable: true,
+            addRemoveLinks: true,
             maxFiles: 20,
             init: function() {
                 var msg = 'Maximum File Size Video 200MB / Image 1MB';
