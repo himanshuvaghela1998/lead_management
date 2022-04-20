@@ -46,8 +46,7 @@
                 <button type="reset" class="btn btn-light me-3 btn-sm close-modal">Cancel</button>
                 <button type="submit" class="btn btn-primary btn-sm">
                     <i class="fa fa-check"></i>Update</button>
-                </div>
-            </form>
+            </div>
         </form>
     </div>
 </div>

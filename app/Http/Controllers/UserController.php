@@ -87,7 +87,6 @@ class UserController extends Controller
     public function editPassword($id)
     {
         $user = User::find(getDecrypted($id));
-        // dd($user);
         if ($user) {
             $roles = Role::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
             $view = view('user.confirmPassword',compact('user','roles'))->render();
@@ -98,20 +97,27 @@ class UserController extends Controller
 
     public function updatePassword(Request $request, $id)
     {
-        $request->validate([
-            'password' => 'required|password|min:6',
-            'new_password' => 'required',
-            'confirm_password' => 'required|required_with:new_password|same:new_password|min:6'
-        ], [
-            'password' => 'Password is required.',
-            'confirm_password' => 'Password and confirm password must same.'
-        ]);
-
-
         $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
-        $user->password = Hash::make($request->password);
-        dd($user);
-        $user->save();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
+                $user->password = Hash::make($request->new_password);
+                $user->save();
+
+                if ($user) {
+                    return redirect()->route('users.index')->with('message', 'Password changes success fully');
+                }else{
+                    return redirect()->route('users.index')->with('error', 'Password not changed');
+                }
+
+            }else{
+                return redirect()->route('users.index')->with('error', 'Not work');
+            }
+
+
+        }else{
+            return redirect()->route('dashboard')->with('error', 'data not found');
+        }
     }
 
     /**

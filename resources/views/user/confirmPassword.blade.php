@@ -1,6 +1,6 @@
-<div class="modal-dialog modal-dialog-centered mw-650px">
+<div class="modal-dialog modal-dialog-centered mw-450px">
     <div class="modal-content">
-        <form action="{{ route('user.update_confirmPassword',[$users->id]) }}" class="horizontal-form" method="post" id="changePassword">
+        <form action="{{ route('user.update_confirmPassword',[$user->secret]) }}" class="horizontal-form" method="post" id="changePassword">
             {{ csrf_field() }}
             <!--begin::Modal header-->
             <div class="modal-header">
@@ -28,7 +28,7 @@
                     <!--begin::Input group-->
 
                     <div class="col-md-12">
-                        <label class="required fs-6 fw-bold mb-2">Password</label>
+                        <label class="required fs-6 fw-bold mt-2">Password</label>
                         <input type="password" data-msg="Password is required." class="form-control form-control-solid" placeholder="Enter password" name="password" id="password"/>
                     </div>
                     @error('password')
@@ -36,7 +36,7 @@
                     @enderror
 
                     <div class="col-md-12">
-                        <label class="required fs-6 fw-bold mb-2">New Password</label>
+                        <label class="required fs-6 fw-bold mt-2">New Password</label>
                         <input type="password" data-msg="New password is required." class="form-control form-control-solid" placeholder="Enter password" name="new_password" id="new_password"/>
                     </div>
                     @error('new_password')
@@ -45,7 +45,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="required fs-6 fw-bold mb-2">Confirm Password</label>
+                            <label class="required fs-6 fw-bold mt-2">Confirm Password</label>
                             <input type="password" data-msg="Confirm password is required."
                             data-msg-equalTo="Password and Confirm password not same" class="form-control form-control-solid" placeholder="Enter confirm password" name="confirm_password" id="confirm_password"/>
                         </div>
@@ -91,6 +91,8 @@
             submitHandler: function(form){
                 form.submit();
             }
-        })
-    })
+        });
+    });
+
+
 </script>

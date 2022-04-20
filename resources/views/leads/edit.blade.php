@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 d-flex flex-column mb-7 fv-row">
+                            <div class="col-md-12 d-flex flex-column fv-row">
                                 <label class="required fs-6 fw-bold mb-2">
                                     <span>Assigned Too</span>
                                 </label>
@@ -150,8 +150,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 fv-row mb-15">
-                                
-                            
+
+
                                 <div class="container" id="load-lead-media">
                                     @include('leads.compact.attachments')
                                 </div>

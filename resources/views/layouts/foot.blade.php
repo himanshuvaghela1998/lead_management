@@ -23,7 +23,7 @@
 
 
  <!-- strat Toastr -->
- <script src="{{ asset('public/assets/js/toastr.js') }}"></script>
+ {{-- <script src="{{ asset('public/assets/js/toastr.js') }}"></script> --}}
  <script>
   @if(Session::has('message'))
   toastr.options =

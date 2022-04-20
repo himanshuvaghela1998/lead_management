@@ -91,8 +91,30 @@ $('.close-modal').on('click',function(){
 // End add User
 
 // Start Edit User pass
-$('.change_password').on('click',function(){
-    $('#change_password_modal1').modal('show')
+$('.change_password').on('click',function(e){
+    e.preventDefault();
+    var id = $(this).attr('id');
+    var url = $(this).data('url');
+    console.log(url)
+    var _modal = $('#change_password_modal');
+    $.ajax({
+        url: url,
+        type: 'get',
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            if (response.status == 'success') {
+                $('#change_password_modal').html(response.content);
+                _modal.modal('show');
+                $('.close-modal').on('click', function(){
+                    $('#change_password_modal').modal('hide');
+                });
+            }else{
+                toastr.error('No user found');
+            }
+        }
+    })
 })
 
 // end edit user
