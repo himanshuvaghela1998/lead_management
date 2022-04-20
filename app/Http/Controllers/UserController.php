@@ -97,6 +97,14 @@ class UserController extends Controller
 
     public function updatePassword(Request $request, $id)
     {
+
+        $request->validate([
+            'password' => 'required|password|min:6',
+            'new_password' => 'required',
+            'confirm_password' => 'required|required_with:new_password|same:new_password|min:6'
+        ]);
+
+
         $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
@@ -106,12 +114,10 @@ class UserController extends Controller
 
                 if ($user) {
                     return redirect()->route('users.index')->with('message', 'Password changes success fully');
-                }else{
-                    return redirect()->route('users.index')->with('error', 'Password not changed');
                 }
 
             }else{
-                return redirect()->route('users.index')->with('error', 'Not work');
+                return redirect()->route('users.index')->with('error', 'password not match');
             }
 
 

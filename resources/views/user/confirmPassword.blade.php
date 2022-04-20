@@ -29,7 +29,7 @@
 
                     <div class="col-md-12">
                         <label class="required fs-6 fw-bold mt-2">Password</label>
-                        <input type="password" data-msg="Password is required." class="form-control form-control-solid" placeholder="Enter password" name="password" id="password"/>
+                        <input type="password" data-msg="Password is required." data-msg-minlength="Password may not be less than 8 character.." class="form-control form-control-solid" placeholder="Enter password" name="password" id="password"/>
                     </div>
                     @error('password')
                         <span class="text-danger">{{ $message }}</span>
@@ -72,6 +72,7 @@
                 new_password : "required",
                 password : {
                     required : true,
+                    minlength : 8,
                 },
                 confirm_password:{
                     required : true,
@@ -82,9 +83,12 @@
                 new_password : "New password is required.",
                 password : {
                     required : "Password is required.",
+                    minlength:"Password may not be less than 8 character.",
+
                 },
                 confirm_password : {
                     required : "Confirm password is required",
+                    minlength:"Password may not be less than 8 character.",
                     equalTo : "Password and Confirm password not same",
                 },
             },
