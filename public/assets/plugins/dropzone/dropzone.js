@@ -1332,7 +1332,8 @@
             headers = {
                 "Accept": "application/json",
                 "Cache-Control": "no-cache",
-                "X-Requested-With": "XMLHttpRequest"
+                "X-Requested-With": "XMLHttpRequest",
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             };
             if (this.options.headers) {
                 extend(headers, this.options.headers);

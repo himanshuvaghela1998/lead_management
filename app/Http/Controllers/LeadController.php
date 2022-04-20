@@ -97,7 +97,7 @@ class LeadController extends Controller
             $clients->client_other_details = $request->input('client_other_details');
             $clients->save();
 
-            return redirect()->route('lead')->with('message','Insert successfully');
+            return response()->json(['success' => true,'secret_id' => $leads->secret]);
 
         }
 
@@ -246,19 +246,28 @@ class LeadController extends Controller
                 Image::make($request->file->getRealPath())->fit(env('THUMBNAIL_IMAGE_WIDTH'), env('THUMBNAIL_IMAGE_HEIGHT'), NULL, 'top')->save($thumbnail_source_path, 85);
                 //End Generate thumbnail
             }
-            
             $lead_attachment = new LeadAttachment;
             $lead_attachment->lead_id = $lead_id;
             $lead_attachment->type = $media_type;
             $lead_attachment->url = $thumbnail_source_path;
             $lead_attachment->s3_key = $thumbnail_source_path;
             $lead_attachment->save();
-
             $lead_attachments = LeadAttachment::where('lead_id', $lead_id)->orderBy('id', 'desc')->get();
             $view = view('leads.compact.attachments', compact('lead_attachments'))->render();
-            return response()->json(['success' => true, 'status' => 200, 'html' => $view, 'message' => 'Media uploaded successfully.', '']);
+            return response()->json(['success' => true, 'status' => 200, 'html' => $view, 'message' => 'Attachment uploaded successfully.', '']);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
         } 
+    }
+    
+    public function lead_media_delete(Request $request)
+    {
+        $lead_attachment =LeadAttachment::where('id',$request->id)->delete();
+        if($lead_attachment){
+            return response()->json(['status'=>"success",'message'=>'Lead attachment deleted successfully.']);
+        }
+        else{
+            return response()->json(['status'=>"success",'message'=>'Something went wrong.']);
+        }
     }
 }

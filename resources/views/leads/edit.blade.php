@@ -150,10 +150,14 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 fv-row mb-15">
-
-
-                                <div class="container" id="load-lead-media">
+                                <label class="fs-6 fw-bold mb-2">Lead Attachments </label>
+                                <div class="" id="load-lead-media">
                                     @include('leads.compact.attachments')
+                                </div>
+                                <div class="dropzone" id="dropzoneForm">
+                                    <div class="fallback">
+                                        <input name="file" type="file" id="file1" class="hide" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -163,14 +167,6 @@
                                 <i class="fa fa-check"></i> Update</button>
                         </div>
                     </form>
-
-                    {{ Form::open(['route' => ['lead.upload.media',$leads->secret], 'method' => 'POST','class' => 'dropzone','id'=>'dropzoneForm','files'=>'true']) }}
-                    {{-- <div class="dropzone" id="dropzoneForm"> --}}
-                        <div class="fallback">
-                            <input name="file" type="file" id="file1" class="hide" />
-                        </div>
-                    {{-- </div> --}}
-                    {{Form::close()}}
                 </div>
             </div>
         </div>
@@ -222,20 +218,24 @@
                 }
             },
             submitHandler: function(form){
+                var leadEditDropzone = Dropzone.forElement('.dropzone');
+                leadEditDropzone.processQueue();
                 form.submit();
             }
         });
 
         /* lead attachments */
         Dropzone.options.dropzoneForm = {
+            url: "{{ route('lead.upload.media',$leads->secret) }}",
+            autoProcessQueue: false,
             maxFilesize: 200,
             parallelUploads: 20,
             acceptedFiles: "jpeg,.jpg,.png,.mp4,.mov,.webm",
             dictFileTooBig: 'File is bigger than 200MB',
             clickable: true,
+            addRemoveLinks: true,
             maxFiles: 20,
             init: function() {
-                console.log('init');
                 var msg = 'Maximum File Size Video 200MB / Image 1MB';
                 var brswr_img = "{{ asset('public/assets/media/misc/upload-cloud.png') }}";
                 var apnd_msg = '<img class="center-item" height="40" width="40" src="' + brswr_img +
@@ -245,8 +245,6 @@
                 $('#dropzoneForm .dz-message span').hide();
             },
             error: function(file, response) {
-                console.log('error');
-
                 if ($.type(response) === "string") {
                     var message = response;
                 } else {
@@ -262,10 +260,9 @@
                 return _results;
             },
             success: function(file, data) {
-                console.log('sucess');
-
                 if (data.status == 200) {
-                    $('#load-lead-media').empty().append(data.html);
+                    $('#load-lead-media').html(data.html);
+                    toastr.success("Attachment uploaded successfully");
                 } else {
                     if (!data.message) {
                         toastr.error("Something wrong went");
@@ -276,5 +273,37 @@
             }
         };
 
+        /* delete lead attachment */
+        $(document).on('click','.image_trash',function(){
+            var id =$(this).attr('data-value');
+            Swal.fire({
+                text: "Are you want to delete this attachment?",
+                icon: "warning",
+                showCancelButton: !0,
+                buttonsStyling: !1,
+                confirmButtonText: "Confirm",
+                cancelButtonText: "Cancel",
+                customClass: { confirmButton: "btn fw-bold btn-danger", cancelButton: "btn fw-bold btn-active-light-primary" },
+            }).then(function (result) {
+                console.log(result.isConfirmed);
+                if(result.isConfirmed){
+                    $.ajax({
+                        url: "{{route('lead_media.delete')}}",
+                        type: "POST",
+                        data: {
+                            id: id,
+                            _token: '{{csrf_token()}}'
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            $('.pic_'+id+'_delete').remove();
+                            toastr.success('Attachment deleted successfully');
+                        }
+                    });
+                }else{
+
+                }
+            });
+        });  
     </script>
 @endsection

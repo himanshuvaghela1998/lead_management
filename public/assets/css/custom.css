@@ -34,7 +34,7 @@
 .swal2-popup
 {
     padding: 0;
-    width: 24em;
+    width: 26em;
     height: 20em;
 }
 .count-text
@@ -66,4 +66,14 @@
 .center-item
 {
     align-self: center;
+}
+.avatar-delete{
+    color: #dc3545;
+    cursor: pointer;
+    padding-left: 3px;
+    padding-right: 6px;
+}
+.avatar-preview
+{
+    width: max-content;
 }
