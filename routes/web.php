@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,6 +48,10 @@ Route::middleware(['CheckAdmin'])->group(function(){
     Route::delete('leads/delete/{id}', [LeadController::class, 'delete'])->name('lead.destroy');
     Route::post('leads/upload-media/{id}', [LeadController::class,'uploadLeadMedia'])->name('lead.upload.media');
     Route::post('lead_media/delete', [LeadController::class,'lead_media_delete'])->name('lead_media.delete');
+
+    //Role Controller
+
+    Route::get('role', [RoleController::class, 'index'])->name('role');
 
 });
 

@@ -14,7 +14,7 @@
 @media (min-width: 992px)
 {
 .header-fixed.toolbar-fixed .wrapper {
-    padding-top: 70px;
+    padding-top: 20px;
 }}
 
 .form-control {
