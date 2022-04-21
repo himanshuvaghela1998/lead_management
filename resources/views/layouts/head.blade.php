@@ -20,10 +20,9 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{asset('public/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('public/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <!-- highlight Js for ckeditor code block -->
+    {{-- <link rel="stylesheet" href="{{asset('public/assets/js/ckeditor/highlight/default.min.css')}}">
+    <link rel="stylesheet" href="{{asset('public/assets/js/ckeditor/style.css')}}"> --}}
     <!--end::Global Stylesheets Bundle-->
     <link href="{{ asset('public/assets/css/custom.css')}}" rel="stylesheet" type="text/css"/>
-    <!-- highlight Js for ckeditor code block -->
-	<link rel="stylesheet" href="{{asset('public/assets/js/ckeditor/highlight/default.min.css')}}">
-	<link rel="stylesheet" href="{{asset('public/assets/js/ckeditor/style.css')}}">
-
 </head>
