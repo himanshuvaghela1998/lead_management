@@ -178,6 +178,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="fs-6 fw-bold mb-2">Lead Details</label>
+                                        <textarea name="lead_details" id="lead_details" class="form-control form-control-solid">{{ str_replace( '&', '&amp;', $leads->lead_details) }}</textarea>
+                                    </div>
+                                </div>
                                 <div class="form-actions d-flex justify-content-end mt-5">
                                     <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary me-3 btn-sm">Cancel</button></a>
                                     <button type="submit" class="btn btn-primary btn-sm">
@@ -326,8 +332,29 @@
                    });
                }else{
 
-               }
-           });
-       });
-   </script>
+                }
+            });
+        });  
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ClassicEditor.create( document.querySelector( '#lead_details' ) )
+            // .then( newEditor => {
+            //     desc_editor = newEditor;
+            //     desc_editor.model.document.on( 'change:data', ( evt, data ) => {
+            //         var lead_details =  desc_editor.getData();
+            //         if(lead_details==''){
+            //             $(".lead_details-error").html('Lead details is required');
+            //             $(':input[type="submit"]').prop('disabled',true);
+            //         }else{
+            //             $(".lead_details-error").html('');
+            //             $(':input[type="submit"]').prop('disabled',false);
+            //         }
+            //     });
+            // })
+            .catch( error => {
+                console.error( error );
+            });
+        });
+    </script>
 @endsection
