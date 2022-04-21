@@ -81,23 +81,25 @@ class LeadController extends Controller
         ]);
 
 
-            $leads = new Lead();
-            $leads->project_title = $request->input('project_title');
-            $leads->project_type_id = $request->input('project_type_id');
-            $leads->source_id = $request->input('source_id');
-            $leads->user_id = $request->input('user_id');
-            $leads->status = $request->input('status');
-            $leads->billing_type = $request->input('billing_type');
-            $leads->time_estimation = $request->input('time_estimation');
-            $leads->save();
+            $lead = new Lead();
+            $lead->project_title = $request->input('project_title');
+            $lead->project_type_id = $request->input('project_type_id');
+            $lead->source_id = $request->input('source_id');
+            $lead->user_id = $request->input('user_id');
+            $lead->status = $request->input('status');
+            $lead->billing_type = $request->input('billing_type');
+            $lead->time_estimation = $request->input('time_estimation');
+            $lead->lead_details = $request->input('lead_details');
+            $lead->save();
+            
             $clients = new Client();
-            $clients->lead_id = $leads->id;
+            $clients->lead_id = $lead->id;
             $clients->client_name = $request->input('client_name');
             $clients->client_email = $request->input('client_email');
             $clients->client_other_details = $request->input('client_other_details');
             $clients->save();
 
-            return response()->json(['success' => true,'secret_id' => $leads->secret]);
+            return response()->json(['success' => true,'secret_id' => $lead->secret]);
 
         }
 
@@ -148,22 +150,21 @@ class LeadController extends Controller
         'client_email.required' => 'Client email is required',
     ]);
 
-
-        $leads = Lead::find($id);
-        $leads->project_title = $request->input('project_title');
-        $leads->project_type_id = $request->input('project_type_id');
-        $leads->source_id = $request->input('source_id');
-        $leads->user_id = $request->input('user_id');
-        $leads->status = $request->input('status');
-        $leads->billing_type = $request->input('billing_type');
-        $leads->time_estimation = $request->input('time_estimation');
-        $leads->save();
+        $lead = Lead::find($id);
+        $lead->project_title = $request->input('project_title');
+        $lead->project_type_id = $request->input('project_type_id');
+        $lead->source_id = $request->input('source_id');
+        $lead->user_id = $request->input('user_id');
+        $lead->status = $request->input('status');
+        $lead->billing_type = $request->input('billing_type');
+        $lead->time_estimation = $request->input('time_estimation');
+        $lead->lead_details = $request->input('lead_details');
+        $lead->save();
         $clients = Client::find($id);
-        $clients->lead_id = $leads->id;
+        $clients->lead_id = $lead->id;
         $clients->client_name = $request->input('client_name');
         $clients->client_email = $request->input('client_email');
         $clients->client_other_details = $request->input('client_other_details');
-        // dd($clients);
         $clients->save();
 
         if ($clients) {
@@ -176,10 +177,10 @@ class LeadController extends Controller
 
     public function delete($id)
     {
-        $leads = Lead::where('is_delete',0)->where('id',getDecrypted($id))->first();
-        if($leads){
-            $leads->is_delete = 1;
-            $leads->save();
+        $lead = Lead::where('is_delete',0)->where('id',getDecrypted($id))->first();
+        if($lead){
+            $lead->is_delete = 1;
+            $lead->save();
             $type = 'success';
             $msg = 'Leads deleted successfully';
         }else{

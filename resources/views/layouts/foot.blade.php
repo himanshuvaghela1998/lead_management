@@ -13,7 +13,7 @@
 <script src="{{asset('public/assets/js/jquery-validation/js/additional-methods.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/js/custom/custom.js')}}"></script>
 <!--end::Page Custom Javascript-->
-<script src="{{ asset('public/assets/js/validation.js') }}"></script>
+{{-- <script src="{{ asset('public/assets/js/validation.js') }}"></script> --}}
 <script src="{{ asset('public/assets/js/custom_validation/login_validation.js') }}"></script>
 <!-- end login validation-->
 <!-- CKEditor -->

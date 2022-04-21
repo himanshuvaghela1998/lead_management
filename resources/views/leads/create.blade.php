@@ -23,13 +23,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('create') }}" class="horizontal-form" method="POST" id="lead_store" enctype="multipart/form-data">
+                    <form action="{{ route('create') }}" class="horizontal-form" method="POST" id="frm_lead_store" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="row">
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                <label class="required fs-6 fw-bold mb-2">Project Title</label>
-                                <input type="text" class="form-control form-control-solid" data-msg-required="Project title is required." placeholder="Enter Project Title" name="project_title" id="project_title"/>
+                                <label class="fs-6 fw-bold mb-2">Project Title</label>
+                                <input type="text" class="form-control form-control-solid" placeholder="Enter Project Title" name="project_title" id="project_title"/>
                                     @error('project_title')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -142,7 +142,7 @@
                          <div class="row">
                             <div class="col-md-12 fv-row mb-15">
                                 <label class="fs-6 fw-bold mb-2">Client's Details </label>
-                                <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5"></textarea>
+                                <textarea class="form-control form-control-solid" name="client_other_details" id="client_other_details" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -158,12 +158,12 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="row">
+                        <div class="row">
                             <div class="col-md-12">
                                 <label class="fs-6 fw-bold mb-2">Lead Details</label>
-                                {!! Form::textarea('lead_details',str_replace( '&', '&amp;', null),["class"=>"form-control form-control-solid","placeholder"=>"","id"=>"lead_details"]) !!}
+                                <textarea name="lead_details" id="lead_details" class="form-control form-control-solid"></textarea>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="row">
                             <div class="form-actions d-flex justify-content-end mt-5">
                                 <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary btn-sm me-3">Cancel</button></a>
@@ -188,7 +188,31 @@
 {{-- dropzone --}}
 <script src="{{ asset('public/assets/plugins/dropzone/dropzone.js') }}"></script>
 <script>
-    $('#lead_store').validate({
+    $('#frm_lead_store').submit(function (e) {
+        e.preventDefault();
+        var $form = $(this);
+
+        // check if the input is valid using a 'valid' property
+        if (!$form.valid) return false;
+
+        $.ajax({
+            url:"{{ route('create') }}",
+            type:'post',
+            data: $('#frm_lead_store').serialize(),
+            success: function (response)
+            {
+                lead_id = response.secret_id;
+                var leadCreateDropzone = Dropzone.forElement('.dropzone');
+                leadCreateDropzone.options.url= "{{ url('leads/upload-media') }}/"+lead_id;
+                leadCreateDropzone.processQueue();
+                window.location.replace("{{ route('lead') }}");
+            },
+            error: function(xhr) {
+                
+            }
+        });
+    });
+    $('#frm_lead_store').validate({
         rules: {
             project_title : 'required',
             project_type_id : 'required',
@@ -201,17 +225,15 @@
             client_email : 'required'
         },
         message: {
-
-        project_title : 'Project title is required',
-        project_type_id : 'Project type is required',
-        source_id : 'Lead source is required',
-        user_id : 'Assigned too is required',
-        status : 'Project status is required',
-        billing_type : 'Billing type is required',
-        time_estimation : 'Time estimation is required',
-        client_name : 'Client name is required',
-        client_email : 'Client email is required',
-
+            project_title : 'Project title is required',
+            project_type_id : 'Project type is required',
+            source_id : 'Lead source is required',
+            user_id : 'Assigned too is required',
+            status : 'Project status is required',
+            billing_type : 'Billing type is required',
+            time_estimation : 'Time estimation is required',
+            client_name : 'Client name is required',
+            client_email : 'Client email is required',
         },
         errorPlacement: function(error, element) {
             var placement = $(element).data('error');
@@ -221,25 +243,6 @@
                 error.insertAfter(element);
             }
         },
-        submitHandler: function(form){
-            // form.submit();
-            $.ajax({
-                url:"{{ route('create') }}",
-                type:'post',
-                dataType: "JSON",
-                data: $("#lead_store").serialize(),
-                success: function (response)
-                {
-                    lead_id = response.secret_id;
-                    var leadCreateDropzone = Dropzone.forElement('.dropzone');
-                    leadCreateDropzone.options.url= "{{ url('leads/upload-media') }}/"+lead_id;
-                    leadCreateDropzone.processQueue();
-                },
-                error: function(xhr) {
-                   
-                }
-            });
-        }
     });
 
      /* lead attachments */
@@ -282,7 +285,6 @@
                 if (data.status == 200) {
                     $('#load-lead-media').html(data.html);
                     toastr.success("Attachment uploaded successfully");
-                    window.location.replace("{{ route('lead') }}")
                 } else {
                     if (!data.message) {
                         toastr.error("Something wrong went");
@@ -300,13 +302,6 @@
 			desc_editor = newEditor;
 			desc_editor.model.document.on( 'change:data', ( evt, data ) => {
 				var lead_details =  desc_editor.getData();
-				if(lead_details==''){
-					$(".lead_details-error").html('Lead details is required');
-				    $(':input[type="submit"]').prop('disabled',true);
-				}else{
-					$(".lead_details-error").html('');
-				    $(':input[type="submit"]').prop('disabled',false);
-				}
 			});
 		})
         .catch( error => {
