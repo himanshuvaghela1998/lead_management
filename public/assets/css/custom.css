@@ -77,3 +77,11 @@
 {
     width: max-content;
 }
+.form-control {
+    height: 43px !important;
+    background-color: #dadcdd85;
+}
+.form-control .form-control-solid .valid{
+    height: 43px !important;
+    background-color: #dadcdd85;
+}
