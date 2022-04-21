@@ -50,7 +50,7 @@
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-3">
-                        <a class="menu-link px-3 delete_row" data-title="user" data-user_id ="{{$lead->secret}}" data-href="{{route('lead.destroy',$lead->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>
+                        <a class="menu-link px-3 delete_row" data-title="lead" data-user_id ="{{$lead->secret}}" data-href="{{route('lead.destroy',$lead->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>
                     </div>
                     <!--end::Menu item-->
                 </div>

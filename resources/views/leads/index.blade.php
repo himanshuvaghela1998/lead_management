@@ -35,21 +35,21 @@
                             </form>
                         </div>
                         <!--end::Search-->
+                        <div class="w-150px mx-3">
+                            <!--begin::Select2-->
+                            <select class="form-select form-select-solid" id="status_filter" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
+                                <option></option>
+                                <option value="-1">All</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                            <!--end::Select2-->
+                        </div>
                     </div>
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                            <div class="w-150px me-3">
-                                <!--begin::Select2-->
-                                <select class="form-select form-select-solid" id="status_filter" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
-                                    <option></option>
-                                    <option value="-1">All</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>
-                                <!--end::Select2-->
-                            </div>
 
-                            <a class="btn btn-primary btn-sm" href="{{ route('create') }}">Add Leads</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('create') }}"><i class="fa-solid fa-plus"></i>Add Leads</a>
                         </div>
                     </div>
                 </div>

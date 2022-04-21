@@ -29,14 +29,14 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="required fs-6 fw-bold mb-2">Name</label>
-                            <input type="text" class="form-control form-control-solid" value="{{ $user->name }}" placeholder="Enter user name" name="name" id="name"/>
+                            <input type="text" class="form-control form-control-solid" value="{{ $user->name }}" placeholder="Enter full name" name="name" id="name"/>
                         </div>
                         <div class="col-md-6">
                             <label class="required fs-6 fw-bold mb-2">Role</label>
                             {!! Form::select('role',$roles,old('role',isset($user->role_id)?$user->role_id:''),['class'=>'form-control form-control-solid capitalize-letter']) !!}
                         </div>
                     </div>
-                    <div class="row mt-2">
+                    <div class="col-md-12">
                         <label class="required fs-6 fw-bold mb-2">Email</label>
                         <input type="text" class="form-control form-control-solid" value="{{ $user->email }}" placeholder="Enter email address" name="email" id="email"/>
                     </div>

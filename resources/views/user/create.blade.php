@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="required fs-6 fw-bold mb-2">Name</label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Enter user name" name="name" id="name"/>
+                            <input type="text" class="form-control form-control-solid" placeholder="Enter full name" name="name" id="name"/>
                         </div>
                         <div class="col-md-6">
                             <label class="required fs-6 fw-bold mb-2">Role</label>

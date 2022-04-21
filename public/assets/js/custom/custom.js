@@ -91,7 +91,7 @@ $('.close-modal').on('click',function(){
 // End add User
 
 // Start Edit User pass
-$('.change_password').on('click',function(e){
+$(document).on("click",".change_password",function (e) {
     e.preventDefault();
     var id = $(this).attr('id');
     var url = $(this).data('url');
@@ -122,7 +122,7 @@ $('.change_password').on('click',function(e){
 
 
 // Start Edit User
-$('.edit_user').on('click',function(e){
+$(document).on("click",".edit_user",function (e) {
     e.preventDefault();
     var id = $(this).attr('id');
     var url = $(this).data('url');
@@ -264,7 +264,7 @@ $(document).on('change','#filter_form select',function(){
 });
 
 /* Status Filter */
-$('#status_filter').on('change', function (){
+$(document).on('change','#status_filter',function(){
        var status  =$('#status_filter').val();
        console.log(status);
        $('#status_id').val(status);
@@ -284,6 +284,9 @@ $(document).on('submit','#filter_form',function(e){
         success: function(data) {
             if(data.status == 200){
                 $('#load_content').html(data.content);
+                //var menu = document.querySelector(".kt-action-menu");
+                //menu.update();
+                KTMenu.createInstances();
             }else{
                 toastr.error(data.message);
             }
@@ -312,7 +315,6 @@ $(document).on('click','.delete_row',function(e){
         cancelButtonText: "Cancel",
         customClass: { confirmButton: "btn fw-bold btn-danger", cancelButton: "btn fw-bold btn-active-light-primary" },
     }).then(function (result) {
-        console.log(result.isConfirmed);
         if(result.isConfirmed){
             $.ajax({
                 url:URL,
@@ -324,7 +326,7 @@ $(document).on('click','.delete_row',function(e){
                     $("#user_"+user_id).remove();
                 },
                 error: function(xhr) {
-                    console.log(xhr.responseText); // this line will save you tons of hours while debugging
+                    //console.log(xhr.responseText); // this line will save you tons of hours while debugging
                     Swal.fire({ text: "Something went wrong!", icon: "error", buttonsStyling: !1, confirmButtonText: "Okay", customClass: { confirmButton: "btn fw-bold btn-primary" } });
                 }
             });
