@@ -158,12 +158,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-md-12">
                                 <label class="fs-6 fw-bold mb-2">Lead Details</label>
                                 {!! Form::textarea('lead_details',str_replace( '&', '&amp;', null),["class"=>"form-control form-control-solid","placeholder"=>"","id"=>"lead_details"]) !!}
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="row">
                             <div class="form-actions d-flex justify-content-end mt-5">
                                 <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary btn-sm me-3">Cancel</button></a>
