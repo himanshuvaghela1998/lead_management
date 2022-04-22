@@ -3,8 +3,10 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\ModelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SubModelController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,6 +54,21 @@ Route::middleware(['CheckAdmin'])->group(function(){
     //Role Controller
 
     Route::get('role', [RoleController::class, 'index'])->name('role');
+
+    //Module Controller
+
+    Route::get('modules', [ModelController::class, 'index'])->name('module');
+    Route::match(['GET', 'POST'], 'modules/create', [ModelController::class, 'create'])->name('module.create');
+    Route::get('modules/edit/{secret}', [ModelController::class, 'moduleEdit'])->name('module.edit');
+    Route::post('modules/update/{secret}', [ModelController::class, 'moduleUpdate'])->name('module.update');
+    Route::delete('modules/delete/{secret}', [ModelController::class, 'moduleDelete'])->name('module.delete');
+
+    //Sub Module Controller
+
+    Route::get('subModules', [SubModelController::class, 'index'])->name('submodule');
+    Route::match(['GET', 'POST'], 'subModule/create', [SubModelController::class, 'create'])->name('subModule.create');
+    Route::get('subModules/edit/{secret}', [SubModelController::class, 'editModule'])->name('subModule.edit');
+    Route::post('subModules/update/{secret}', [SubModelController::class, 'updateSubmodule'])->name('subModules.update');
 
 });
 

@@ -91,7 +91,7 @@ class LeadController extends Controller
             $lead->time_estimation = $request->input('time_estimation');
             $lead->lead_details = $request->input('lead_details_data');
             $lead->save();
-            
+
             $clients = new Client();
             $clients->lead_id = $lead->id;
             $clients->client_name = $request->input('client_name');
@@ -115,7 +115,7 @@ class LeadController extends Controller
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
-        $leads = Lead::with('clients', 'projectType','leadAttachments')->find($id);
+        $leads = Lead::with('clients', 'projectType','leadAttachments')->find(getDecrypted($id));
         $lead_attachments = $leads->leadAttachments;
         if (!$leads == null) {
         return view('leads.edit', compact('leads', 'projects', 'Sources', 'users','lead_attachments'));
@@ -217,7 +217,7 @@ class LeadController extends Controller
             if ($validator->fails()) {
                 return response()->json(['success' => false, 'status' => 401, 'message' => $validator->errors()->first()]);
             }
-        } 
+        }
         try {
             $lead_id = getDecrypted($id);
             $original_name = $request->file->getClientOriginalName();
@@ -258,9 +258,9 @@ class LeadController extends Controller
             return response()->json(['success' => true, 'status' => 200, 'html' => $view, 'message' => 'Attachment uploaded successfully.', '']);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
-        } 
+        }
     }
-    
+
     public function lead_media_delete(Request $request)
     {
         $lead_attachment =LeadAttachment::where('id',$request->id)->delete();

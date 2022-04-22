@@ -245,7 +245,7 @@
                 window.location.replace("{{ route('lead') }}");
             },
             error: function(xhr) {
-                
+
             }
         });
     });

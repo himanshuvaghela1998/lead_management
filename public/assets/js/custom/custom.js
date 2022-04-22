@@ -147,7 +147,7 @@ $(document).on("click",".edit_user",function (e) {
                     }
                 });
                 $('.close-modal').on('click',function(){
-                    $('#edit_user_modal').modal('hide')
+                    $('#edit_user_modal').modal('hide');
                 })
             }else{
                 toastr.error('No user found');
@@ -336,4 +336,147 @@ $(document).on('click','.delete_row',function(e){
     });
 });
 /* END Delete Record Jquery */
+
+/* start module validation */
+
+$(document).ready(function(){
+    $('#module_store').validate({
+        rules: {
+            name: {
+                required: true,
+            },
+            slug: {
+                required: true,
+            },
+        },
+        message: {
+
+            name: {
+                required: 'Name is required.',
+            },
+            slug: {
+                required: 'Slug is required.'
+            }
+        },
+        submitHandler: function(form){
+            form.submit();
+        }
+    })
+});
+
+$('#add_module_btn').on('click',function(){
+    $('#add_module_model').modal('show')
+})
+$('.close-module-modal').on('click',function(){
+    $('#add_module_model').modal('hide')
+})
+
+
+$(document).on("click",".edit_module",function (e) {
+    e.preventDefault();
+    var id = $(this).attr('id');
+    var url = $(this).data('url');
+    console.log(url)
+    var _modal = $('#edit_lead_modal');
+    $.ajax({
+        url: url,
+        type: 'get',
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            if (response.status == 'success') {
+                $('#edit_lead_modal').html(response.content);
+                _modal.modal('show');
+                $('.close-modal').on('click', function(){
+                    $('#edit_lead_modal').modal('hide');
+                });
+            }else{
+                toastr.error('No user found');
+            }
+        }
+    })
+})
+/* End /*
+
+/* Sub module */
+
+$('#add_subModule_btn').on('click',function(){
+    $('#add_subModule_modal').modal('show')
+})
+$('.close-subModule-modal').on('click', function(){
+    $('#add_subModule_modal').modal('hide');
+})
+
+
+var _token = $("meta[name='_token']").attr('content');
+var module_rules = {
+
+    name: {
+        required: true,
+    },
+    slug: {
+        required: true,
+    },
+}
+
+var module_msgs = {
+    "name":{
+        required:"Name is required."
+    },
+    "slug":{
+        required:"Slug is required."
+    },
+
+}
+console.log(module_msgs);
+
+
+$("#module_store").validate({
+    ignore: [],
+    rules: module_rules,
+    messages: module_msgs,
+    //perform an AJAX post to ajax.php
+    submitHandler: function() {
+        return true;
+    }
+});
+
+$(document).on("click",".edit_subModule",function (e) {
+    e.preventDefault();
+    var id = $(this).attr('id');
+    var url = $(this).data('url');
+    var _modal=$('#edit_subModule_modal');
+    $.ajax({
+        url: url,
+        type: 'get',
+        cache : false,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            if(response.status == 'success'){
+                $('#edit_subModule_modal').html(response.content);
+                _modal.modal('show');
+                $("#module_store").validate({
+                    ignore: [],
+                    rules: module_rules,
+                    messages: module_msgs,
+                    //perform an AJAX post to ajax.php
+                    submitHandler: function() {
+                        return true;
+                    }
+                });
+                $('.close-modal').on('click',function(){
+                    $('#edit_subModule_modal').modal('hide');
+                })
+            }else{
+                toastr.error('No user found');
+            }
+        },
+        error: function(error){
+            toastr.error('Something went wrong');
+        }
+    });
+
+})
 
