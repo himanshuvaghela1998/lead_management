@@ -318,7 +318,7 @@
                console.log(result.isConfirmed);
                if(result.isConfirmed){
                    $.ajax({
-                       url: "{{route('lead_media.delete')}}",
+                       url: "{{route('lead.media.delete')}}",
                        type: "POST",
                        data: {
                            id: id,

@@ -14,7 +14,7 @@
     <tbody class="fw-bold text-gray-600">
         @foreach ($leads as $lead)
         <tr id="user_{{$lead->secret}}">
-            <td> <p class="capitalize-letter">{{ $lead->project_title }} </p></td>
+            <td><p class="capitalize-letter"><a href="{{ route('lead.chat',$lead->secret) }}">{{ $lead->project_title }}</a></p></td>
             <td> <p class="capitalize-letter">{{ str_replace('_', ' ', $lead->status) }} </p>
                 {{-- <td>
                     <div class="d-flex flex-column ">

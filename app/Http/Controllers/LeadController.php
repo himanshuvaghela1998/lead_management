@@ -271,4 +271,10 @@ class LeadController extends Controller
             return response()->json(['status'=>"success",'message'=>'Something went wrong.']);
         }
     }
+
+    public function leadChat($id)
+    {
+        $lead = Lead::with('clients', 'projectType', 'getUser')->where('id',getDecrypted($id))->first();
+        return view('leads.chat',compact('lead'));
+    }
 }
