@@ -89,7 +89,7 @@ class LeadController extends Controller
             $lead->status = $request->input('status');
             $lead->billing_type = $request->input('billing_type');
             $lead->time_estimation = $request->input('time_estimation');
-            $lead->lead_details = $request->input('lead_details');
+            $lead->lead_details = $request->input('lead_details_data');
             $lead->save();
             
             $clients = new Client();

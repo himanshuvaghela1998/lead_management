@@ -339,19 +339,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
             ClassicEditor.create( document.querySelector( '#lead_details' ) )
-            // .then( newEditor => {
-            //     desc_editor = newEditor;
-            //     desc_editor.model.document.on( 'change:data', ( evt, data ) => {
-            //         var lead_details =  desc_editor.getData();
-            //         if(lead_details==''){
-            //             $(".lead_details-error").html('Lead details is required');
-            //             $(':input[type="submit"]').prop('disabled',true);
-            //         }else{
-            //             $(".lead_details-error").html('');
-            //             $(':input[type="submit"]').prop('disabled',false);
-            //         }
-            //     });
-            // })
+            .then( newEditor => {
+                desc_editor = newEditor;
+                desc_editor.model.document.on( 'change:data', ( evt, data ) => {
+                    var lead_details =  desc_editor.getData();
+                });
+            })
             .catch( error => {
                 console.error( error );
             });

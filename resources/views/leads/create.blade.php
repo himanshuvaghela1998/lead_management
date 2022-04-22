@@ -44,14 +44,14 @@
                                 <div class="row mt-2">
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">Project Title</label>
-                                        <input type="text" class="form-control form-control-solid" data-msg-required="Project title is required." placeholder="Enter Project Title" name="project_title" id="project_title"/>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Enter Project Title" name="project_title" id="project_title"/>
                                             @error('project_title')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">Project Type</label>
-                                            <select name="project_type_id" aria-label="Project type" data-error="#projectType" data-msg="Project type is required." data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid fw-bolder">
+                                            <select name="project_type_id" aria-label="Project type" data-error="#projectType" data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid fw-bolder">
                                                 @foreach ($projects as $project)
                                                 <option value="">Project Type...</option>
                                                 <option value="{{ $project->id }}">{{ucfirst(trans($project->project_type))}}</option>
@@ -66,7 +66,7 @@
                                 <div class="row mt-2">
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">Time Estimation</label>
-                                        <input type="text" class="form-control form-control-solid" data-msg-required="Time estimation is required." placeholder="Enter Time Estimation" name="time_estimation" id="time_estimation"/>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Enter Time Estimation" name="time_estimation" id="time_estimation"/>
                                             @error('time_estimation')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -75,7 +75,7 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span >Lead Sources</span>
                                         </label>
-                                            <select name="source_id" aria-label="Project type" data-error="#leadSource" data-control="select2" data-msg-required="Lead source is required." data-placeholder="Select a Lead Sources..." class="form-select form-select-solid fw-bolder">
+                                            <select name="source_id" aria-label="Project type" data-error="#leadSource" data-control="select2" data-placeholder="Select a Lead Sources..." class="form-select form-select-solid fw-bolder">
                                                 @foreach ($Sources as $Source)
                                                 <option value="">Project Type...</option>
                                                 <option value="{{ $Source->id }}">{{ $Source->source }}</option>
@@ -92,7 +92,7 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span>Billing Type</span>
                                         </label>
-                                            <select name="billing_type" aria-label="Billing type" data-error="#billingType" data-control="select2" data-msg-required="Billing type is required." data-placeholder="Select a Billing Type..." class="form-select form-select-solid fw-bolder">
+                                            <select name="billing_type" aria-label="Billing type" data-error="#billingType" data-control="select2" data-placeholder="Select a Billing Type..." class="form-select form-select-solid fw-bolder">
                                             <option value="">Billing Type...</option>
                                             <option value="hourly">Hourly</option>
                                             <option value="fixed_cost">Fixed Cost </option>
@@ -107,7 +107,7 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span>Project Status</span>
                                         </label>
-                                            <select name="status" aria-label="Status" data-control="select2" data-error="#status" data-msg-required="Project status is required." data-placeholder="Select a Project Status..." class="form-select capitalize-letter form-select-solid fw-bolder">
+                                            <select name="status" aria-label="Status" data-control="select2" data-error="#status" data-placeholder="Select a Project Status..." class="form-select capitalize-letter form-select-solid fw-bolder">
                                                 <option value="">Status...</option>
                                                 <option value="Open">Open</option>
                                                 <option value="in_Conversation">In Conversation</option>
@@ -126,7 +126,7 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span class="">Assigned Too</span>
                                         </label>
-                                            <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-msg-required="Assigned too is required." data-placeholder="Select a Assigned Too ..." class=" form-select form-select-solid fw-bolder">
+                                            <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-placeholder="Select a Assigned Too ..." class=" form-select form-select-solid fw-bolder">
                                                 @foreach ($users as $user)
                                                 <option value="">Assigned Too...</option>
                                                 <option value="{{ $user->id }}" >{{ucfirst(trans($user->name))}}  ({{ucfirst(trans($user->getRole->name))}})</option>
@@ -141,14 +141,14 @@
                                 <div class="row mt-2">
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">Client Name</label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Enter client name" name="client_name" data-msg-required="Client name is required." id="client_name"/>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Enter client name" name="client_name" id="client_name"/>
                                             @error('client_name')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">Client Email</label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" data-msg-required="Client email is required." name="client_email" id="client Email"/>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" name="client_email" id="client Email"/>
                                           @error('client_email')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -177,6 +177,7 @@
                                     <div class="col-md-12">
                                         <label class="fs-6 fw-bold mb-2">Lead Details</label>
                                         <textarea name="lead_details" id="lead_details" class="form-control form-control-solid"></textarea>
+                                        <input type="hidden" name="lead_details_data" id="lead_details_data">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -211,12 +212,25 @@
 {{-- dropzone --}}
 <script src="{{ asset('public/assets/plugins/dropzone/dropzone.js') }}"></script>
 <script>
+    $(document).ready(function () {
+		ClassicEditor.create( document.querySelector( '#lead_details' ) )
+		.then( newEditor => {
+			desc_editor = newEditor;
+			desc_editor.model.document.on( 'change:data', ( evt, data ) => {
+				var lead_details =  desc_editor.getData();
+                $('#lead_details_data').val(lead_details);
+			});
+		})
+        .catch( error => {
+            console.error( error );
+        });
+	});
     $('#frm_lead_store').submit(function (e) {
         e.preventDefault();
-        var $form = $(this);
+        var form = $(this);
 
         // check if the input is valid using a 'valid' property
-        if (!$form.valid) return false;
+        if (!form.valid) return false;
 
         $.ajax({
             url:"{{ route('create') }}",
@@ -237,26 +251,62 @@
     });
     $('#frm_lead_store').validate({
         rules: {
-            project_title : 'required',
-            project_type_id : 'required',
-            source_id : 'required',
-            user_id : 'required',
-            status : 'required',
-            billing_type :'required',
-            time_estimation : 'required',
-            client_name : 'required',
-            client_email : 'required'
+            project_title : {
+                required: true
+            },
+            project_type_id : {
+                required: true
+            },
+            source_id : {
+                required: true
+            },
+            user_id : {
+                required: true
+            },
+            status : {
+                required: true
+            },
+            billing_type : {
+                required: true
+            },
+            time_estimation : {
+                required: true
+            },
+            client_name : {
+                required: true
+            },
+            client_email : {
+                required: true
+            }
         },
-        message: {
-            project_title : 'Project title is required',
-            project_type_id : 'Project type is required',
-            source_id : 'Lead source is required',
-            user_id : 'Assigned too is required',
-            status : 'Project status is required',
-            billing_type : 'Billing type is required',
-            time_estimation : 'Time estimation is required',
-            client_name : 'Client name is required',
-            client_email : 'Client email is required',
+        messages: {
+            "project_title":{
+                required:"Project title is required here"
+            },
+            "project_type_id":{
+                required:"Project type is required here"
+            },
+            "source_id":{
+                required:"Lead source is required"
+            },
+            "user_id":{
+                required:"Assigned too is required"
+            },
+            "status":{
+                required:"Project status is required"
+            },
+            "billing_type":{
+                required:"Billing type is required"
+            },
+            "time_estimation":{
+                required:"Time estimation is required"
+            },
+            "client_name":{
+                required:"Client name is required"
+            },
+            "client_email":{
+                required:"Client email is required"
+            }
         },
         errorPlacement: function(error, element) {
             var placement = $(element).data('error');
@@ -317,20 +367,5 @@
                 }
             }
         };
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-		ClassicEditor.create( document.querySelector( '#lead_details' ) )
-		.then( newEditor => {
-			desc_editor = newEditor;
-			desc_editor.model.document.on( 'change:data', ( evt, data ) => {
-				var lead_details =  desc_editor.getData();
-			});
-		})
-        .catch( error => {
-            console.error( error );
-        });
-	});
-
 </script>
 @endsection
