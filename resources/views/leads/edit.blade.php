@@ -55,9 +55,9 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span>Project Type</span>
                                         </label>
-                                            <select name="project_type_id" aria-label="Project type" data-error="#projectType" data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid ">
+                                            <select name="project_type_id" aria-label="Project type" data-error="#projectType" class="form-select form-select-solid ">
+                                                <option value="">Select project type</option>
                                                 @foreach ($projects as $project)
-                                                <option value="">Project Type...</option>
                                                 <option value="{{ $project->id }}" {{ ($project->id == $leads->project_type_id) ? 'selected' : '' }}>{{ucfirst(trans($project->project_type))}}</option>
                                                 @endforeach
                                             </select>
@@ -79,9 +79,9 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span>Lead Sources</span>
                                         </label>
-                                            <select name="source_id" aria-label="Project type" data-error="#leadSource" data-control="select2" data-placeholder="Select a Lead Sources..." class="form-select form-select-solid">
+                                            <select name="source_id" aria-label="Lead Source" data-error="#leadSource" class="form-select form-select-solid">
+                                                <option value="">Select lead source</option>
                                                 @foreach ($Sources as $Source)
-                                                <option value="">Project Type...</option>
                                                 <option value="{{ $Source->id }}"{{ ($Source->id == $leads->source_id) ? 'selected' : '' }}>{{ $Source->source }}</option>
                                                 @endforeach
                                             </select>
@@ -96,8 +96,8 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span>Billing Type</span>
                                         </label>
-                                            <select name="billing_type" aria-label="Billing type" data-error="#billingType" data-control="select2" data-placeholder="Select a Billing Type..." class="form-select form-select-solid">
-                                                <option value="">Billing Type...</option>
+                                            <select name="billing_type" aria-label="Billing type" data-error="#billingType" class="form-select form-select-solid">
+                                                <option value="">Select billing type</option>
                                                 <option value="hourly" {{ ($leads->billing_type == 'hourly') ? 'selected' :'' }} >Hourly</option>
                                                 <option value="fixed_cost" {{ ($leads->billing_type == 'fixed_cost') ? 'selected' :'' }} >Fixed Cost </option>
                                                 <option value="not_mentioned" {{ ($leads->billing_type == 'not_mentioned') ? 'selected' :'' }} >Not Mentioned</option>
@@ -111,8 +111,8 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span>Status</span>
                                         </label>
-                                            <select name="status" aria-label="Status" data-error="#status" data-control="select2" data-placeholder="Select a Status..." class="form-select form-select-solid">
-                                                <option value="">Status...</option>
+                                            <select name="status" aria-label="Status" data-error="#status" class="form-select form-select-solid">
+                                                <option value="">Select project status</option>
                                                 <option value="Open" {{ ($leads->status == 'open') ? 'selected' : '' }}>Open</option>
                                                 <option value="in_Conversation" {{ ($leads->status == 'in_Conversation') ? 'selected' : '' }}>In Conversation</option>
                                                 <option value="estimation_submitted" {{ ($leads->status == 'estimation_submitted') ? 'selected' : '' }}>Estimation Submitted</option>
@@ -129,11 +129,11 @@
                                 <div class="row">
                                     <div class="col-md-12 d-flex flex-column fv-row">
                                         <label class="required fs-6 fw-bold mb-2">
-                                            <span>Assigned Too</span>
+                                            <span>Assigned To</span>
                                         </label>
-                                            <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-placeholder="Select a Assigned Too ..." class="form-select form-select-solid">
+                                            <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" class="form-select form-select-solid">
+                                                <option value="">Assign to a user</option>
                                                 @foreach ($users as $user)
-                                                <option value="">Assigned Too...</option>
                                                 <option value="{{ $user->id }}" {{ ($user->id == $leads->user_id) ? 'selected' : '' }}>{{ucfirst(trans($user->name))}} ({{ucfirst(trans($user->getRole->name))}}) </option>
                                                 @endforeach
                                             </select>

@@ -31,9 +31,9 @@
                     <div class="card">
 
                         <div class="card-body" id="load_content">
-                            {{-- begain User list --}}
+                            {{-- begain role list --}}
                             @include('role.include.roleList')
-                            {{-- end User list --}}
+                            {{-- end role list --}}
                         </div>
                     </div>
                 </div>

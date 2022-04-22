@@ -86,19 +86,19 @@
     <!--end::Post-->
 </div>
 
-@endsection
 <!--begin::Modal - User - Add-->
 <div class="modal fade" id="add_user_modal" tabindex="-1" aria-hidden="true">
-    @include('user.create')
-    </div>
-    <!--end::Modal - User - Add-->
-    <!--begin::Modal - User - Edit-->
-    <div class="modal fade" id="edit_user_modal" tabindex="-1" aria-hidden="true">
-    </div>
-    <!--end::Modal - User - Edit-->
-    <!--begin::Modal - User - cgange password-->
+@include('user.create')
+</div>
+<!--end::Modal - User - Add-->
+<!--begin::Modal - User - Edit-->
+<div class="modal fade" id="edit_user_modal" tabindex="-1" aria-hidden="true">
+</div>
+<!--end::Modal - User - Edit-->
+<!--begin::Modal - User - cgange password-->
 
-    <div class="modal fade" id="change_password_modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="change_password_modal" tabindex="-1" aria-hidden="true">
 
-    </div>
-    <!--end::Modal - User - Edit-->
+</div>
+<!--end::Modal - User - Edit-->
+@endsection

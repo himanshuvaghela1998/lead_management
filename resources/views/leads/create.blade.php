@@ -51,9 +51,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">Project Type</label>
-                                            <select name="project_type_id" aria-label="Project type" data-error="#projectType" data-control="select2" data-placeholder="Select a Project Type..." class="form-select form-select-solid fw-bolder">
+                                            <select name="project_type_id" aria-label="Project type" data-error="#projectType" class="form-control form-control-solid">
+                                                <option value="">Select Project Type</option>
                                                 @foreach ($projects as $project)
-                                                <option value="">Project Type...</option>
                                                 <option value="{{ $project->id }}">{{ucfirst(trans($project->project_type))}}</option>
                                                 @endforeach
                                             </select>
@@ -75,9 +75,9 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span >Lead Sources</span>
                                         </label>
-                                            <select name="source_id" aria-label="Project type" data-error="#leadSource" data-control="select2" data-placeholder="Select a Lead Sources..." class="form-select form-select-solid fw-bolder">
+                                            <select name="source_id" aria-label="Lead Source" data-error="#leadSource" class="form-control form-control-solid">
+                                                <option value="">Select Lead Sources</option>
                                                 @foreach ($Sources as $Source)
-                                                <option value="">Project Type...</option>
                                                 <option value="{{ $Source->id }}">{{ $Source->source }}</option>
                                                 @endforeach
                                             </select>
@@ -92,8 +92,8 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span>Billing Type</span>
                                         </label>
-                                            <select name="billing_type" aria-label="Billing type" data-error="#billingType" data-control="select2" data-placeholder="Select a Billing Type..." class="form-select form-select-solid fw-bolder">
-                                            <option value="">Billing Type...</option>
+                                            <select name="billing_type" aria-label="Billing type" data-error="#billingType" class="form-control form-control-solid">
+                                            <option value="">Select Billing Type</option>
                                             <option value="hourly">Hourly</option>
                                             <option value="fixed_cost">Fixed Cost </option>
                                             <option value="not_mentioned">Not Mentioned</option>
@@ -107,8 +107,8 @@
                                         <label class="required fs-6 fw-bold mb-2">
                                             <span>Project Status</span>
                                         </label>
-                                            <select name="status" aria-label="Status" data-control="select2" data-error="#status" data-placeholder="Select a Project Status..." class="form-select capitalize-letter form-select-solid fw-bolder">
-                                                <option value="">Status...</option>
+                                            <select name="status" aria-label="Status" data-error="#status" class="form-control capitalize-letter form-control-solid">
+                                                <option value="">Select Project Status</option>
                                                 <option value="Open">Open</option>
                                                 <option value="in_Conversation">In Conversation</option>
                                                 <option value="estimation_submitted">Estimation Submitted</option>
@@ -124,11 +124,11 @@
                                 <div class="row mt-2">
                                     <div class="d-flex flex-column col-md-12">
                                         <label class="required fs-6 fw-bold mb-2">
-                                            <span class="">Assigned Too</span>
+                                            <span class="">Assigned To</span>
                                         </label>
-                                            <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" data-control="select2" data-placeholder="Select a Assigned Too ..." class=" form-select form-select-solid fw-bolder">
+                                            <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" class=" form-control form-control-solid">
+                                                <option value="">Assign to a user</option>
                                                 @foreach ($users as $user)
-                                                <option value="">Assigned Too...</option>
                                                 <option value="{{ $user->id }}" >{{ucfirst(trans($user->name))}}  ({{ucfirst(trans($user->getRole->name))}})</option>
                                                 @endforeach
                                             </select>
@@ -157,14 +157,13 @@
                                  <div class="row">
                                     <div class="col-md-12 fv-row mb-15">
                                         <label class="fs-6 fw-bold mb-2">Client's Details </label>
-                                        <textarea class="form-control form-control-solid" name="client_other_details" id="" cols="30" rows="5"></textarea>
+                                        <textarea class="form-control form-control-solid" name="client_other_details" placeholder="Enter client details" id="client_other_details" cols="30" rows="5"></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 fv-row mb-15">
                                         <label class="fs-6 fw-bold mb-2">Lead Attachments </label>
                                         <div class="" id="load-lead-media">
-                                            {{-- @include('leads.compact.attachments') --}}
                                         </div>
                                         <div class="dropzone" id="dropzoneForm">
                                             <div class="fallback">

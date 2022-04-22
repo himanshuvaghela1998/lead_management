@@ -39,7 +39,8 @@ Route::middleware(['CheckAdmin'])->group(function(){
     Route::post('users/update/{id}', [UserController::class,'update'])->name('user.modify');
     Route::get('users/edit-confirmPassword/{id}', [UserController::class, 'editPassword'])->name('user.edit_confirmPassword');
     Route::post('users/update-confirmPassword/{id}', [UserController::class, 'updatePassword'])->name('user.update_confirmPassword');
-    // <!--- Lead Controller -->
+    
+    //  Lead Routes
 
     Route::get('leads', [LeadController::class, 'index'])->name('lead');
     Route::match(['GET', 'POST'], 'leads/create', [LeadController::class, 'create'])->name('create');
@@ -49,7 +50,7 @@ Route::middleware(['CheckAdmin'])->group(function(){
     Route::post('leads/upload-media/{id}', [LeadController::class,'uploadLeadMedia'])->name('lead.upload.media');
     Route::post('lead_media/delete', [LeadController::class,'lead_media_delete'])->name('lead_media.delete');
 
-    //Role Controller
+    //Role Routes
 
     Route::get('role', [RoleController::class, 'index'])->name('role');
 
