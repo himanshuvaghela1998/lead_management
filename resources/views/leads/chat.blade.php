@@ -116,7 +116,7 @@
                         <!--end::Card body-->
                         <!--begin::Card footer-->
                         <div class="card-footer pt-4" id="chat_messenger_footer">
-                            <form action="{{ route('lead.chat',$lead->secret) }}" method="POST" id="frm_lead_thread">
+                            <form action="{{ route('lead.chat',$lead->secret) }}" method="POST" id="frm_lead_thread" enctype="multipart/form-data">
                             @csrf
                                 <!--begin::Input-->
                                 <textarea class="form-control form-control-flush mb-3" rows="1" name="message" id="message" data-kt-element="input" placeholder="Type a message"></textarea>
@@ -125,12 +125,10 @@
                                 <div class="d-flex flex-stack">
                                     <!--begin::Actions-->
                                     <div class="d-flex align-items-center me-2">
-                                        <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button" data-bs-toggle="tooltip" title="">
+                                        <label for="thread_attachment">
                                             <i class="bi bi-paperclip fs-3"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button" data-bs-toggle="tooltip" title="">
-                                            <i class="bi bi-upload fs-3"></i>
-                                        </button>
+                                          </label>
+                                        <input style="display: none" type="file" id="thread_attachment" name="thread_attachment" />
                                     </div>
                                     <!--end::Actions-->
                                     <!--begin::Send-->

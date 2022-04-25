@@ -95,7 +95,6 @@ $(document).on("click",".change_password",function (e) {
     e.preventDefault();
     var id = $(this).attr('id');
     var url = $(this).data('url');
-    console.log(url)
     var _modal = $('#change_password_modal');
     $.ajax({
         url: url,
@@ -218,7 +217,6 @@ $(document).on('change','.update_status',function(){
         cancelButtonText: "Cancel",
         customClass: { confirmButton: "btn fw-bold btn-success", cancelButton: "btn fw-bold btn-active-light-danger" },
     }).then(function (result) {
-        console.log(result.isConfirmed,_token);
         if(result.isConfirmed){
                $.ajax({
                     url: URL,
@@ -266,7 +264,6 @@ $(document).on('change','#filter_form select',function(){
 /* Status Filter */
 $(document).on('change','#status_filter',function(){
        var status  =$('#status_filter').val();
-       console.log(status);
        $('#status_id').val(status);
        $('#filter_form').trigger('submit');
 });
@@ -326,7 +323,6 @@ $(document).on('click','.delete_row',function(e){
                     $("#user_"+user_id).remove();
                 },
                 error: function(xhr) {
-                    //console.log(xhr.responseText); // this line will save you tons of hours while debugging
                     Swal.fire({ text: "Something went wrong!", icon: "error", buttonsStyling: !1, confirmButtonText: "Okay", customClass: { confirmButton: "btn fw-bold btn-primary" } });
                 }
             });
@@ -339,9 +335,10 @@ $(document).on('click','.delete_row',function(e){
 
 $(document).on('submit','#frm_lead_thread',function(e){
     e.preventDefault();
-    var form_data = $('#frm_lead_thread').serialize();
+    var form_data = new FormData($('#frm_lead_thread')[0]);
     var form_url = $('#frm_lead_thread').attr('action');
-    if($('#message').val() == '' || $('#message').val() == null)
+    var no_msg = ($('#message').val() == '' || $('#message').val() == null);
+    if($('#thread_attachment').val() == '' && no_msg)
     {
         toastr.error('Please enter a message')
     }
@@ -353,6 +350,8 @@ $(document).on('submit','#frm_lead_thread',function(e){
             dataType: 'json',
             cache: false,
             data: form_data,
+            processData: false,
+            contentType: false,
             success: function(data) {
                 if(data.status == 200){
                     $('#thread_messages').append(data.content);

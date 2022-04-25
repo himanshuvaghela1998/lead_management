@@ -18,7 +18,10 @@ class CreateLeadThreadsTable extends Migration
             $table->integer('lead_id')->index('lead_id');
             $table->integer('sender_id')->nullable();
             $table->integer('recipient_id')->nullable();
-            $table->longText('message');
+            $table->longText('message')->nullable();
+            $table->tinyInteger('is_attachment')->default(0);
+            $table->longText('attachment_url')->nullable();
+            $table->string('attachment_type')->nullable();
             $table->timestamps();
         });
     }

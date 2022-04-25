@@ -112,5 +112,6 @@
 }
 .chat-window
 {
+    min-height: 175px !important;
     max-height: 430px !important;
 }

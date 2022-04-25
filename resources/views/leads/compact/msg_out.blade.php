@@ -18,6 +18,15 @@
         <div class="d-flex align-items-center">
             <div class="p-5 rounded bg-light-primary text-dark fw-bold mw-lg-400px text-end" data-kt-element="message-text">
                 {{ $lead_thread->message }}
+                @if ($lead_thread->is_attachment == 1)
+                    <br>
+                    @if ($lead_thread->attachment_type == 'image')
+                        <img src="{{ url($lead_thread->attachment_url) }}" alt="attachment" height="70" width="100">
+                    @endif
+                    @if ($lead_thread->attachment_type == 'video')
+                        <video src="{{ url($lead_thread->attachment_url) }}" height="70" width="100"></video>
+                    @endif
+                @endif
             </div>
             <span class="intial-letter-chat-image">{{ Auth::user()->name[0] }}</span>
         </div>

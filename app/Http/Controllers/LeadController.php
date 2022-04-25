@@ -219,7 +219,7 @@ class LeadController extends Controller
             if ($validator->fails()) {
                 return response()->json(['success' => false, 'status' => 401, 'message' => $validator->errors()->first()]);
             }
-        } 
+        }
         try {
             $lead_id = getDecrypted($id);
             $original_name = $request->file->getClientOriginalName();
@@ -279,6 +279,61 @@ class LeadController extends Controller
         $lead = Lead::with('clients', 'projectType', 'getUser','leadThreads')->where('id',getDecrypted($id))->first();
         if ($request->method() == 'POST') {
             $lead_thread = new LeadThread;
+            if ($request->file('thread_attachment') != null) {
+                $ismime = $request->thread_attachment->getClientMimeType();
+                if (strstr($ismime, "image/")) {
+                    $validator = Validator::make($request->all(), [
+                        'thread_attachment' => 'mimetypes:image/jpg,image/jpeg,image/png|max:1024'
+                    ], [
+                        'thread_attachment.max' => 'File is larger than 1MB'
+                    ]);
+                } else {
+                    $validator = Validator::make($request->all(), [
+                        'thread_attachment' => 'mimetypes:video/mp4,video/x-msvideo,video/quicktime|max:204800'
+                    ], [
+                        'thread_attachment.max' => 'File is larger than 200MB'
+                    ]);
+                }
+    
+                if ($validator->fails()) {
+                    return response()->json(['status' => 401, 'message' => $validator->errors()->first()]);
+                }
+                try {
+                    $original_name = $request->thread_attachment->getClientOriginalName();
+                    $mime = $request->thread_attachment->getClientMimeType();
+                    $filesize = formatBytes($request->thread_attachment->getSize(), 2);
+                    $extension = $request->thread_attachment->extension();
+                    $file_name = time() . rand() . '.' . $extension;
+                    $image_extension = ['jpg', 'jpeg', 'png'];
+                    $thumb_name = 'thumb_' . time() . rand() . '.png';
+                    $destination_path = 'public/uploads/thread_attachments';
+                    $thumbnail_source_path = '';
+                    $media_type = '';
+                    if (!in_array($extension, $image_extension)) {
+                        $media_type = 'video';
+                        // Video thumbnail
+                        $thumbnail_status = Thumbnail::getThumbnail($request->thread_attachment->getRealPath(), $destination_path, $thumb_name, env('TIME_TO_TAKE_SCREENSHOT'));
+                        if ($thumbnail_status) {
+                            $thumbnail_source_path = $destination_path . '/' . $thumb_name;
+                        } else {
+                            return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
+                        }
+                    } else {
+                        $media_type = 'image';
+                        // Image thumbnail
+                        $thumbnail_source_path = $destination_path . '/' . $thumb_name;
+                        // Local Thumbnail Url
+                        Image::make($request->thread_attachment->getRealPath())->fit(env('THUMBNAIL_IMAGE_WIDTH'), env('THUMBNAIL_IMAGE_HEIGHT'), NULL, 'top')->save($thumbnail_source_path, 85);
+                        //End Generate thumbnail
+                    }
+                    $lead_thread->is_attachment = 1;
+                    $lead_thread->attachment_type = $media_type;
+                    $lead_thread->attachment_url = $thumbnail_source_path;
+                } 
+                catch (Exception $e) {
+                    return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
+                } 
+            }
             $lead_thread->lead_id = $lead->id;
             $lead_thread->sender_id = Auth::user()->id;
             $lead_thread->message = $request->message;
