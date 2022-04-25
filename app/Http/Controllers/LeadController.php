@@ -8,10 +8,12 @@ use App\Models\Client;
 use App\Models\LeadAttachment;
 use App\Models\ProjectType;
 use App\Models\LeadSources;
+use App\Models\LeadThread;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Thumbnail;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Image;
 
 class LeadController extends Controller
@@ -272,9 +274,19 @@ class LeadController extends Controller
         }
     }
 
-    public function leadChat($id)
+    public function leadChat(Request $request,$id)
     {
-        $lead = Lead::with('clients', 'projectType', 'getUser')->where('id',getDecrypted($id))->first();
+        $lead = Lead::with('clients', 'projectType', 'getUser','leadThreads')->where('id',getDecrypted($id))->first();
+        if ($request->method() == 'POST') {
+            $lead_thread = new LeadThread;
+            $lead_thread->lead_id = $lead->id;
+            $lead_thread->sender_id = Auth::user()->id;
+            $lead_thread->message = $request->message;
+            $lead_thread->save();
+            
+            $view = view('leads.compact.msg_out',compact('lead_thread'))->render();
+            return response()->json(['status' => 200 , 'message' => "Message sent", 'content' => $view]);
+        }
         return view('leads.chat',compact('lead'));
     }
 }

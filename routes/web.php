@@ -49,7 +49,7 @@ Route::middleware(['CheckAdmin'])->group(function(){
     Route::delete('leads/delete/{id}', [LeadController::class, 'delete'])->name('lead.destroy');
     Route::post('leads/upload-media/{id}', [LeadController::class,'uploadLeadMedia'])->name('lead.upload.media');
     Route::post('leads/media/delete', [LeadController::class,'lead_media_delete'])->name('lead.media.delete');
-    Route::get('leads/chat/{id}', [LeadController::class,'leadChat'])->name('lead.chat');
+    Route::match(['GET', 'POST'], 'leads/chat/{id}', [LeadController::class,'leadChat'])->name('lead.chat');
 
     //Role Routes
 

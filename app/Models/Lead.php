@@ -46,4 +46,9 @@ class Lead extends Model
     {
         return $this->hasMany(LeadAttachment::class, 'lead_id', 'id');
     }
+
+    public function leadThreads()
+    {
+        return $this->hasMany(LeadThread::class, 'lead_id', 'id');
+    }
 }

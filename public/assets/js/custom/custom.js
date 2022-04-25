@@ -337,3 +337,36 @@ $(document).on('click','.delete_row',function(e){
 });
 /* END Delete Record Jquery */
 
+$(document).on('submit','#frm_lead_thread',function(e){
+    e.preventDefault();
+    var form_data = $('#frm_lead_thread').serialize();
+    var form_url = $('#frm_lead_thread').attr('action');
+    if($('#message').val() == '' || $('#message').val() == null)
+    {
+        toastr.error('Please enter a message')
+    }
+    else
+    {
+        $.ajax({
+            type: "POST",
+            url: form_url,
+            dataType: 'json',
+            cache: false,
+            data: form_data,
+            success: function(data) {
+                if(data.status == 200){
+                    $('#thread_messages').append(data.content);
+                    $("#thread_messages").animate({ scrollTop: $("#thread_messages")[0].scrollHeight }, 1000);
+                    toastr.success(data.message);
+                    $('#message').val('');
+                }else{
+                    toastr.error(data.message);
+                }
+            },
+            error: function(){
+                toastr.error('Something went wrong');
+            }
+        });
+    }
+});
+
