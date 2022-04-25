@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-dialog-centered mw-650px">
     <div class="modal-content">
-        <form action="{{ route('subModules.update', [$submodules->secret]) }}"  class="horizontal-form" method="POST" id="subModule_store">
+        <form action="{{ route('subModules.update', [$submodules->secret]) }}"  class="horizontal-form" method="POST" id="edit_module">
             {{ csrf_field() }}
             <!--begin::Modal header-->
             <div class="modal-header">
@@ -28,11 +28,11 @@
                     <!--begin::Input group-->
                     <div class="row mt-2">
                         <div class="d-flex flex-column col-md-12">
-                            <label class="required fs-6 fw-bold mb-2">
-                                <span class="">Model name</span>
+                            <label class=" fs-6 fw-bold mb-2">
+                                <span class="">Select Module</span>
                             </label>
-                                <select name="module_id" aria-label="Model name" data-error="#modelname" data-error="#module_id" data-control="select2" data-msg-required="Model name is required." data-placeholder="Select a Model name ..." class=" form-select form-select-solid fw-bolder">
-                                    <option value="">Model name...</option>
+                                <select name="module_id" aria-label="Model name" data-error="#module_id" data-control="select2" data-msg-required="Model name is required." data-placeholder="Select a Model name ..." class=" form-select form-select-solid fw-bolder">
+                                    <option value="">Select Module...</option>
                                     @foreach ($modules as $module)
                                     <option value="{{ $module->id }}"{{ ($module->id == $submodules->module_id) ? 'selected' : '' }}>{{ $module->name }}</option>
                                     @endforeach
@@ -44,14 +44,14 @@
                         </div>
                     </div>
                         <div class="col-md-12">
-                            <label class="required fs-6 fw-bold mb-2">Name</label>
+                            <label class="required fs-6 fw-bold mb-2">Sub Module Name</label>
                             <input type="text" class="form-control form-control-solid" placeholder="Enter full name" value="{{ $submodules->name }}" name="name" id="name"/>
                         </div>
                         @error('name')
                             <span>{{ $message }}</span>
                         @enderror
                     <div class="col-md-12">
-                        <label class="required fs-6 fw-bold mb-2">Slug</label>
+                        <label class="required fs-6 fw-bold mb-2">Sub Module Slug</label>
                         <input type="text" class="form-control form-control-solid" placeholder="Enter Slug" name="slug" value="{{ $submodules->slug }}" id="slug"/>
                     </div>
                         @error('slug')

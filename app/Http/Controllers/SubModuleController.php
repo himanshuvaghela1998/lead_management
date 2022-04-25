@@ -13,8 +13,8 @@ class SubModuleController extends Controller
     public function index()
     {
         $submodules = SubModule::where('is_delete', '!=', 1)->with('getModule')->get();
-        $models = Module::get();
-        return view('subModule.index', compact('submodules', 'models'));
+        $modules = Module::get();
+        return view('subModule.index', compact('submodules', 'modules'));
     }
 
     public function create(Request $request)
@@ -88,7 +88,7 @@ class SubModuleController extends Controller
             $subModule->save();
             if($subModule){
                 $type = 'success';
-                $msg = 'Module deleted successfully';
+                $msg = 'SubModule deleted successfully';
             }else{
                 $type = 'error';
                 $msg = 'Error! something went to wrong!';

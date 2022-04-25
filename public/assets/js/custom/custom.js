@@ -339,31 +339,54 @@ $(document).on('click','.delete_row',function(e){
 
 /* start module validation */
 
-$(document).ready(function(){
-    $('#module_store').validate({
-        rules: {
-            name: {
-                required: true,
-            },
-            slug: {
-                required: true,
-            },
-        },
-        message: {
+var _token = $("meta[name='_token']").attr('content');
+function validation()
+{
 
-            name: {
-                required: 'Name is required.',
-            },
-            slug: {
-                required: 'Slug is required.'
+    var module_rules = {
+        name: {
+            required: true,
+        },
+        slug: {
+            required: true,
+            nowhitespace : true,
+        },
+    }
+
+    var module_msgs = {
+        "name":{
+            required:"Name is required."
+        },
+        "slug":{
+            required:"Slug is required.",
+            nowhitespace:"No space please and No capital letters please valid input value.",
+        },
+    }
+
+    // Start add module
+    jQuery.validator.addMethod("nowhitespace", function(value, element) {
+        return this.optional( element ) || /^[a-z+_]+(?:-[a-z+_]+)*$/ .test( value );
+    }, "No space please and don't leave it empty");
+
+
+    $("#edit_module").validate({
+        ignore: [],
+        rules: module_rules,
+        messages: module_msgs,
+        errorPlacement: function(error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
             }
         },
-        submitHandler: function(form){
-            form.submit();
+        //perform an AJAX post to ajax.php
+        submitHandler: function() {
+            return true;
         }
-    })
-});
-
+    });
+}
 $('#add_module_btn').on('click',function(){
     $('#add_module_model').modal('show')
 })
@@ -376,7 +399,6 @@ $(document).on("click",".edit_module",function (e) {
     e.preventDefault();
     var id = $(this).attr('id');
     var url = $(this).data('url');
-    console.log(url)
     var _modal = $('#edit_lead_modal');
     $.ajax({
         url: url,
@@ -388,6 +410,7 @@ $(document).on("click",".edit_module",function (e) {
             if (response.status == 'success') {
                 $('#edit_lead_modal').html(response.content);
                 _modal.modal('show');
+                validation();
                 $('.close-modal').on('click', function(){
                     $('#edit_lead_modal').modal('hide');
                 });
@@ -408,15 +431,13 @@ $('.close-subModule-modal').on('click', function(){
     $('#add_subModule_modal').modal('hide');
 })
 
-
-var _token = $("meta[name='_token']").attr('content');
 var module_rules = {
-
     name: {
         required: true,
     },
     slug: {
         required: true,
+        nowhitespace: true,
     },
 }
 
@@ -425,14 +446,18 @@ var module_msgs = {
         required:"Name is required."
     },
     "slug":{
-        required:"Slug is required."
+        required:"Slug is required.",
+        nowhitespace: "No space please and No capital letters please valid input value"
     },
-
 }
-console.log(module_msgs);
+
+// Start add user
+jQuery.validator.addMethod("nowhitespace", function(value, element) {
+    return this.optional( element ) || /^[a-z+_]+(?:-[a-z+_]+)*$/ .test( value );
+}, "No space please and don't leave it empty");
 
 
-$("#module_store").validate({
+$("#store_module").validate({
     ignore: [],
     rules: module_rules,
     messages: module_msgs,
@@ -457,15 +482,7 @@ $(document).on("click",".edit_subModule",function (e) {
             if(response.status == 'success'){
                 $('#edit_subModule_modal').html(response.content);
                 _modal.modal('show');
-                $("#module_store").validate({
-                    ignore: [],
-                    rules: module_rules,
-                    messages: module_msgs,
-                    //perform an AJAX post to ajax.php
-                    submitHandler: function() {
-                        return true;
-                    }
-                });
+                validation();
                 $('.close-modal').on('click',function(){
                     $('#edit_subModule_modal').modal('hide');
                 })

@@ -41,21 +41,24 @@ class ModuleController extends Controller
         }
     }
 
-    public function moduleEdit($id)
+    public function moduleEdit(Request $request, $id)
     {
+
         $editModule = Module::find(getDecrypted($id));
         if ($editModule) {
+            $editModule->where('is_delete', '!=', 1)->get()->pluck('name','id')->toArray();
             $view = view('module.edit',compact('editModule'))->render();
             return response()->json(['status'=>'success','content'=>$view]);
         }
         return response()->json(['status'=>'error']);
+
     }
 
     public function moduleUpdate(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:lead_modals,slug,', $id
+            'slug' => 'required|unique:modules,slug,', $id
         ], [
             'name.required' => 'Name is required.',
             'slug.required' => 'Slug is required.'
@@ -73,9 +76,6 @@ class ModuleController extends Controller
             }else{
                 return redirect()->route('module')->with('error', 'something went to wrong!');
             }
-
-            // return response()->json(['status'=>$type,'message'=>$msg
-
     }
 
     public function moduleDelete($id)

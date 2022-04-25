@@ -8,7 +8,7 @@
                     <input class="form-check-input" type="checkbox" data-kt-check="true" name="select_all" value="1" id="search-select-all" />
                 </div>
             </th> --}}
-            <th style="width: 25%">Model Name</th>
+            <th style="width: 25%">Module Name</th>
             <th style="width: 25%">Name</th>
             <th style="width: 25%">Slug</th>
             <th style="width: 15%">Actions</th>
