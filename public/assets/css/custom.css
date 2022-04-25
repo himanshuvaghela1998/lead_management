@@ -103,6 +103,8 @@
     align-self: flex-end;
     border-bottom: 0px !important;
     padding: 0px !important;
+    margin-top: 8px;
+    margin-right: 8px;
 }
 .lead-details-card-body
 {
