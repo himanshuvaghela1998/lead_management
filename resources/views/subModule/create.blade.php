@@ -31,14 +31,14 @@
                             <label class="required fs-6 fw-bold mb-2">
                                 <span class="">Model name</span>
                             </label>
-                                <select name="model_id" aria-label="Model name" data-error="#modelname" data-error="#model_id" data-control="select2" data-msg-required="Model name is required." data-placeholder="Select a Model name ..." class=" form-select form-select-solid fw-bolder">
+                                <select name="module_id" aria-label="Model name" data-error="#modelname" data-error="#model_id" data-control="select2" data-msg-required="Model name is required." data-placeholder="Select a Model name ..." class=" form-select form-select-solid fw-bolder">
                                     @foreach ($models as $model)
                                     <option value="">Model name...</option>
                                     <option value="{{ $model->id }}" >{{ucfirst(trans($model->name))}}</option>
                                     @endforeach
                                 </select>
-                                <div id="model_id"></div>
-                                @error('model_id')
+                                <div id="module_id"></div>
+                                @error('module_id')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                         </div>

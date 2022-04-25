@@ -92,7 +92,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">module</span>
+                        <span class="menu-title">Module</span>
                     </a>
                 </div>
                 <div class="menu-item">

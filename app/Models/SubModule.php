@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubModel extends Model
+class SubModule extends Model
 {
     use HasFactory;
 
@@ -19,7 +19,8 @@ class SubModel extends Model
 
     public function getModule()
     {
-        return $this->belongsTo(Module::class, 'model_id', 'id');
+        return $this->belongsTo(Module::class, 'module_id', 'id');
     }
+
 
 }

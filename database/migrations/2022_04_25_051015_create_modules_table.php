@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeadModalsTable extends Migration
+class CreateModulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLeadModalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lead_modals', function (Blueprint $table) {
+        Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
             $table->string('slug');
@@ -28,6 +28,6 @@ class CreateLeadModalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lead_modals');
+        Schema::dropIfExists('modules');
     }
 }

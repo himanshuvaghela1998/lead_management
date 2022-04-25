@@ -9,7 +9,7 @@ class Module extends Model
 {
     use HasFactory;
 
-    protected $table = 'lead_modals';
+    protected $table = 'modules';
 
     protected $appends = ['secret'];
 

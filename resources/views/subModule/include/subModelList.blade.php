@@ -42,9 +42,9 @@
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
-                        {{-- <div class="menu-item px-3">
-                            <a class="menu-link px-3 delete_row" data-title="module" data-user_id ="{{$submodule->secret}}" data-href="{{route('module.delete',$module->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>
-                        </div> --}}
+                        <div class="menu-item px-3">
+                            <a class="menu-link px-3 delete_row" data-title="SubModules" data-user_id ="{{$submodule->secret}}" data-href="{{route('subModules.delete',$submodule->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>
+                        </div>
                         <!--end::Menu item-->
                     </div>
                 </td>

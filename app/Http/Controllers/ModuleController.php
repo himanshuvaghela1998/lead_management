@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Module;
 
-class ModelController extends Controller
+
+class ModuleController extends Controller
 {
     public function index()
     {
-        $modules = Module::get();
+        $modules = Module::where('is_delete', '!=', 1)->get();
         return view('module.index', compact('modules'));
     }
 
@@ -19,18 +20,18 @@ class ModelController extends Controller
 
             $request->validate([
                 'name' => 'required',
-                'slug' => 'required|unique:lead_modals,slug,id',
+                'slug' => 'required|unique:modules,slug,id',
             ], [
                 'name.required' => 'Name is required.',
                 'slug.required' => 'Slug is required.'
             ]);
 
-            $model = new Module();
-            $model->name = $request->input('name');
-            $model->slug = $request->input('slug');
-            $model->save();
+            $modules = new Module;
+            $modules->name = $request->input('name');
+            $modules->slug = $request->input('slug');
+            $modules->save();
 
-            if ($model) {
+            if ($modules) {
 
                 return redirect()->route('module')->with('message', 'model insert successfully');
             }else{
@@ -44,7 +45,6 @@ class ModelController extends Controller
     {
         $editModule = Module::find(getDecrypted($id));
         if ($editModule) {
-            // $editModule = Lead_model::find(getDecrypted($id));
             $view = view('module.edit',compact('editModule'))->render();
             return response()->json(['status'=>'success','content'=>$view]);
         }
@@ -85,7 +85,7 @@ class ModelController extends Controller
         $deleteModule->save();
         if($deleteModule){
             $type = 'success';
-            $msg = 'User deleted successfully';
+            $msg = 'Module deleted successfully';
         }else{
             $type = 'error';
             $msg = 'Error! something went to wrong!';
