@@ -115,3 +115,44 @@
     min-height: 175px !important;
     max-height: 430px !important;
 }
+.attachment-preview{
+	position: relative;
+	padding: 10px;
+}
+.attachment-preview>p{
+	margin: 0;
+    font-weight: 600;
+    padding: 0px;
+    padding-top: 10px;
+}
+.attachment-preview>p>svg{
+	font-size: 16px;
+    margin: 0;
+    margin-bottom: -1px;
+    color: #737373;
+}
+.attachment-preview svg:active{
+	transform: none;
+}
+.attachment-preview>svg:first-child{
+	position: absolute;
+    background: rgba(0, 0, 0, 0.33);
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    border-radius: 100%;
+    font-size: 16px;
+    margin: 0;
+    top: 10px;
+    color: #fff;
+}
+.image-file{
+    cursor: pointer;
+	width: 140px;
+    height: 70px;
+    border-radius: 4px;
+    background-color: #f7f7f7;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

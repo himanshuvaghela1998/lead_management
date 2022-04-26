@@ -353,6 +353,7 @@ $(document).on('submit','#frm_lead_thread',function(e){
             processData: false,
             contentType: false,
             success: function(data) {
+                cancelAttachment();
                 if(data.status == 200){
                     $('#thread_messages').append(data.content);
                     $("#thread_messages").animate({ scrollTop: $("#thread_messages")[0].scrollHeight }, 1000);
@@ -363,9 +364,78 @@ $(document).on('submit','#frm_lead_thread',function(e){
                 }
             },
             error: function(){
+                cancelAttachment();
                 toastr.error('Something went wrong');
             }
         });
     }
 });
+
+function attachmentTemplate(fileType, fileName, imgURL = null) {
+    if (fileType == 'image') {
+        return `
+        <div class="attachment-preview">
+            <span class="fas fa-times cancel"></span>
+            <div class="image-file chat-image" style="background-image: url('`+ imgURL + `');"></div>
+            <p><span class="fas fa-file-image"></span> `+ fileName + `</p>
+        </div>
+        `;
+    }else if(fileType == 'video')
+        {
+            return `
+            <div class="attachment-preview">
+                <span class="fas fa-times cancel"></span>
+                <div><video src="`+imgURL+`" height="90" width="140" controls></video></div>
+                <p><span class="fas fa-file-image"></span> `+ fileName + `</p>
+            </div>
+            `;
+        }
+     else {
+        return `
+        <div class="attachment-preview">
+            <span class="fas fa-times cancel"></span>
+            <p style="padding:0px 30px;"><span class="fas fa-file"></span> `+ fileName + `</p>
+        </div>
+        `;
+    }
+}
+
+$('#thread_attachment').on('change',function(e){
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener('load', (e) => {
+        if (file.type.match("image.*")) {
+            // if the file is an image
+            $('#chat_messenger_footer').find('.attachment-preview').remove(); // older one
+            $('#chat_messenger_footer').prepend(attachmentTemplate('image', file.name, e.target.result));
+        }else if(file.type.match("video.*"))
+        {
+            $('#chat_messenger_footer').find('.attachment-preview').remove(); // older one
+            $('#chat_messenger_footer').prepend(attachmentTemplate('video', file.name, e.target.result));
+        }
+         else {
+            // if the file not image
+            $('#chat_messenger_footer').find('.attachment-preview').remove(); // older one
+            $('#chat_messenger_footer').prepend(attachmentTemplate('file', file.name));
+            var allowedExtensions = /(\.doc|\.docx|\.pdf|\.tex|\.txt)$/i;
+            // files validation
+            if (!allowedExtensions.exec(file.name)) {
+                cancelAttachment();
+                toastr.error("Please upload file as images, videos, pdf, doc only","Invalid file");
+            }
+        }
+    });
+});
+
+function cancelAttachment() {
+    $('#chat_messenger_footer').find('.attachment-preview').remove();
+    $('#thread_attachment').replaceWith($('#thread_attachment').val('').clone(true));
+}
+
+// Attachment preview cancel button.
+$('body').on('click', ".attachment-preview .cancel", (e) => {
+    cancelAttachment();
+});
+
 
