@@ -32,6 +32,9 @@
                     @if ($lead_thread->attachment_type == 'video')
                         <video src="{{ url($lead_thread->attachment_url) }}" height="70" width="100"></video>
                     @endif
+                    @if ($lead_thread->attachment_type == 'doc')
+                        <a target="blank" href="{{url($lead_thread->attachment_url)}}"><i class="fa fa-solid fa-file fa-3x"></i></a>
+                    @endif
                 @endif
             </div>
         </div>
