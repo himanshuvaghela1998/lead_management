@@ -3,7 +3,7 @@
         <form action="{{ route('module.update',[$editModule->secret]) }}" class="horizontal-form" method="POST" id="edit_module">
             {{ csrf_field() }}
             <div class="modal-header">
-                <h2 class="fw-bolder">edit a Module</h2>
+                <h2 class="fw-bolder">Edit Module</h2>
                 <button class="btn btn-icon btn-sm btn-active-icon-primary close-modal" type="reset">
                     <span class="svg-icon svg-icon-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

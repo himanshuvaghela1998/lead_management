@@ -5,7 +5,7 @@
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2 class="fw-bolder">Add a Sub Module </h2>
+                <h2 class="fw-bolder">Add Sub Module </h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <button class="btn btn-icon btn btn-light me-3 btn-sm close-subModule-modal" type="reset">
@@ -31,9 +31,9 @@
                             <label class="required fs-6 fw-bold mb-2">
                                 <span class="">Select Module</span>
                             </label>
-                                <select name="module_id" aria-label="Module name"  data-error="#Module_id" data-control="select2" data-msg-required="Module name is required." data-placeholder="Select a Module name ..." class=" form-select form-select-solid fw-bolder">
+                                <select name="module_id" aria-label="Module name"  data-error="#Module_id" data-msg-required="Module name is required." class="form-select form-select-solid fw-bolder">
+                                    <option value="">Select a Module</option>
                                     @foreach ($modules as $module)
-                                    <option value="">Model name...</option>
                                     <option value="{{ $module->id }}" >{{ucfirst(trans($module->name))}}</option>
                                     @endforeach
                                 </select>
@@ -45,10 +45,10 @@
                     </div>
                         <div class="col-md-12">
                             <label class="required fs-6 fw-bold mb-2">Sub Module Name</label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Enter full name" name="name" id="name"/>
+                            <input type="text" class="form-control form-control-solid" placeholder="Enter sub module name" name="name" id="name"/>
                         </div>
                     <div class="col-md-12">
-                        <label class="required fs-6 fw-bold mb-2">Sub   Module Slug</label>
+                        <label class="required fs-6 fw-bold mb-2">Sub Module Slug</label>
                         <input type="text" class="form-control form-control-solid" placeholder="Enter Slug" name="slug" id="slug"/>
                     </div>
 

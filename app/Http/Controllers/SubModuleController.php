@@ -23,7 +23,7 @@ class SubModuleController extends Controller
         if ($request->method() == 'POST') {
 
             $request->validate([
-                'module_id' => 'required',
+                'module_name' => 'required',
                 'name' => 'required|unique:sub_modules,name,id',
                 'slug' => 'required|unique:sub_modules,slug,id'
             ]);

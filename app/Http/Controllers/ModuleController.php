@@ -58,24 +58,25 @@ class ModuleController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:modules,slug,', $id
+            'slug' => 'required',
         ], [
             'name.required' => 'Name is required.',
             'slug.required' => 'Slug is required.'
         ]);
+        info($request->name);
+        info($request->slug);
+        $updateModule = Module::find(getDecrypted($id));
+        $updateModule->name = $request->input('name');
+        $updateModule->slug = $request->input('slug');
+        $updateModule->save();
 
-            $updateModule = Module::find(getDecrypted($id));
-            $updateModule->name = $request->input('name');
-            $updateModule->slug = $request->input('slug');
-            $updateModule->save();
+        if($updateModule){
 
-            if($updateModule){
+            return redirect()->route('module')->with('message', 'Module Update successfully');
 
-                return redirect()->route('module')->with('message', 'Module Update successfully');
-
-            }else{
-                return redirect()->route('module')->with('error', 'something went to wrong!');
-            }
+        }else{
+            return redirect()->route('module')->with('error', 'something went to wrong!');
+        }
     }
 
     public function moduleDelete($id)

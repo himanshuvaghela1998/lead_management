@@ -4,9 +4,9 @@ $.ajaxSetup({
     }
 });
 
-
-
 var _token = $("meta[name='_token']").attr('content');
+
+// User validation Start
 var user_rules = {
     email: {
         checkemail: true,
@@ -82,6 +82,8 @@ $("#user_store").validate({
     }
 });
 
+// User validation end
+
 $('#add_user_btn').on('click',function(){
     $('#add_user_modal').modal('show')
 })
@@ -90,7 +92,7 @@ $('.close-modal').on('click',function(){
 })
 // End add User
 
-// Start Edit User pass
+// Password change start
 $(document).on("click",".change_password",function (e) {
     e.preventDefault();
     var id = $(this).attr('id');
@@ -116,10 +118,7 @@ $(document).on("click",".change_password",function (e) {
         }
     })
 })
-
-// end edit user
-
-
+//Change password end
 
 // Start Edit User
 $(document).on("click",".edit_user",function (e) {
@@ -159,7 +158,7 @@ $(document).on("click",".edit_user",function (e) {
     });
 
 })
-// end edit user
+// end Edit User
 
 
 check_all_click();
@@ -342,7 +341,6 @@ $(document).on('click','.delete_row',function(e){
 var _token = $("meta[name='_token']").attr('content');
 function validation()
 {
-
     var module_rules = {
         name: {
             required: true,
@@ -431,36 +429,26 @@ $('.close-subModule-modal').on('click', function(){
     $('#add_subModule_modal').modal('hide');
 })
 
-var module_rules = {
-    name: {
-        required: true,
-    },
-    slug: {
-        required: true,
-        nowhitespace: true,
-    },
-}
-
-var module_msgs = {
-    "name":{
-        required:"Name is required."
-    },
-    "slug":{
-        required:"Slug is required.",
-        nowhitespace: "No space please and No capital letters please valid input value"
-    },
-}
-
-// Start add user
-jQuery.validator.addMethod("nowhitespace", function(value, element) {
-    return this.optional( element ) || /^[a-z+_]+(?:-[a-z+_]+)*$/ .test( value );
-}, "No space please and don't leave it empty");
-
-
 $("#store_module").validate({
     ignore: [],
-    rules: module_rules,
-    messages: module_msgs,
+    rules: {
+        name: {
+            required: true,
+        },
+        slug: {
+            required: true,
+            nowhitespace: true,
+        },
+    },
+    messages: {
+        "name":{
+            required:"Name is required."
+        },
+        "slug":{
+            required:"Slug is required.",
+            nowhitespace: "No space please and No capital letters please valid input value"
+        },
+    },
     //perform an AJAX post to ajax.php
     submitHandler: function() {
         return true;

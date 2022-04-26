@@ -43,7 +43,7 @@
                                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
 
                                     <!--begin::Add SubModule-->
-                                    <button type="button" class="btn btn-primary btn-sm" id="add_subModule_btn"><i class="fas fa-user-plus"></i>Add Models</button>
+                                    <button type="button" class="btn btn-primary btn-sm" id="add_subModule_btn"><i class="fas fa-user-plus"></i>Add Sub Module</button>
                                     <!--end::Add SubModule-->
                                 </div>
                             </div>
