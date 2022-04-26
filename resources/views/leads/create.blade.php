@@ -230,11 +230,15 @@
 
         // check if the input is valid using a 'valid' property
         if (!form.valid) return false;
-
+        var form_data = new FormData($('#frm_lead_store')[0]);
         $.ajax({
             url:"{{ route('create') }}",
             type:'post',
-            data: $('#frm_lead_store').serialize(),
+            dataType: 'json',
+            cache: false,
+            data: form_data,
+            processData: false,
+            contentType: false,
             success: function (response)
             {
                 lead_id = response.secret_id;

@@ -21,10 +21,10 @@
                 @if ($lead_thread->is_attachment == 1)
                     <br>
                     @if ($lead_thread->attachment_type == 'image')
-                        <img src="{{ url($lead_thread->attachment_url) }}" alt="attachment" height="70" width="100">
+                        <img src="{{ url($lead_thread->attachment_url) }}" alt="attachment" height="150" width="200">
                     @endif
                     @if ($lead_thread->attachment_type == 'video')
-                        <video src="{{ url($lead_thread->attachment_url) }}" height="70" width="100"></video>
+                        <video src="{{ url($lead_thread->attachment_url) }}" height="150" width="200" controls></video>
                     @endif
                 @endif
             </div>

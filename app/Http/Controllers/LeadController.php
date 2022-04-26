@@ -234,13 +234,16 @@ class LeadController extends Controller
             $media_type = '';
             if (!in_array($extension, $image_extension)) {
                 $media_type = 'video';
-                // Video thumbnail
-                $thumbnail_status = Thumbnail::getThumbnail($request->file->getRealPath(), $destination_path, $thumb_name, env('TIME_TO_TAKE_SCREENSHOT'));
-                if ($thumbnail_status) {
-                    $thumbnail_source_path = $destination_path . '/' . $thumb_name;
-                } else {
-                    return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
-                }
+                $input['media_url'] = time() . '.' . $request->file->getClientOriginalExtension();
+                $request->file->move($destination_path, $input['media_url']);
+                $thumbnail_source_path = $destination_path . '/' . $input['media_url'];
+                // // Video thumbnail
+                // $thumbnail_status = Thumbnail::getThumbnail($request->file->getRealPath(), $destination_path, $thumb_name, env('TIME_TO_TAKE_SCREENSHOT'));
+                // if ($thumbnail_status) {
+                //     $thumbnail_source_path = $destination_path . '/' . $thumb_name;
+                // } else {
+                //     return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
+                // }
             } else {
                 $media_type = 'image';
                 // Image thumbnail
@@ -311,13 +314,10 @@ class LeadController extends Controller
                     $media_type = '';
                     if (!in_array($extension, $image_extension)) {
                         $media_type = 'video';
-                        // Video thumbnail
-                        $thumbnail_status = Thumbnail::getThumbnail($request->thread_attachment->getRealPath(), $destination_path, $thumb_name, env('TIME_TO_TAKE_SCREENSHOT'));
-                        if ($thumbnail_status) {
-                            $thumbnail_source_path = $destination_path . '/' . $thumb_name;
-                        } else {
-                            return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
-                        }
+                        $input['media_url'] = time() . '.' . $request->thread_attachment->getClientOriginalExtension();
+						$request->thread_attachment->move($destination_path, $input['media_url']);
+						$source_url = $destination_path . '/' . $input['media_url'];
+                        $lead_thread->attachment_url = $source_url;
                     } else {
                         $media_type = 'image';
                         // Image thumbnail
@@ -325,10 +325,10 @@ class LeadController extends Controller
                         // Local Thumbnail Url
                         Image::make($request->thread_attachment->getRealPath())->fit(env('THUMBNAIL_IMAGE_WIDTH'), env('THUMBNAIL_IMAGE_HEIGHT'), NULL, 'top')->save($thumbnail_source_path, 85);
                         //End Generate thumbnail
+                        $lead_thread->attachment_url = $thumbnail_source_path;
                     }
                     $lead_thread->is_attachment = 1;
                     $lead_thread->attachment_type = $media_type;
-                    $lead_thread->attachment_url = $thumbnail_source_path;
                 } 
                 catch (Exception $e) {
                     return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
