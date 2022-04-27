@@ -4,9 +4,27 @@ $.ajaxSetup({
     }
 });
 
-
-
 var _token = $("meta[name='_token']").attr('content');
+// extra checking methods start
+
+jQuery.validator.addMethod('checkemail', function (value) {
+    return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value);
+}, 'Please enter a valid email address.');
+jQuery.validator.addMethod("noSpace", function(value, element) {
+    return this.optional( element ) || /^[a-z+_]+(?:-[a-z+_]+)*$/ .test( value );
+}, "No space please and don't leave it empty");
+
+jQuery.validator.addMethod("noSpacePwd", function(value, element) {
+    return value.indexOf(" ") < 0 && value != "";
+}, "No space please and don't leave it empty");
+
+jQuery.validator.addMethod("pwcheck", function(value) {
+    return /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/.test(value) // consists of only these
+});
+
+// extra checking methods end
+
+// User validation Start
 var user_rules = {
     email: {
         checkemail: true,
@@ -57,21 +75,6 @@ var user_msgs = {
 }
 
 // Start add user
-jQuery.validator.addMethod('checkemail', function (value) {
-    return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value);
-}, 'Please enter a valid email address.');
-jQuery.validator.addMethod("noSpace", function(value, element) {
-    return this.optional( element ) || /^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/.test( value );
-}, "No space please and don't leave it empty");
-
-jQuery.validator.addMethod("noSpacePwd", function(value, element) {
-    return value.indexOf(" ") < 0 && value != "";
-}, "No space please and don't leave it empty");
-
-jQuery.validator.addMethod("pwcheck", function(value) {
-    return /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/.test(value) // consists of only these
-});
-
 $("#user_store").validate({
     ignore: [],
     rules: user_rules,
@@ -82,6 +85,8 @@ $("#user_store").validate({
     }
 });
 
+// User validation end
+
 $('#add_user_btn').on('click',function(){
     $('#add_user_modal').modal('show')
 })
@@ -90,7 +95,7 @@ $('.close-modal').on('click',function(){
 })
 // End add User
 
-// Start Edit User pass
+// Password change start
 $(document).on("click",".change_password",function (e) {
     e.preventDefault();
     var id = $(this).attr('id');
@@ -115,10 +120,7 @@ $(document).on("click",".change_password",function (e) {
         }
     })
 })
-
-// end edit user
-
-
+//Change password end
 
 // Start Edit User
 $(document).on("click",".edit_user",function (e) {
@@ -146,7 +148,7 @@ $(document).on("click",".edit_user",function (e) {
                     }
                 });
                 $('.close-modal').on('click',function(){
-                    $('#edit_user_modal').modal('hide')
+                    $('#edit_user_modal').modal('hide');
                 })
             }else{
                 toastr.error('No user found');
@@ -158,7 +160,7 @@ $(document).on("click",".edit_user",function (e) {
     });
 
 })
-// end edit user
+// end Edit User
 
 
 check_all_click();
@@ -427,6 +429,80 @@ $('#thread_attachment').on('change',function(e){
         }
     });
 });
+/* start module validation */
+var module_rules = {
+    name: {
+        required: true,
+    },
+    slug: {
+        required: true,
+        noSpace : true,
+    },
+}
+
+var module_msgs = {
+    "name":{
+        required:"Name is required."
+    },
+    "slug":{
+        required:"Slug is required.",
+        noSpace:"Space and capital letters are not valid input.",
+    },
+}
+/* end module validation */
+
+// Start add module
+$("#store_module").validate({
+    ignore: [],
+    rules: module_rules,
+    messages: module_msgs,
+    //perform an AJAX post to ajax.php
+    submitHandler: function() {
+        return true;
+    }
+});
+
+$('#add_module_btn').on('click',function(){
+    $('#add_module_modal').modal('show');
+});
+$('.close-module-modal').on('click',function(){
+    $('#add_module_modal').modal('hide');
+});
+// end add module
+
+// start edit module
+$(document).on("click",".edit_module",function (e) {
+    e.preventDefault();
+    var id = $(this).attr('id');
+    var url = $(this).data('url');
+    $.ajax({
+        url: url,
+        type: 'get',
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            if (response.status == 'success') {
+                $('#edit_lead_modal').html(response.content);
+                $('#edit_lead_modal').modal('show');
+                $("#edit_module").validate({
+                    ignore: [],
+                    rules: module_rules,
+                    messages: module_msgs,
+                    //perform an AJAX post to ajax.php
+                    submitHandler: function() {
+                        return true;
+                    }
+                });
+                $('.close-modal').on('click', function(){
+                    $('#edit_lead_modal').modal('hide');
+                });
+            }else{
+                toastr.error('No module found');
+            }
+        }
+    });
+});
 
 function cancelAttachment() {
     $('#chat_messenger_footer').find('.attachment-preview').remove();
@@ -439,3 +515,90 @@ $('body').on('click', ".attachment-preview .cancel", (e) => {
 });
 
 
+// end edit module
+
+/* start submodule validation */
+var sub_module_rules = {
+    module_id: {
+        required: true
+    },
+    name: {
+        required: true
+    },
+    slug: {
+        required: true,
+        noSpace : true
+    },
+}
+
+var sub_module_msgs = {
+    "module_id":{
+        required:"Module name is required."
+    },
+    "name":{
+        required:"Name is required."
+    },
+    "slug":{
+        required:"Slug is required.",
+        noSpace:"Space and capital letters are not valid input.",
+    },
+}
+
+$('#add_subModule_btn').on('click',function(){
+    $('#add_subModule_modal').modal('show');
+});
+$('.close-subModule-modal').on('click', function(){
+    $('#add_subModule_modal').modal('hide');
+});
+
+/* end submodule validation */
+
+// Start add submodule
+$("#store_submodule").validate({
+    ignore: [],
+    rules: sub_module_rules,
+    messages: sub_module_msgs,
+    //perform an AJAX post to ajax.php
+    submitHandler: function() {
+        return true;
+    }
+});
+// End add submodule
+
+// Start edit submodule
+$(document).on("click",".edit_subModule",function (e) {
+    e.preventDefault();
+    var id = $(this).attr('id');
+    var url = $(this).data('url');
+    $.ajax({
+        url: url,
+        type: 'get',
+        cache : false,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            if(response.status == 'success'){
+                $('#edit_subModule_modal').html(response.content);
+                $('#edit_subModule_modal').modal('show');
+                $("#edit_submodule").validate({
+                    ignore: [],
+                    rules: sub_module_rules,
+                    messages: sub_module_msgs,
+                    //perform an AJAX post to ajax.php
+                    submitHandler: function() {
+                        return true;
+                    }
+                });
+                $('.close-modal').on('click',function(){
+                    $('#edit_subModule_modal').modal('hide');
+                })
+            }else{
+                toastr.error('No submodule found');
+            }
+        },
+        error: function(error){
+            toastr.error('Something went wrong');
+        }
+    });
+});
+// End edit submodule
