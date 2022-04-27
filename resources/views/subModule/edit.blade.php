@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-dialog-centered mw-650px">
     <div class="modal-content">
-        <form action="{{ route('subModules.update', [$submodules->secret]) }}"  class="horizontal-form" method="POST" id="edit_module">
+        <form action="{{ route('subModules.update', [$submodules->secret]) }}"  class="horizontal-form" method="POST" id="edit_submodule">
             {{ csrf_field() }}
             <!--begin::Modal header-->
             <div class="modal-header">

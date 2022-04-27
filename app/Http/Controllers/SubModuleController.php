@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\SubModule;
-
-
+use Illuminate\Support\Facades\Validator;
 
 class SubModuleController extends Controller
 {
@@ -22,11 +21,20 @@ class SubModuleController extends Controller
 
         if ($request->method() == 'POST') {
 
-            $request->validate([
-                'module_name' => 'required',
-                'name' => 'required|unique:sub_modules,name,id',
-                'slug' => 'required|unique:sub_modules,slug,id'
+            $validator = Validator::make($request->all(),[
+                'module_id' => 'required',
+                'name' => 'required|unique:sub_modules,name',
+                'slug' => 'required|unique:sub_modules,slug'
+            ], [
+                'module_id.required' => 'Module name is required',
+                'name.required' => 'Name is required.',
+                'name.unique' => 'Name is already taken.',
+                'slug.required' => 'Slug is required.',
+                'slug.unique' => 'Slug is already taken.'
             ]);
+            if ($validator->fails()) {
+                return redirect()->route('submodule')->with('error', $validator->errors()->first());
+            }
 
             $subModule = new SubModule;
             $subModule->module_id = $request->input('module_id');
@@ -35,9 +43,9 @@ class SubModuleController extends Controller
             $subModule->save();
 
             if ($subModule) {
-                return redirect()->route('submodule')->with('message', 'Insert SuccessFully');
+                return redirect()->route('submodule')->with('message', 'Submodule created SuccessFully');
             }else{
-                return redirect()->route('submodule')->with('error', 'Sub module not insert ');
+                return redirect()->route('submodule')->with('error', 'Error! Something went wrong.');
             }
         }
 
@@ -60,7 +68,12 @@ class SubModuleController extends Controller
             'module_id' => 'required',
             'name' => 'required',
             'slug' => 'required'
+        ],[
+            'module_id.required' => 'Module name is required',
+            'name.required' => 'Name is required.',
+            'slug.required' => 'Slug is required.',
         ]);
+ 
 
         $submodule = SubModule::find(getDecrypted($id));
 
@@ -71,9 +84,9 @@ class SubModuleController extends Controller
             $submodule->save();
 
             if ($submodule) {
-                return redirect()->route('submodule')->with('message', 'Update Successfully');
+                return redirect()->route('submodule')->with('message', 'Submodule Update Successfully');
             }else{
-                return redirect()->route('submodule')->with('error', 'Update Failed');
+                return redirect()->route('submodule')->with('error', 'Error! Something went wrong.');
             }
         }
     }

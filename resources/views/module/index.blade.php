@@ -65,7 +65,7 @@
 </div>
 
 <!--begin::Modal - lead model - Add-->
-<div class="modal fade" id="add_module_model" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="add_module_modal" tabindex="-1" aria-hidden="true">
     @include('module.create')
 </div>
 <!--end::Modal - lead model - Add-->

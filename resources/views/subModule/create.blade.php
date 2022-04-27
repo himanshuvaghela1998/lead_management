@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-dialog-centered mw-650px">
     <div class="modal-content">
-        <form action="{{ route('subModule.create') }}"  class="horizontal-form" method="POST" id="store_module">
+        <form action="{{ route('subModule.create') }}"  class="horizontal-form" method="POST" id="store_submodule">
             {{ csrf_field() }}
             <!--begin::Modal header-->
             <div class="modal-header">
@@ -31,13 +31,12 @@
                             <label class="required fs-6 fw-bold mb-2">
                                 <span class="">Select Module</span>
                             </label>
-                                <select name="module_id" aria-label="Module name"  data-error="#Module_id" data-msg-required="Module name is required." class="form-select form-select-solid fw-bolder">
+                                <select name="module_id" aria-label="Module name" class="form-select form-select-solid fw-bolder">
                                     <option value="">Select a Module</option>
                                     @foreach ($modules as $module)
                                     <option value="{{ $module->id }}" >{{ucfirst(trans($module->name))}}</option>
                                     @endforeach
                                 </select>
-                                <div id="Module_id"></div>
                                 @error('module_id')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

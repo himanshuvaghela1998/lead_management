@@ -5,6 +5,24 @@ $.ajaxSetup({
 });
 
 var _token = $("meta[name='_token']").attr('content');
+// extra checking methods start
+
+jQuery.validator.addMethod('checkemail', function (value) {
+    return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value);
+}, 'Please enter a valid email address.');
+jQuery.validator.addMethod("noSpace", function(value, element) {
+    return this.optional( element ) || /^[a-z+_]+(?:-[a-z+_]+)*$/ .test( value );
+}, "No space please and don't leave it empty");
+
+jQuery.validator.addMethod("noSpacePwd", function(value, element) {
+    return value.indexOf(" ") < 0 && value != "";
+}, "No space please and don't leave it empty");
+
+jQuery.validator.addMethod("pwcheck", function(value) {
+    return /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/.test(value) // consists of only these
+});
+
+// extra checking methods end
 
 // User validation Start
 var user_rules = {
@@ -57,21 +75,6 @@ var user_msgs = {
 }
 
 // Start add user
-jQuery.validator.addMethod('checkemail', function (value) {
-    return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value);
-}, 'Please enter a valid email address.');
-jQuery.validator.addMethod("noSpace", function(value, element) {
-    return this.optional( element ) || /^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/.test( value );
-}, "No space please and don't leave it empty");
-
-jQuery.validator.addMethod("noSpacePwd", function(value, element) {
-    return value.indexOf(" ") < 0 && value != "";
-}, "No space please and don't leave it empty");
-
-jQuery.validator.addMethod("pwcheck", function(value) {
-    return /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/.test(value) // consists of only these
-});
-
 $("#user_store").validate({
     ignore: [],
     rules: user_rules,
@@ -337,67 +340,51 @@ $(document).on('click','.delete_row',function(e){
 /* END Delete Record Jquery */
 
 /* start module validation */
-
-var _token = $("meta[name='_token']").attr('content');
-function validation()
-{
-    var module_rules = {
-        name: {
-            required: true,
-        },
-        slug: {
-            required: true,
-            nowhitespace : true,
-        },
-    }
-
-    var module_msgs = {
-        "name":{
-            required:"Name is required."
-        },
-        "slug":{
-            required:"Slug is required.",
-            nowhitespace:"No space please and No capital letters please valid input value.",
-        },
-    }
-
-    // Start add module
-    jQuery.validator.addMethod("nowhitespace", function(value, element) {
-        return this.optional( element ) || /^[a-z+_]+(?:-[a-z+_]+)*$/ .test( value );
-    }, "No space please and don't leave it empty");
-
-
-    $("#edit_module").validate({
-        ignore: [],
-        rules: module_rules,
-        messages: module_msgs,
-        errorPlacement: function(error, element) {
-            var placement = $(element).data('error');
-            if (placement) {
-                $(placement).append(error)
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        //perform an AJAX post to ajax.php
-        submitHandler: function() {
-            return true;
-        }
-    });
+var module_rules = {
+    name: {
+        required: true,
+    },
+    slug: {
+        required: true,
+        noSpace : true,
+    },
 }
+
+var module_msgs = {
+    "name":{
+        required:"Name is required."
+    },
+    "slug":{
+        required:"Slug is required.",
+        noSpace:"Space and capital letters are not valid input.",
+    },
+}
+/* end module validation */
+
+// Start add module
+$("#store_module").validate({
+    ignore: [],
+    rules: module_rules,
+    messages: module_msgs,
+    //perform an AJAX post to ajax.php
+    submitHandler: function() {
+        return true;
+    }
+});
+
 $('#add_module_btn').on('click',function(){
-    $('#add_module_model').modal('show')
-})
+    $('#add_module_modal').modal('show');
+});
 $('.close-module-modal').on('click',function(){
-    $('#add_module_model').modal('hide')
-})
+    $('#add_module_modal').modal('hide');
+});
+// end add module
 
-
+// start edit module
 $(document).on("click",".edit_module",function (e) {
     e.preventDefault();
     var id = $(this).attr('id');
     var url = $(this).data('url');
-    var _modal = $('#edit_lead_modal');
     $.ajax({
         url: url,
         type: 'get',
@@ -407,59 +394,80 @@ $(document).on("click",".edit_module",function (e) {
         success: function(response){
             if (response.status == 'success') {
                 $('#edit_lead_modal').html(response.content);
-                _modal.modal('show');
-                validation();
+                $('#edit_lead_modal').modal('show');
+                $("#edit_module").validate({
+                    ignore: [],
+                    rules: module_rules,
+                    messages: module_msgs,
+                    //perform an AJAX post to ajax.php
+                    submitHandler: function() {
+                        return true;
+                    }
+                });
                 $('.close-modal').on('click', function(){
                     $('#edit_lead_modal').modal('hide');
                 });
             }else{
-                toastr.error('No user found');
+                toastr.error('No module found');
             }
         }
-    })
-})
-/* End /*
+    });
+});
+// end edit module
 
-/* Sub module */
+/* start submodule validation */
+var sub_module_rules = {
+    module_id: {
+        required: true
+    },
+    name: {
+        required: true
+    },
+    slug: {
+        required: true,
+        noSpace : true
+    },
+}
+
+var sub_module_msgs = {
+    "module_id":{
+        required:"Module name is required."
+    },
+    "name":{
+        required:"Name is required."
+    },
+    "slug":{
+        required:"Slug is required.",
+        noSpace:"Space and capital letters are not valid input.",
+    },
+}
 
 $('#add_subModule_btn').on('click',function(){
-    $('#add_subModule_modal').modal('show')
-})
+    $('#add_subModule_modal').modal('show');
+});
 $('.close-subModule-modal').on('click', function(){
     $('#add_subModule_modal').modal('hide');
-})
+});
 
-$("#store_module").validate({
+/* end submodule validation */
+
+// Start add submodule
+$("#store_submodule").validate({
     ignore: [],
-    rules: {
-        name: {
-            required: true,
-        },
-        slug: {
-            required: true,
-            nowhitespace: true,
-        },
-    },
-    messages: {
-        "name":{
-            required:"Name is required."
-        },
-        "slug":{
-            required:"Slug is required.",
-            nowhitespace: "No space please and No capital letters please valid input value"
-        },
-    },
+    rules: sub_module_rules,
+    messages: sub_module_msgs,
     //perform an AJAX post to ajax.php
     submitHandler: function() {
         return true;
     }
 });
+// End add submodule
 
+// Start edit submodule
 $(document).on("click",".edit_subModule",function (e) {
     e.preventDefault();
     var id = $(this).attr('id');
     var url = $(this).data('url');
-    var _modal=$('#edit_subModule_modal');
     $.ajax({
         url: url,
         type: 'get',
@@ -469,19 +477,26 @@ $(document).on("click",".edit_subModule",function (e) {
         success: function(response){
             if(response.status == 'success'){
                 $('#edit_subModule_modal').html(response.content);
-                _modal.modal('show');
-                validation();
+                $('#edit_subModule_modal').modal('show');
+                $("#edit_submodule").validate({
+                    ignore: [],
+                    rules: sub_module_rules,
+                    messages: sub_module_msgs,
+                    //perform an AJAX post to ajax.php
+                    submitHandler: function() {
+                        return true;
+                    }
+                });
                 $('.close-modal').on('click',function(){
                     $('#edit_subModule_modal').modal('hide');
                 })
             }else{
-                toastr.error('No user found');
+                toastr.error('No submodule found');
             }
         },
         error: function(error){
             toastr.error('Something went wrong');
         }
     });
-
-})
-
+});
+// End edit submodule
