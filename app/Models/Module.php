@@ -19,4 +19,8 @@ class Module extends Model
         return base64_encode($encrypted_string);
     }
 
+    public function getSubModule()
+    {
+        return $this->hasmany(SubModule::class, 'module_id', 'id');
+    }
 }

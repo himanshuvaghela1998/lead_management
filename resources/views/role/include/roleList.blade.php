@@ -14,7 +14,7 @@
             <p class="capitalize-letter">{{ $role->name }}</p>
         </td>
         <td class="text-center">
-            <a href="{{ route('dashboard') }}"><i class="fa fa-lock"></i></a>
+            <a href="{{ route('role.action',[$role->id]) }}"><i class="fa fa-lock"></i></a>
         </td>
         </tr>
         @endforeach

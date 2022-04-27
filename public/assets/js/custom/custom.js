@@ -177,16 +177,41 @@ function get_all_checked_ids() {
 }
 
 function check_all_click() {
-$(document).on("click","#search-select-all",function () {
-        $(".selected_rows").prop('checked', $(this).prop('checked'));
-        delete_enable_disable();
+$(document).on("click","#search_select_all",function () {
+        $(".search_select_all").prop('checked', $(this).prop('checked'));
+        submodule_enable_disable();
     });
 }
 
-$(document).on("click",".selected_rows",function () {
-    select_main_check_box();
-    delete_enable_disable();
-});
+function get_all_checked_ids() {
+    var ids_list = [];
+    if($('.search_select_all:checked').length > 0) {
+        $('.search_select_all:checked').each(function(index) {
+            var check_value = parseInt($(this).val());
+            ids_list.push(check_value);
+        });
+    }
+    return ids_list;
+}
+
+function submodule_enable_disable(){
+    var selected_rows_count = get_all_checked_ids();
+    if (selected_rows_count.length > 0) {
+        $('#selected_rows').attr({
+            'disabled' : false
+        })
+    }
+    else{
+        $('#selected_rows').attr({
+            'disabled' : true
+        })
+    }
+}
+
+// $(document).on("click",".selected_rows",function () {
+//     select_main_check_box();
+//     delete_enable_disable();
+// });
 
 function select_main_check_box(){
     if($('.selected_rows:checked').length == $('.selected_rows').length) {

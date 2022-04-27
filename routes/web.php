@@ -56,6 +56,7 @@ Route::middleware(['CheckAdmin'])->group(function(){
     //Role Routes
 
     Route::get('role', [RoleController::class, 'index'])->name('role');
+    Route::get('role/action/{id}', [RoleController::class, 'roleAction'])->name('role.action');
 
     //Module Controller
 
