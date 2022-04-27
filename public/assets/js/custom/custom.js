@@ -429,6 +429,17 @@ $('#thread_attachment').on('change',function(e){
         }
     });
 });
+
+function cancelAttachment() {
+    $('#chat_messenger_footer').find('.attachment-preview').remove();
+    $('#thread_attachment').replaceWith($('#thread_attachment').val('').clone(true));
+}
+
+// Attachment preview cancel button.
+$('body').on('click', ".attachment-preview .cancel", (e) => {
+    cancelAttachment();
+});
+
 /* start module validation */
 var module_rules = {
     name: {
@@ -503,17 +514,6 @@ $(document).on("click",".edit_module",function (e) {
         }
     });
 });
-
-function cancelAttachment() {
-    $('#chat_messenger_footer').find('.attachment-preview').remove();
-    $('#thread_attachment').replaceWith($('#thread_attachment').val('').clone(true));
-}
-
-// Attachment preview cancel button.
-$('body').on('click', ".attachment-preview .cancel", (e) => {
-    cancelAttachment();
-});
-
 
 // end edit module
 

@@ -43,7 +43,7 @@
                                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
 
                                     <!--begin::Add module-->
-                                    <button type="button" class="btn btn-primary btn-sm" id="add_module_btn"><i class="fas fa-user-plus"></i>Add Models</button>
+                                    <button type="button" class="btn btn-primary btn-sm" id="add_module_btn"><i class="fas fa-user-plus"></i>Add Module</button>
                                     <!--end::Add module-->
                                 </div>
                             </div>

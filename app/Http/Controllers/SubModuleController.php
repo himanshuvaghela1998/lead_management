@@ -12,7 +12,7 @@ class SubModuleController extends Controller
     public function index()
     {
         $submodules = SubModule::where('is_delete', '!=', 1)->with('getModule')->get();
-        $modules = Module::get();
+        $modules = Module::where('is_delete', '!=', 1)->get();
         return view('subModule.index', compact('submodules', 'modules'));
     }
 
@@ -23,12 +23,11 @@ class SubModuleController extends Controller
 
             $validator = Validator::make($request->all(),[
                 'module_id' => 'required',
-                'name' => 'required|unique:sub_modules,name',
+                'name' => 'required',
                 'slug' => 'required|unique:sub_modules,slug'
             ], [
                 'module_id.required' => 'Module name is required',
                 'name.required' => 'Name is required.',
-                'name.unique' => 'Name is already taken.',
                 'slug.required' => 'Slug is required.',
                 'slug.unique' => 'Slug is already taken.'
             ]);
@@ -43,7 +42,7 @@ class SubModuleController extends Controller
             $subModule->save();
 
             if ($subModule) {
-                return redirect()->route('submodule')->with('message', 'Submodule created SuccessFully');
+                return redirect()->route('submodule')->with('message', 'Submodule created Successfully');
             }else{
                 return redirect()->route('submodule')->with('error', 'Error! Something went wrong.');
             }

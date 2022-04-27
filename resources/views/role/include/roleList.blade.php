@@ -11,7 +11,7 @@
         @foreach ($roles as $role)
         <tr>
         <td>
-            <p>{{ $role->name }}</p>
+            <p class="capitalize-letter">{{ $role->name }}</p>
         </td>
         <td class="text-center">
             <a href="{{ route('dashboard') }}"><i class="fa fa-lock"></i></a>
