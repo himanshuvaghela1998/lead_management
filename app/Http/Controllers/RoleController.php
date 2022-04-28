@@ -17,7 +17,8 @@ class RoleController extends Controller
 
     public function roleAction($id)
     {
+        $role = Role::find($id);
         $modules = Module::where('is_delete', '!=', 1)->with('getSubModule')->get();
-        return view('role.role_action',compact('modules'));
+        return view('role.role_action',compact('modules','role'));
     }
 }

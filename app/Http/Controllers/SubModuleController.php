@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Module;
+use App\Models\Permission;
 use App\Models\SubModule;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,6 +41,9 @@ class SubModuleController extends Controller
             $subModule->name = $request->input('name');
             $subModule->slug = $request->input('slug');
             $subModule->save();
+
+            $permission_name = $subModule->getModule->slug .'.'. $request->input('slug');
+            Permission::create(['name' => $permission_name]);
 
             if ($subModule) {
                 return redirect()->route('submodule')->with('message', 'Submodule created Successfully');
@@ -79,14 +83,18 @@ class SubModuleController extends Controller
         if ($submodule) {
             $submodule->module_id = $request->input('module_id');
             $submodule->name = $request->input('name');
+
+            if ($submodule->slug != $request->input('slug')) {
+                $permission_name = $submodule->getModule->slug .'.'. $request->input('slug');
+                Permission::where('name',$permission_name)->delete;
+                Permission::create(['name' => $permission_name]);
+            }
             $submodule->slug = $request->input('slug');
             $submodule->save();
-
-            if ($submodule) {
-                return redirect()->route('submodule')->with('message', 'Submodule Update Successfully');
-            }else{
-                return redirect()->route('submodule')->with('error', 'Error! Something went wrong.');
-            }
+            return redirect()->route('submodule')->with('message', 'Submodule Update Successfully');
+        }
+        else{
+            return redirect()->route('submodule')->with('error', 'Error! Something went wrong.');
         }
     }
 
@@ -98,6 +106,8 @@ class SubModuleController extends Controller
 
             $subModule->is_delete = 1;
             $subModule->save();
+            $permission_name = $subModule->getModule->slug .'.'. $subModule->slug;
+            Permission::where('name',$permission_name)->delete;
             if($subModule){
                 $type = 'success';
                 $msg = 'SubModule deleted successfully';

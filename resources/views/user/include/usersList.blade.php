@@ -52,21 +52,25 @@
                 </a>
                 <!--begin::Menu-->
                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4 kt-action-menu" data-kt-menu="true">
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3">
-                        <a class="menu-link px-3 edit_user" data-url="{{ route('users.edit',[$user->secret])}}" id="{{ $user->secret }}">Edit</a>
-                    </div>
-                    <!--end::Menu item-->
+                    @can('users.edit')
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-3">
+                            <a class="menu-link px-3 edit_user" data-url="{{ route('users.edit',[$user->secret])}}" id="{{ $user->secret }}">Edit</a>
+                        </div>
+                        <!--end::Menu item-->
+                    @endcan
                     <!--begin::Menu item-->
                     <div class="menu-item px-3">
                         <a class="menu-link px-3 change_password" data-url="{{ route('user.edit_confirmPassword',[$user->secret])}}" id="{{ $user->secret }}">Chnage Password</a>
                     </div>
                     <!--end::Menu item-->
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3">
-                        <a class="menu-link px-3 delete_row" data-title="user" data-user_id ="{{$user->secret}}" data-href="{{route('users.destroy',$user->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>
-                    </div>
-                    <!--end::Menu item-->
+                    @can('users.delete')
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-3">
+                            <a class="menu-link px-3 delete_row" data-title="user" data-user_id ="{{$user->secret}}" data-href="{{route('users.destroy',$user->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>
+                        </div>
+                        <!--end::Menu item-->
+                    @endcan
                 </div>
                 <!--end::Menu-->
             </td>

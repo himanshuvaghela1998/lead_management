@@ -34,45 +34,26 @@
             <div class="row justify-content-center">
                 <div class="col-md-12" style="margin: 25px">
                     <div class="card">
+                        <div class="card-header py-3">
+                            <h3 class="fw-bolder capitalize-letter">Set Role Permission For {{ $role->name }}</h3>
+                        </div>
                         <div class="card-body" id="load_content">
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="users_table">
-                                <!--begin::Table head-->
-                                <thead>
-                                    <!--begin::Table row-->
-                                    <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                        <th class="w-10px pe-2">
-                                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                                <input class="form-check-input" type="checkbox" data-kt-check="true" name="select_all" value="1" id="search-select-all" />
-                                            </div>
-                                        </th>
-                                        <th style="width: 25%">Modules</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($modules as $module)
-                                        <tr>
-                                            <td>
-                                                <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                                    <input type="checkbox" name="module_id[]" value="" class="form-check-input" id="search_select_all">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p class="capitalize-letter">{{ $module->name }}</p>
-                                            </td>
-                                            @foreach ($module->getSubModule as $item)
-                                                <td>
-                                                    <div class="d-flex capitalize-letter">
-                                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                                            <input type="checkbox" name="module_id[]" value="" class="form-check-input selected_rows" id="selected_rows">
-                                                        </div>
-                                                        {{ $item->name }}
-                                                    </div>
-                                                </td>
-                                            @endforeach
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                           @foreach ($modules as $module)
+                               <div class="capitalize-letter my-4">
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input type="checkbox" name="users_id[]" value="" class="form-check-input selected_rows" id="bulk_update_id">
+                                        <h4 class="font-16">{{ $module->name }}</h4>
+                                    </div>
+                                   <div class="container">
+                                       @foreach ($module->getSubModule as $subModule)
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid d-inline">
+                                            <input type="checkbox" name="users_id[]" value="" class="form-check-input selected_rows" id="bulk_update_id">
+                                            <span class="font-16 mx-4">{{ $subModule->name }}</span>
+                                        </div>
+                                       @endforeach
+                                   </div>
+                               </div>
+                           @endforeach
                         </div>
                     </div>
                 </div>

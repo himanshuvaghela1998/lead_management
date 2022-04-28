@@ -29,7 +29,7 @@ Route::match(['GET', 'POST'], 'login', [LoginController::class, 'login'])->name(
 Route::get('logout', [HomeController::class, 'logout'])->name('logout');
 Auth::routes();
 
-Route::middleware(['CheckAdmin'])->group(function(){
+Route::middleware(['auth','CheckAdmin'])->group(function(){
 
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 

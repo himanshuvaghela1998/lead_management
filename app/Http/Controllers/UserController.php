@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -22,7 +23,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::with('getRole')->where('role_id','!=', 1)->where('is_delete','0');
+        $users = User::with('getRole','permissions')->where('role_id','!=', 1)->where('is_delete','0');
 
         if($request->has('search_keyword') && $request->search_keyword != ""){
             $users = $users->where(function($q) use($request){

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Module;
-
+use App\Models\Permission;
 
 class ModuleController extends Controller
 {
@@ -30,6 +30,8 @@ class ModuleController extends Controller
             $modules->name = $request->input('name');
             $modules->slug = $request->input('slug');
             $modules->save();
+
+            Permission::create(['name' => $request->input('slug')]);
 
             if ($modules) {
 
@@ -63,10 +65,14 @@ class ModuleController extends Controller
             'name.required' => 'Name is required.',
             'slug.required' => 'Slug is required.'
         ]);
-        info($request->name);
-        info($request->slug);
         $updateModule = Module::find(getDecrypted($id));
         $updateModule->name = $request->input('name');
+
+        if ($updateModule->slug != $request->input('slug')) {
+           Permission::where('name',$updateModule->slug)->delete;
+           Permission::create(['name' => $request->input('slug')]);
+        }
+
         $updateModule->slug = $request->input('slug');
         $updateModule->save();
 
@@ -85,6 +91,7 @@ class ModuleController extends Controller
         $deleteModule->is_delete = 1;
         $deleteModule->save();
         if($deleteModule){
+            Permission::where('name',$deleteModule->slug)->delete;
             $type = 'success';
             $msg = 'Module deleted successfully';
         }else{
