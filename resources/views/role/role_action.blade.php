@@ -41,13 +41,14 @@
                            @foreach ($modules as $module)
                                <div class="capitalize-letter my-4">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                        <input type="checkbox" value="" class="form-check-input selected_permission_rows" data-module-slug="{{ $module->slug }}" data-submodule-slug="" data-url="{{ route('role.set_permission',$role->id)}}">
-                                        <h4 class="font-16">{{ $module->name }}</h4>
+                                        <input type="checkbox" value="" {{ $role->hasPermissionTo($module->slug)?'checked':'' }} class="form-check-input selected_permission_rows" 
+                                        data-module-slug="{{ $module->slug }}" data-submodule-slug="" data-url="{{ route('role.set_permission',$role->id)}}" id="{{ $role->id }}">
+                                        <label class="form-check-label " for="{{ $role->id }}">{{ $module->name }}</label>
                                     </div>
                                    <div class="container">
                                        @foreach ($module->getSubModule as $subModule)
                                         <div class="form-check form-check-sm form-check-custom form-check-solid d-inline">
-                                            <input type="checkbox" value="" class="form-check-input selected_permission_rows" data-module-slug="{{ $module->slug }}" data-submodule-slug="{{ $subModule->slug }}" data-url="{{ route('role.set_permission',$role->id)}}">
+                                            <input type="checkbox" value="" {{ $role->hasPermissionTo($module->slug.'.'.$subModule->slug)?'checked':'' }} class="form-check-input selected_permission_rows" data-module-slug="{{ $module->slug }}" data-submodule-slug="{{ $subModule->slug }}" data-url="{{ route('role.set_permission',$role->id)}}">
                                             <span class="font-16 mx-4">{{ $subModule->name }}</span>
                                         </div>
                                        @endforeach

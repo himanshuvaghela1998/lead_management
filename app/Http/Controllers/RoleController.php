@@ -37,7 +37,7 @@ class RoleController extends Controller
         {
             $role->revokePermissionTo($permission_name);
         }
-        return response()->json(['status'=>200,'content'=>$permission_name]);
+        return response()->json(['status'=>200,'message' => "Permission changed"]);
 
     }
 }
