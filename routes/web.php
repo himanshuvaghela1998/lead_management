@@ -57,6 +57,8 @@ Route::middleware(['auth','CheckAdmin'])->group(function(){
 
     Route::get('role', [RoleController::class, 'index'])->name('role');
     Route::get('role/action/{id}', [RoleController::class, 'roleAction'])->name('role.action');
+    Route::post('role/action/{id}', [RoleController::class, 'setPermission'])->name('role.set_permission');
+
 
     //Module Controller
 

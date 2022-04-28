@@ -21,4 +21,23 @@ class RoleController extends Controller
         $modules = Module::where('is_delete', '!=', 1)->with('getSubModule')->get();
         return view('role.role_action',compact('modules','role'));
     }
+
+    public function setPermission(Request $request, $id)
+    {
+        $permission_name = $request->module_slug;
+        if(isset($request->submodule_slug))
+        {
+            $permission_name = $permission_name.'.'.$request->submodule_slug;
+        }
+
+        $role = Role::find($id);
+        if($request->status == 1){
+            $role->givePermissionTo($permission_name);
+        }else
+        {
+            $role->revokePermissionTo($permission_name);
+        }
+        return response()->json(['status'=>200,'content'=>$permission_name]);
+
+    }
 }

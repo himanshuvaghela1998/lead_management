@@ -627,3 +627,33 @@ $(document).on("click",".edit_subModule",function (e) {
     });
 });
 // End edit submodule
+
+$(document).on('click','.selected_permission_rows',function(e){
+    e.preventDefault();
+    var module_slug  = $(this).data('module-slug');
+    var submodule_slug  = $(this).data('submodule-slug');
+    var URL = $(this).data('url');
+    if($('.selected_permission_rows').is(":checked")){
+        $('.selected_permission_rows').prop('checked', true);
+        var status = 1;
+        var current_status = 'active';
+    }
+    else if($('.selected_permission_rows').is(":not(:checked)")){
+        $('.selected_permission_rows').prop('not(:checked)', false);
+        var status = 0;
+        var current_status = 'inactive';
+    }
+ 
+    $.ajax({
+        url:URL,
+        type:'post', // replaced from put
+        dataType: "JSON",
+        data: {module_slug : module_slug , submodule_slug:submodule_slug, status:status},
+        success: function (response)
+        {
+            toastr.success(response.message);
+        },
+        error: function(xhr) {
+        }
+    });
+});
