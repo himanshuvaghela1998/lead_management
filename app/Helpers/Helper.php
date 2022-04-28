@@ -1,6 +1,10 @@
 <?php
 
 /* Encryption Id */
+
+use App\Models\Module;
+use App\Models\SubModule;
+
 function getEncrypted($id){
     $encrypted_string=openssl_encrypt($id,config('services.encryption.type'),config('services.encryption.secret'));
     return base64_encode($encrypted_string);
@@ -45,4 +49,29 @@ function get_time_ago( $time )
 			return $t . ' ' . $str . ( $t > 1 ? 's' : '' ) . ' ago';
 		}
 	}
+}
+
+function get_permission_name($module_name, $submodule_name = null)
+{
+	$module = Module::where('name', 'Like', '%'.$module_name.'%')->first();
+	$permission_name = $module->slug;
+	if(isset($submodule_name))
+	{
+		// if($submodule_name == 'any')
+		// {
+		// 	$subModules = SubModule::where('slug', 'Like', '%'.$module_name.'%')->get();
+		// 	$permission_names = [];
+		// 	foreach($subModules as $subModule)
+		// 	{
+		// 		$permission_name = $permission_name.'.'.$subModule->slug;
+		// 		array_push($permission_names, $permission_name);
+		// 	}
+		// 	info(json_encode($permission_names));
+		// 	return $permission_names;
+		// }
+		$subModule = SubModule::where('name', 'Like', '%'.$submodule_name.'%')->first();
+		$permission_name = $permission_name.'.'.$subModule->slug;
+	}
+
+	return $permission_name;
 }
