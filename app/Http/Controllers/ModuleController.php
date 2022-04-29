@@ -34,10 +34,9 @@ class ModuleController extends Controller
             Permission::create(['name' => $request->input('slug')]);
 
             if ($modules) {
-
-                return redirect()->route('module')->with('message', 'model insert successfully');
+                return redirect()->route('module')->with('message', 'Module added successfully');
             }else{
-                return redirect()->route('module')->with('error', 'model not insert');
+                return redirect()->route('module')->with('error', 'Something went wrong');
             }
 
         }
@@ -69,7 +68,7 @@ class ModuleController extends Controller
         $updateModule->name = $request->input('name');
 
         if ($updateModule->slug != $request->input('slug')) {
-           Permission::where('name',$updateModule->slug)->delete;
+           Permission::where('name',$updateModule->slug)->delete();
            Permission::create(['name' => $request->input('slug')]);
         }
 
@@ -78,10 +77,10 @@ class ModuleController extends Controller
 
         if($updateModule){
 
-            return redirect()->route('module')->with('message', 'Module Update successfully');
+            return redirect()->route('module')->with('message', 'Module updated successfully');
 
         }else{
-            return redirect()->route('module')->with('error', 'something went to wrong!');
+            return redirect()->route('module')->with('error', 'Something went wrong!');
         }
     }
 
@@ -91,12 +90,12 @@ class ModuleController extends Controller
         $deleteModule->is_delete = 1;
         $deleteModule->save();
         if($deleteModule){
-            Permission::where('name',$deleteModule->slug)->delete;
+            Permission::where('name',$deleteModule->slug)->delete();
             $type = 'success';
             $msg = 'Module deleted successfully';
         }else{
             $type = 'error';
-            $msg = 'Error! something went to wrong!';
+            $msg = 'Error! something went wrong!';
         }
 
         return response()->json(['status'=>$type,'message'=>$msg]);

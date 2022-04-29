@@ -75,7 +75,7 @@
                         </a>
                     </div>
                 @endcan
-                {{-- @can(get_permission_name('role')) --}}
+                @can(get_permission_name('role'))
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'role' ? 'active' : ''}}" href="{{ route('role') }}">
                             <span class="menu-icon">
@@ -88,31 +88,35 @@
                             <span class="menu-title">Roles</span>
                         </a>
                     </div>
-                {{-- @endcan --}}
-                <div class="menu-item">
-                    <a class="menu-link {{ \Request::segment(1) == 'modules' ? 'active' : ''}}" href="{{ route('module') }}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <i class="fa-brands fa-monero fa-lg"></i>
+                @endcan
+                @can(get_permission_name('module'))
+                    <div class="menu-item">
+                        <a class="menu-link {{ \Request::segment(1) == 'modules' ? 'active' : ''}}" href="{{ route('module') }}">
+                            <span class="menu-icon">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                <span class="svg-icon svg-icon-2">
+                                    <i class="fa-brands fa-monero fa-lg"></i>
+                                </span>
+                                <!--end::Svg Icon-->
                             </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">Module</span>
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-link {{ \Request::segment(1) == 'subModules' ? 'active' : ''}}" href="{{ route('submodule') }}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <i class="fa-brands fa-speakap fa-lg"></i>
+                            <span class="menu-title">Module</span>
+                        </a>
+                    </div>
+                @endcan
+                @can(get_permission_name('sub module'))
+                    <div class="menu-item">
+                        <a class="menu-link {{ \Request::segment(1) == 'subModules' ? 'active' : ''}}" href="{{ route('submodule') }}">
+                            <span class="menu-icon">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                <span class="svg-icon svg-icon-2">
+                                    <i class="fa-brands fa-speakap fa-lg"></i>
+                                </span>
+                                <!--end::Svg Icon-->
                             </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">Sub module</span>
-                    </a>
-                </div>
+                            <span class="menu-title">Sub module</span>
+                        </a>
+                    </div>
+                @endcan
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('logout') }}">
                         <span class="menu-icon">

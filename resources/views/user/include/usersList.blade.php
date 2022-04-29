@@ -12,9 +12,9 @@
             <th style="width: 25%">Email</th>
             <th style="width: 25%">Role</th>
             <th style="width: 10%">Status</th>
-            {{-- @canany(get_permission_name('user','any')) --}}
+            @canany([get_permission_name('user','edit'),get_permission_name('user','delete'),get_permission_name('user','change password')])
                 <th style="width: 15%">Actions</th>
-            {{-- @endcanany --}}
+            @endcanany
         </tr>
     </thead>
     <tbody class="fw-bold text-gray-600">
@@ -44,7 +44,7 @@
                     <input class="form-check-input update_status" data-title="user" name="status" type="checkbox" href="{{route('user.update_status',$user->secret)}}" {{$checked}} />
                 </label>
             </td>
-            {{-- @canany(get_permission_name('user','any')) --}}
+            @canany([get_permission_name('user','edit'),get_permission_name('user','delete'),get_permission_name('user','change password')])
                 <td>
                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                     <span class="svg-icon svg-icon-5 m-0">
@@ -77,7 +77,7 @@
                     </div>
                     <!--end::Menu-->
                 </td>
-            {{-- @endcanany --}}
+            @endcanany
         </tr>
         @endforeach
         @else

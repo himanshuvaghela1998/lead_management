@@ -86,12 +86,12 @@ class SubModuleController extends Controller
 
             if ($submodule->slug != $request->input('slug')) {
                 $permission_name = $submodule->getModule->slug .'.'. $request->input('slug');
-                Permission::where('name',$permission_name)->delete;
+                Permission::where('name',$permission_name)->delete();
                 Permission::create(['name' => $permission_name]);
             }
             $submodule->slug = $request->input('slug');
             $submodule->save();
-            return redirect()->route('submodule')->with('message', 'Submodule Update Successfully');
+            return redirect()->route('submodule')->with('message', 'Submodule Updated Successfully');
         }
         else{
             return redirect()->route('submodule')->with('error', 'Error! Something went wrong.');
@@ -107,13 +107,13 @@ class SubModuleController extends Controller
             $subModule->is_delete = 1;
             $subModule->save();
             $permission_name = $subModule->getModule->slug .'.'. $subModule->slug;
-            Permission::where('name',$permission_name)->delete;
+            Permission::where('name',$permission_name)->delete();
             if($subModule){
                 $type = 'success';
                 $msg = 'SubModule deleted successfully';
             }else{
                 $type = 'error';
-                $msg = 'Error! something went to wrong!';
+                $msg = 'Error! something went wrong!';
             }
 
         return response()->json(['status'=>$type,'message'=>$msg]);

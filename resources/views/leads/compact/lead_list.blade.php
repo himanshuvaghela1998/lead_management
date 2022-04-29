@@ -8,9 +8,9 @@
             <th class="min-w-125px">Project Type</th>
             <th class="min-w-125px">Assign To</th>
             {{-- <th class="min-w-125px">Project Status</th> --}}
-            {{-- @canany(get_permission_name('lead','any')) --}}
+            @canany([get_permission_name('lead','edit'),get_permission_name('lead','delete')])
                 <th class="text-center min-w-125px">Actions</th>
-            {{-- @endcanany --}}
+            @endcanany
         </tr>
     </thead>
     <tbody class="fw-bold text-gray-600">
@@ -35,7 +35,7 @@
             <td> <p class="capitalize-letter">{{ ($lead->getUser) ? $lead->getUser->name : ''  }}</p></td>
             <!-- Start drop down list -->
             <!-- End Drop down -->
-            {{-- @canany(get_permission_name('lead','any')) --}}
+            @canany([get_permission_name('lead','edit'),get_permission_name('lead','delete')])
                 <td class="text-center">
                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                         <span class="svg-icon svg-icon-5 m-0">
@@ -62,7 +62,7 @@
                         <!--end::Menu item-->
                     </div>
                 </td>
-            {{-- @endcanany --}}
+            @endcanany
         </tr>
          @endforeach
     </tbody>

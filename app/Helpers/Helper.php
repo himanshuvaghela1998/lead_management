@@ -54,23 +54,11 @@ function get_time_ago( $time )
 function get_permission_name($module_name, $submodule_name = null)
 {
 	$module = Module::where('name', 'Like', '%'.$module_name.'%')->first();
-	$permission_name = $module->slug;
-	if(isset($submodule_name))
+	$permission_name = isset($module) ? $module->slug : null;
+	if(isset($submodule_name) && isset($module))
 	{
-		// if($submodule_name == 'any')
-		// {
-		// 	$subModules = SubModule::where('slug', 'Like', '%'.$module_name.'%')->get();
-		// 	$permission_names = [];
-		// 	foreach($subModules as $subModule)
-		// 	{
-		// 		$permission_name = $permission_name.'.'.$subModule->slug;
-		// 		array_push($permission_names, $permission_name);
-		// 	}
-		// 	info(json_encode($permission_names));
-		// 	return $permission_names;
-		// }
-		$subModule = SubModule::where('name', 'Like', '%'.$submodule_name.'%')->first();
-		$permission_name = $permission_name.'.'.$subModule->slug;
+		$subModule = SubModule::where('module_id',$module->id)->where('name', 'Like', '%'.$submodule_name.'%')->first();
+		$permission_name = isset($subModule) ? $permission_name.'.'.$subModule->slug : $permission_name;
 	}
 
 	return $permission_name;

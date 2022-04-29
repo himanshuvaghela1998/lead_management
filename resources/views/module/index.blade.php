@@ -41,17 +41,18 @@
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
                                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-
-                                    <!--begin::Add module-->
-                                    <button type="button" class="btn btn-primary btn-sm" id="add_module_btn"><i class="fas fa-user-plus"></i>Add Module</button>
-                                    <!--end::Add module-->
+                                    @can(get_permission_name('module','add'))
+                                        <!--begin::Add module-->
+                                        <button type="button" class="btn btn-primary btn-sm" id="add_module_btn"><i class="fas fa-user-plus"></i>Add Module</button>
+                                        <!--end::Add module-->
+                                    @endcan
                                 </div>
                             </div>
                         </div>
 
                         <div class="card-body" id="load_content">
                             {{-- begain module list --}}
-                            @include('module.include.listModel')
+                            @include('module.include.moduleList')
                             {{-- end module list --}}
                         </div>
                     </div>

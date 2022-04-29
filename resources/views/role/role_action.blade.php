@@ -49,7 +49,8 @@
                                        @foreach ($module->getSubModule as $subModule)
                                         <div class="form-check form-check-sm form-check-custom form-check-solid d-inline">
                                             <input type="checkbox" value="" {{ $role->hasPermissionTo($module->slug.'.'.$subModule->slug)?'checked':'' }} class="form-check-input selected_permission_rows" data-module-slug="{{ $module->slug }}" data-submodule-slug="{{ $subModule->slug }}" data-url="{{ route('role.set_permission',$role->id)}}">
-                                            <span class="font-16 mx-4">{{ $subModule->name }}</span>
+                                            {{-- <span class="font-16 mx-4">{{ $subModule->name }}</span> --}}
+                                            <label class="form-check-label " for="{{ $role->id }}">{{ $subModule->name }}</label>
                                         </div>
                                        @endforeach
                                    </div>

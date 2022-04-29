@@ -4,7 +4,9 @@
         <!--begin::Table row-->
         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
             <th class="min-w-125px">Name</th>
+        @can(get_permission_name('role', 'role action'))
             <th class="text-center min-w-125px">Actions</th>
+        @endcan
         </tr>
     </thead>
     <tbody class="fw-bold text-gray-600">
@@ -13,9 +15,11 @@
         <td>
             <p class="capitalize-letter">{{ $role->name }}</p>
         </td>
-        <td class="text-center">
-            <a href="{{ route('role.action',[$role->id]) }}"><i class="fa fa-lock"></i></a>
-        </td>
+        @can(get_permission_name('role', 'role action'))
+            <td class="text-center">
+                <a href="{{ route('role.action',[$role->id]) }}"><i class="fa fa-lock"></i></a>
+            </td>
+        @endcan
         </tr>
         @endforeach
 
