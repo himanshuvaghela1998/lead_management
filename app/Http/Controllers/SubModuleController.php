@@ -6,12 +6,33 @@ use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\Permission;
 use App\Models\SubModule;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SubModuleController extends Controller
 {
+    public function __construct()
+    {
+        $this->limit = 10;
+        $this->middleware(function ($request, $next) {
+			if(Auth::check()) {	
+				if(!(User::isAuthorized('sub module')))
+                {
+                    return redirect()->route('dashboard')->with('error','Unauthorized access');
+                }
+            }
+			return $next($request);
+		});
+    }
+
     public function index()
     {
+        if(!(User::isAuthorized('sub module')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $submodules = SubModule::where('is_delete', '!=', 1)->with('getModule')->get();
         $modules = Module::where('is_delete', '!=', 1)->get();
         return view('subModule.index', compact('submodules', 'modules'));
@@ -19,6 +40,11 @@ class SubModuleController extends Controller
 
     public function create(Request $request)
     {
+        if(!(User::isAuthorized('sub module','add')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
 
         if ($request->method() == 'POST') {
 
@@ -56,6 +82,11 @@ class SubModuleController extends Controller
 
     public function editModule($id)
     {
+        if(!(User::isAuthorized('sub module','edit')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $submodules = SubModule::with('getModule')->find(getDecrypted($id));
         if ($submodules) {
             $modules = Module::get();
@@ -100,6 +131,11 @@ class SubModuleController extends Controller
 
     public function deleteSubModule($id)
     {
+        if(!(User::isAuthorized('sub module','delete')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $subModule = SubModule::find(getDecrypted($id));
 
         if (isset($subModule)) {

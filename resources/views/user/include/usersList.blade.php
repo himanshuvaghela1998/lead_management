@@ -39,9 +39,10 @@
                 <?php
                     $checked = ($user->status == 1) ? "checked" : "";
                     $ids=$user->id;
+                    $readonly = App\Models\User::isAuthorized('user','change status') == true ? '' : 'disabled';
                 ?>
                 <label class="form-check form-switch  form-check-custom form-check-solid">
-                    <input class="form-check-input update_status" data-title="user" name="status" type="checkbox" href="{{route('user.update_status',$user->secret)}}" {{$checked}} />
+                    <input class="form-check-input update_status" data-title="user" name="status" type="checkbox" href="{{route('user.update_status',$user->secret)}}" {{$checked}} {{$readonly}} />
                 </label>
             </td>
             @canany([get_permission_name('user','edit'),get_permission_name('user','delete'),get_permission_name('user','change password')])

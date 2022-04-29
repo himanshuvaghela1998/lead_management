@@ -15,6 +15,17 @@ class UserController extends Controller
     public function __construct()
     {
         $this->limit = 10;
+
+        $this->middleware(function ($request, $next) {
+			if(Auth::check()) {
+                if(!(User::isAuthorized('user')))
+                {
+                    return redirect()->route('dashboard')->with('error','Unauthorized access');
+                }
+			}
+			return $next($request);
+		});
+
     }
     /**
      * Display a listing of the resource.
@@ -23,6 +34,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        if(!(User::isAuthorized('user')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
         $users = User::with('getRole','permissions')->where('role_id','!=', 1)->where('is_delete','0');
 
         if($request->has('search_keyword') && $request->search_keyword != ""){
@@ -54,6 +69,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        if(!(User::isAuthorized('user','add')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $roles = Role::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
         return view('user.create',compact('roles'));
     }
@@ -87,6 +107,11 @@ class UserController extends Controller
 
     public function editPassword($id)
     {
+        if(!(User::isAuthorized('user','change status')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $user = User::find(getDecrypted($id));
         if ($user) {
             $roles = Role::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
@@ -146,6 +171,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if(!(User::isAuthorized('user','edit')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $user = User::find(getDecrypted($id));
         if ($user) {
             $roles = Role::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
@@ -189,6 +219,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if(!(User::isAuthorized('user','delete')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
         $user->is_delete = 1;
         $user->save();
@@ -221,6 +256,10 @@ class UserController extends Controller
     }
 
     public function status_update(Request $request,$id){
+        if(!(User::isAuthorized('user','change status')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
         /* Record status update*/
         $status = User::select('id','status')->find(getDecrypted($id));
         $status->status = $request->status;

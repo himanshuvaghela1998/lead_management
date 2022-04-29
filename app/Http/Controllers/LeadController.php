@@ -23,10 +23,24 @@ class LeadController extends Controller
     public function __construct()
     {
         $this->limit = 10;
+        $this->middleware(function ($request, $next) {
+			if(Auth::check()) {	
+				if(!(User::isAuthorized('lead')))
+                {
+                    return redirect()->route('dashboard')->with('error','Unauthorized access');
+                }
+			}
+			return $next($request);
+		});
     }
 
     public function index(Request $request)
     {
+        if(!(User::isAuthorized('lead')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $leads = Lead::with('clients', 'projectType', 'getUser')->where('is_delete',0);
 
         if($request->has('search_keyword') && $request->search_keyword != ""){
@@ -57,6 +71,11 @@ class LeadController extends Controller
 
     public function create(Request $request)
     {
+        if(!(User::isAuthorized('lead','add')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         if ($request->method() == 'POST') {
 
             $request->validate([
@@ -114,6 +133,11 @@ class LeadController extends Controller
 
     public function edit($id)
     {
+        if(!(User::isAuthorized('lead','edit')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
@@ -179,6 +203,11 @@ class LeadController extends Controller
 
     public function delete($id)
     {
+        if(!(User::isAuthorized('lead','delete')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $lead = Lead::where('is_delete',0)->where('id',getDecrypted($id))->first();
         if($lead){
             $lead->is_delete = 1;
@@ -272,6 +301,11 @@ class LeadController extends Controller
 
     public function leadChat(Request $request,$id)
     {
+        if(!(User::isAuthorized('lead','lead thread')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $lead = Lead::with('clients', 'projectType', 'getUser','leadThreads')->where('id',getDecrypted($id))->first();
         if ($request->method() == 'POST') {
             $lead_thread = new LeadThread;

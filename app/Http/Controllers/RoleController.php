@@ -11,14 +11,38 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->limit = 10;
+        $this->middleware(function ($request, $next) {
+			if(Auth::check()) {	
+                if(!(User::isAuthorized('role')))
+                {
+                    return redirect()->route('dashboard')->with('error','Unauthorized access');
+                }
+			}
+			return $next($request);
+		});
+    }
+
     public function index()
     {
+        if(!(User::isAuthorized('role')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $roles = Role::get();
         return view('role.index', compact('roles'));
     }
 
     public function roleAction($id)
     {
+        if(!(User::isAuthorized('role','add')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $role = Role::find($id);
         $modules = Module::where('is_delete', '!=', 1)->with('getSubModule')->get();
         return view('role.role_action',compact('modules','role'));

@@ -33,7 +33,7 @@
 
             <div class="row justify-content-center">
                 <div class="col-md-12" style="margin: 25px">
-                    <div class="card">
+                    <div class="card" id="role_action_card">
                         <div class="card-header py-3">
                             <h3 class="fw-bolder capitalize-letter">Set Role Permission For {{ $role->name }}</h3>
                         </div>

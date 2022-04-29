@@ -5,17 +5,43 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\Permission;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ModuleController extends Controller
 {
+    public function __construct()
+    {
+        $this->limit = 10;
+        $this->middleware(function ($request, $next) {
+			if(Auth::check()) {	
+				if(!(User::isAuthorized('module')))
+                {
+                    return redirect()->route('dashboard')->with('error','Unauthorized access');
+                }
+			}
+			return $next($request);
+		});
+    }
+
     public function index()
     {
+        if(!(User::isAuthorized('module')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $modules = Module::where('is_delete', '!=', 1)->get();
         return view('module.index', compact('modules'));
     }
 
     public function create(Request $request)
     {
+        if(!(User::isAuthorized('module','add')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         if ($request->method() == 'POST') {
 
             $request->validate([
@@ -44,6 +70,10 @@ class ModuleController extends Controller
 
     public function moduleEdit(Request $request, $id)
     {
+        if(!(User::isAuthorized('module','edit')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
 
         $editModule = Module::find(getDecrypted($id));
         if ($editModule) {
@@ -86,6 +116,11 @@ class ModuleController extends Controller
 
     public function moduleDelete($id)
     {
+        if(!(User::isAuthorized('module','delete')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $deleteModule = Module::where('is_delete',0)->where('id',getDecrypted($id))->first();
         $deleteModule->is_delete = 1;
         $deleteModule->save();
