@@ -14,7 +14,7 @@
 @media (min-width: 992px)
 {
 .header-fixed.toolbar-fixed .wrapper {
-    padding-top: 70px;
+    padding-top: 20px;
 }}
 
 .form-control {
@@ -34,10 +34,133 @@
 .swal2-popup
 {
     padding: 0;
-    width: 24em;
+    width: 26em;
     height: 20em;
 }
 .count-text
 {
     font-size: 3em;
+}
+.dz-message
+{
+    flex-direction: column;
+}
+.font-12{
+    font-size: 12px;
+}
+.font-14{
+    font-size: 14px;
+}
+.font-16{
+    font-size: 16px;
+}
+.font-18{
+    font-size: 18px;
+}
+.font-24{
+    font-size: 24px;
+}
+.font-40{
+    font-size: 40px;
+}
+.center-item
+{
+    align-self: center;
+}
+.avatar-delete{
+    color: #dc3545;
+    cursor: pointer;
+    padding-left: 3px;
+    padding-right: 6px;
+}
+.avatar-preview
+{
+    width: max-content;
+}
+.form-control {
+    height: 43px !important;
+    background-color: #dadcdd85;
+}
+.form-control .form-control-solid .valid{
+    height: 43px !important;
+    background-color: #dadcdd85;
+}
+.intial-letter-chat-image{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #000107;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+.lead-details-card-header
+{
+    min-height: 0px !important;
+    align-self: flex-end;
+    border-bottom: 0px !important;
+    padding: 0px !important;
+    margin-top: 8px;
+    margin-right: 8px;
+}
+.lead-details-card-body
+{
+    padding-top: 0px !important;
+}
+.chat-window
+{
+    min-height: 175px !important;
+    max-height: 430px !important;
+}
+.attachment-preview{
+	position: relative;
+	padding: 10px;
+}
+.attachment-preview>p{
+	margin: 0;
+    font-weight: 600;
+    padding: 0px;
+    padding-top: 10px;
+}
+.attachment-preview>p>svg{
+	font-size: 16px;
+    margin: 0;
+    margin-bottom: -1px;
+    color: #737373;
+}
+.attachment-preview svg:active{
+	transform: none;
+}
+.attachment-preview>svg:first-child{
+	position: absolute;
+    background: rgba(0, 0, 0, 0.33);
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    border-radius: 100%;
+    font-size: 16px;
+    margin: 0;
+    top: 10px;
+    color: #fff;
+}
+.image-file{
+    cursor: pointer;
+	width: 140px;
+    height: 70px;
+    border-radius: 4px;
+    background-color: #f7f7f7;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+#role_action_card .card-header
+{
+    min-height: 0px !important;
+}
+#role_action_card .card-body
+{
+    padding-top: 5px !important;
 }
