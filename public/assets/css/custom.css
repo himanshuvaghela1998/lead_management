@@ -156,3 +156,11 @@
     background-repeat: no-repeat;
     background-position: center center;
 }
+.card-header
+{
+    min-height: 0px !important;
+}
+.card-body
+{
+    padding-top: 5px !important;
+}
