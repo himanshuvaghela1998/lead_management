@@ -1,6 +1,10 @@
 <?php
 
 /* Encryption Id */
+
+use App\Models\Module;
+use App\Models\SubModule;
+
 function getEncrypted($id){
     $encrypted_string=openssl_encrypt($id,config('services.encryption.type'),config('services.encryption.secret'));
     return base64_encode($encrypted_string);
@@ -45,4 +49,16 @@ function get_time_ago( $time )
 			return $t . ' ' . $str . ( $t > 1 ? 's' : '' ) . ' ago';
 		}
 	}
+}
+
+function get_permission_name($module_name, $submodule_name = null)
+{
+	$module = Module::where('name',$module_name)->first();
+	$slug = isset($module) ? $module->slug : null;
+	if(isset($submodule_name) && isset($module))
+	{
+		$subModule = SubModule::where('module_id',$module->id)->where('name',$submodule_name)->first();
+		$slug = isset($subModule) ? $slug.'.'.$subModule->slug : $slug;
+	}
+	return $slug;
 }

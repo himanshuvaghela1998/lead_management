@@ -23,10 +23,24 @@ class LeadController extends Controller
     public function __construct()
     {
         $this->limit = 10;
+        $this->middleware(function ($request, $next) {
+			if(Auth::check()) {	
+				if(!(User::isAuthorized('lead')))
+                {
+                    return redirect()->route('dashboard')->with('error','Unauthorized access');
+                }
+			}
+			return $next($request);
+		});
     }
 
     public function index(Request $request)
     {
+        if(!(User::isAuthorized('lead')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $leads = Lead::with('clients', 'projectType', 'getUser')->where('is_delete',0);
 
         if($request->has('search_keyword') && $request->search_keyword != ""){
@@ -57,6 +71,11 @@ class LeadController extends Controller
 
     public function create(Request $request)
     {
+        if(!(User::isAuthorized('lead','add')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         if ($request->method() == 'POST') {
 
             $request->validate([
@@ -93,7 +112,7 @@ class LeadController extends Controller
             $lead->time_estimation = $request->input('time_estimation');
             $lead->lead_details = $request->input('lead_details_data');
             $lead->save();
-            
+
             $clients = new Client();
             $clients->lead_id = $lead->id;
             $clients->client_name = $request->input('client_name');
@@ -114,10 +133,15 @@ class LeadController extends Controller
 
     public function edit($id)
     {
+        if(!(User::isAuthorized('lead','edit')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
-        $leads = Lead::with('clients', 'projectType','leadAttachments')->find($id);
+        $leads = Lead::with('clients', 'projectType','leadAttachments')->find(getDecrypted($id));
         $lead_attachments = $leads->leadAttachments;
         if (!$leads == null) {
         return view('leads.edit', compact('leads', 'projects', 'Sources', 'users','lead_attachments'));
@@ -179,6 +203,11 @@ class LeadController extends Controller
 
     public function delete($id)
     {
+        if(!(User::isAuthorized('lead','delete')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $lead = Lead::where('is_delete',0)->where('id',getDecrypted($id))->first();
         if($lead){
             $lead->is_delete = 1;
@@ -256,9 +285,9 @@ class LeadController extends Controller
             return response()->json(['success' => true, 'status' => 200, 'html' => $view, 'message' => 'Attachment uploaded successfully.', '']);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
-        } 
+        }
     }
-    
+
     public function lead_media_delete(Request $request)
     {
         $lead_attachment =LeadAttachment::where('id',$request->id)->delete();
@@ -272,6 +301,11 @@ class LeadController extends Controller
 
     public function leadChat(Request $request,$id)
     {
+        if(!(User::isAuthorized('lead','lead thread')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
         $lead = Lead::with('clients', 'projectType', 'getUser','leadThreads')->where('id',getDecrypted($id))->first();
         if ($request->method() == 'POST') {
             $lead_thread = new LeadThread;
@@ -300,7 +334,6 @@ class LeadController extends Controller
 
     
                 if ($validator->fails()) {
-                    info($validator->errors('thread_attachment'));
                     return response()->json(['status' => 401, 'message' => $validator->errors()->first()]);
                 }
                 try {

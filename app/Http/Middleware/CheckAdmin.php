@@ -20,7 +20,7 @@ class CheckAdmin
         if (Auth::check() && Auth::user()->role_id == 1) {
             return $next($request);
         }else{
-            return redirect(route('dashboard'));
+            return $next($request);
         }
 
 

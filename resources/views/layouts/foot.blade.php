@@ -22,7 +22,7 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 
  <!-- strat Toastr -->
- <script src="{{ asset('public/assets/js/toastr.js') }}"></script>
+ {{-- <script src="{{ asset('assets/js/toastr.js') }}"></script> --}}
  <script>
   @if(Session::has('message'))
   toastr.options =

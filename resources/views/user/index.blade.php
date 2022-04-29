@@ -63,10 +63,11 @@
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
                                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-
-                                    <!--begin::Add customer-->
-                                    <button type="button" class="btn btn-primary btn-sm" id="add_user_btn"><i class="fas fa-user-plus"></i>Add User</button>
-                                    <!--end::Add customer-->
+                                    @can(get_permission_name('user','add'))
+                                        <!--begin::Add customer-->
+                                        <button type="button" class="btn btn-primary btn-sm" id="add_user_btn"><i class="fas fa-user-plus"></i>Add User</button>
+                                        <!--end::Add customer-->
+                                    @endcan
                                 </div>
                             </div>
                         </div>

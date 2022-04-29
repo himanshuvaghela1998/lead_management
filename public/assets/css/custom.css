@@ -156,3 +156,11 @@
     background-repeat: no-repeat;
     background-position: center center;
 }
+#role_action_card .card-header
+{
+    min-height: 0px !important;
+}
+#role_action_card .card-body
+{
+    padding-top: 5px !important;
+}

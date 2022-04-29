@@ -3,8 +3,10 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SubModuleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +29,7 @@ Route::match(['GET', 'POST'], 'login', [LoginController::class, 'login'])->name(
 Route::get('logout', [HomeController::class, 'logout'])->name('logout');
 Auth::routes();
 
-Route::middleware(['CheckAdmin'])->group(function(){
+Route::middleware(['auth','CheckAdmin'])->group(function(){
 
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
@@ -54,6 +56,25 @@ Route::middleware(['CheckAdmin'])->group(function(){
     //Role Routes
 
     Route::get('role', [RoleController::class, 'index'])->name('role');
+    Route::get('role/action/{id}', [RoleController::class, 'roleAction'])->name('role.action');
+    Route::post('role/action/{id}', [RoleController::class, 'setPermission'])->name('role.set_permission');
+
+
+    //Module Controller
+
+    Route::get('modules', [ModuleController::class, 'index'])->name('module');
+    Route::match(['GET', 'POST'], 'modules/create', [ModuleController::class, 'create'])->name('module.create');
+    Route::get('modules/edit/{secret}', [ModuleController::class, 'moduleEdit'])->name('module.edit');
+    Route::post('modules/update/{secret}', [ModuleController::class, 'moduleUpdate'])->name('module.update');
+    Route::delete('modules/delete/{secret}', [ModuleController::class, 'moduleDelete'])->name('module.delete');
+
+    //Sub Module Controller
+
+    Route::get('subModules', [SubModuleController::class, 'index'])->name('submodule');
+    Route::match(['GET', 'POST'], 'subModule/create', [SubModuleController::class, 'create'])->name('subModule.create');
+    Route::get('subModules/edit/{secret}', [SubModuleController::class, 'editModule'])->name('subModule.edit');
+    Route::post('subModules/update/{secret}', [SubModuleController::class, 'updateSubmodule'])->name('subModules.update');
+    Route::delete('subModules/delete/{secret}', [SubModuleController::class, 'deleteSubModule'])->name('subModules.delete');
 
 });
 

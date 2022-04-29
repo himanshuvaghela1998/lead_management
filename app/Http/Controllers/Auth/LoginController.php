@@ -56,7 +56,7 @@ class LoginController extends Controller
                 'password' => 'Password is required.'
             ]);
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::with('permissions')->where('email', $request->email)->first();
             if ($user) {
 
                 if ($user->status == 1) {
@@ -64,6 +64,7 @@ class LoginController extends Controller
                     $data = $request->only('email', 'password');
 
                     if (Auth::attempt($data)) {
+                        $user->assignRole($user->getRole->name);
                         return redirect()->route('home')->with('message','Login successfully');
                     }else{
                         return back()->with('error','Please use correct password!');
