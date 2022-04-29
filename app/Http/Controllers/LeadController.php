@@ -300,7 +300,6 @@ class LeadController extends Controller
 
     
                 if ($validator->fails()) {
-                    info($validator->errors('thread_attachment'));
                     return response()->json(['status' => 401, 'message' => $validator->errors()->first()]);
                 }
                 try {

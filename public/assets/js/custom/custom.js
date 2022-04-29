@@ -636,14 +636,10 @@ $(document).on('click','.selected_permission_rows',function(){
     if($(this).is(":checked")){
         $(this).attr('checked', true);
         var status = 1;
-        var current_status = 'active';
-        console.log(current_status);
     }
     else if($(this).is(":not(:checked)")){
         $(this).attr('checked', false);
         var status = 0;
-        var current_status = 'inactive';
-        console.log(current_status);
     }
  
     $.ajax({
