@@ -21,10 +21,10 @@
         @foreach ($submodules as $submodule)
         <tr id="user_{{$submodule->secret}}">
                 <td>
-                    <p>{{ $submodule->getModule->name }}</p>
+                    <p class="capitalize-letter">{{ $submodule->getModule->name }}</p>
                 </td>
                 <td>
-                    <p>{{ $submodule->name }}</p>
+                    <p class="capitalize-letter">{{ $submodule->name }}</p>
                 </td>
                 <td>
                     <p>{{ $submodule->slug }}</p>
