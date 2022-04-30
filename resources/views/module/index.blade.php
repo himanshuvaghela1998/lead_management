@@ -41,7 +41,7 @@
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
                                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                                    @can('module_update_slug')
+                                    @can('module_update')
                                         <!--begin::Add module-->
                                         <button type="button" class="btn btn-primary btn-sm" id="add_module_btn"><i class="fas fa-user-plus"></i>Add Module</button>
                                         <!--end::Add module-->

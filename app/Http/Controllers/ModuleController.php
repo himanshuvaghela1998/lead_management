@@ -15,7 +15,7 @@ class ModuleController extends Controller
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
 			if(Auth::check()) {	
-				if(!(User::isAuthorized('module_slug')))
+				if(!(User::isAuthorized('module')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
                 }
@@ -26,7 +26,7 @@ class ModuleController extends Controller
 
     public function index()
     {
-        if(!(User::isAuthorized('module_slug')))
+        if(!(User::isAuthorized('module')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -37,7 +37,7 @@ class ModuleController extends Controller
 
     public function create(Request $request)
     {
-        if(!(User::isAuthorized('module_update_slug')))
+        if(!(User::isAuthorized('module_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -71,7 +71,7 @@ class ModuleController extends Controller
 
     public function moduleEdit(Request $request, $id)
     {
-        if(!(User::isAuthorized('module_update_slug')))
+        if(!(User::isAuthorized('module_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -117,7 +117,7 @@ class ModuleController extends Controller
 
     public function moduleDelete($id)
     {
-        if(!(User::isAuthorized('module_delete_slug')))
+        if(!(User::isAuthorized('module_delete')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

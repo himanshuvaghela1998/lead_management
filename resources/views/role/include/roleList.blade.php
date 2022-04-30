@@ -4,7 +4,7 @@
         <!--begin::Table row-->
         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
             <th class="min-w-125px">Name</th>
-        @can('role_action_slug')
+        @can('role_action')
             <th class="text-center min-w-125px">Actions</th>
         @endcan
         </tr>
@@ -15,7 +15,7 @@
         <td>
             <p class="capitalize-letter">{{ $role->name }}</p>
         </td>
-        @can('role_action_slug')
+        @can('role_action')
             <td class="text-center">
                 <a href="{{ route('role.action',[$role->id]) }}"><i class="fa fa-lock"></i></a>
             </td>

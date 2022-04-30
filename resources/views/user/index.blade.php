@@ -63,7 +63,7 @@
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
                                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                                    @can('user_update_slug')
+                                    @can('user_update')
                                         <!--begin::Add customer-->
                                         <button type="button" class="btn btn-primary btn-sm" id="add_user_btn"><i class="fas fa-user-plus"></i>Add User</button>
                                         <!--end::Add customer-->

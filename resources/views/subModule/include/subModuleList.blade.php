@@ -11,7 +11,7 @@
             <th style="width: 25%">Module Name</th>
             <th style="width: 25%">Name</th>
             <th style="width: 25%">Slug</th>
-            @canany(['submodule_update_slug','submodule_delete_slug'])
+            @canany(['submodule_update','submodule_delete'])
                 <th style="width: 15%">Actions</th>
             @endcanany
         </tr>
@@ -29,7 +29,7 @@
                 <td>
                     <p>{{ $submodule->slug }}</p>
                 </td>
-                @canany(['submodule_update_slug','submodule_delete_slug'])
+                @canany(['submodule_update','submodule_delete'])
                     <td>
                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                             <span class="svg-icon svg-icon-5 m-0">
@@ -39,14 +39,14 @@
                             </span>
                         </a>
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4 kt-action-menu" data-kt-menu="true">
-                            @can('submodule_update_slug')
+                            @can('submodule_update')
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a class="menu-link px-3 edit_subModule" data-url="{{ route('subModule.edit',[$submodule->secret])}}" id="{{ $submodule->secret }}">Edit</a>
                                 </div>
                                 <!--end::Menu item-->
                             @endcan
-                            @can('submodule_delete_sluge')
+                            @can('submodule_delete')
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a class="menu-link px-3 delete_row" data-title="SubModules" data-user_id ="{{$submodule->secret}}" data-href="{{route('subModules.delete',$submodule->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>

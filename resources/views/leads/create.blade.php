@@ -121,7 +121,7 @@
                                             @enderror
                                     </div>
                                 </div>
-                                @can('lead_assign_to_slug')
+                                @can('lead_assign_to')
                                     <div class="row mt-2">
                                         <div class="d-flex flex-column col-md-12">
                                             <label class="required fs-6 fw-bold mb-2">

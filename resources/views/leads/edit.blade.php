@@ -126,7 +126,7 @@
 
                                     </div>
                                 </div>
-                                @can('lead_assign_to_slug')
+                                @can('lead_assign_to')
                                     <div class="row">
                                         <div class="col-md-12 d-flex flex-column fv-row">
                                             <label class="required fs-6 fw-bold mb-2">

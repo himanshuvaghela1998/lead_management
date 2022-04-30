@@ -16,7 +16,7 @@ class RoleController extends Controller
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
 			if(Auth::check()) {	
-                if(!(User::isAuthorized('role_slug')))
+                if(!(User::isAuthorized('role')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
                 }
@@ -27,7 +27,7 @@ class RoleController extends Controller
 
     public function index()
     {
-        if(!(User::isAuthorized('role_slug')))
+        if(!(User::isAuthorized('role')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -38,7 +38,7 @@ class RoleController extends Controller
 
     public function roleAction($id)
     {
-        if(!(User::isAuthorized('role_action_slug')))
+        if(!(User::isAuthorized('role_action')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

@@ -18,7 +18,7 @@ class UserController extends Controller
 
         $this->middleware(function ($request, $next) {
 			if(Auth::check()) {
-                if(!(User::isAuthorized('user_slug')))
+                if(!(User::isAuthorized('user')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
                 }
@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if(!(User::isAuthorized('user_slug')))
+        if(!(User::isAuthorized('user')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -69,7 +69,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        if(!(User::isAuthorized('user_update_slug')))
+        if(!(User::isAuthorized('user_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -124,7 +124,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if(!(User::isAuthorized('user_update_slug')))
+        if(!(User::isAuthorized('user_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -172,7 +172,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if(!(User::isAuthorized('user_delete_slug')))
+        if(!(User::isAuthorized('user_delete')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -193,7 +193,7 @@ class UserController extends Controller
 
     public function editPassword($id)
     {
-        if(!(User::isAuthorized('user_change_password_slug')))
+        if(!(User::isAuthorized('user_change_password')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -257,7 +257,7 @@ class UserController extends Controller
     }
 
     public function status_update(Request $request,$id){
-        if(!(User::isAuthorized('user_change_status_slug')))
+        if(!(User::isAuthorized('user_change_status')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

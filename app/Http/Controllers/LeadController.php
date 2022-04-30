@@ -25,7 +25,7 @@ class LeadController extends Controller
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
 			if(Auth::check()) {	
-				if(!(User::isAuthorized('lead_slug')))
+				if(!(User::isAuthorized('lead')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
                 }
@@ -36,7 +36,7 @@ class LeadController extends Controller
 
     public function index(Request $request)
     {
-        if(!(User::isAuthorized('lead_slug')))
+        if(!(User::isAuthorized('lead')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -71,7 +71,7 @@ class LeadController extends Controller
 
     public function create(Request $request)
     {
-        if(!(User::isAuthorized('lead_update_slug')))
+        if(!(User::isAuthorized('lead_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -103,7 +103,7 @@ class LeadController extends Controller
             $lead->project_title = $request->input('project_title');
             $lead->project_type_id = $request->input('project_type_id');
             $lead->source_id = $request->input('source_id');
-            if(User::isAuthorized('lead_assign_to_slug'))
+            if(User::isAuthorized('lead_assign_to'))
             {
                 $lead->user_id = $request->input('user_id');
             }
@@ -133,7 +133,7 @@ class LeadController extends Controller
 
     public function edit($id)
     {
-        if(!(User::isAuthorized('lead_update_slug')))
+        if(!(User::isAuthorized('lead_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -178,7 +178,7 @@ class LeadController extends Controller
         $lead->project_title = $request->input('project_title');
         $lead->project_type_id = $request->input('project_type_id');
         $lead->source_id = $request->input('source_id');
-        if(User::isAuthorized('lead_assign_to_slug'))
+        if(User::isAuthorized('lead_assign_to'))
         {
             $lead->user_id = $request->input('user_id');
         }
@@ -204,7 +204,7 @@ class LeadController extends Controller
 
     public function delete($id)
     {
-        if(!(User::isAuthorized('lead_delete_slug')))
+        if(!(User::isAuthorized('lead_delete')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -302,7 +302,7 @@ class LeadController extends Controller
 
     public function leadChat(Request $request,$id)
     {
-        if(!(User::isAuthorized('lead_thread_slug')))
+        if(!(User::isAuthorized('lead_thread')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

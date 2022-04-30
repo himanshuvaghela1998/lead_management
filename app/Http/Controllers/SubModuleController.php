@@ -17,7 +17,7 @@ class SubModuleController extends Controller
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
 			if(Auth::check()) {	
-				if(!(User::isAuthorized('submodule_slug')))
+				if(!(User::isAuthorized('submodule')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
                 }
@@ -28,7 +28,7 @@ class SubModuleController extends Controller
 
     public function index()
     {
-        if(!(User::isAuthorized('submodule_slug')))
+        if(!(User::isAuthorized('submodule')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -40,7 +40,7 @@ class SubModuleController extends Controller
 
     public function create(Request $request)
     {
-        if(!(User::isAuthorized('submodule_update_slug')))
+        if(!(User::isAuthorized('submodule_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -82,7 +82,7 @@ class SubModuleController extends Controller
 
     public function editModule($id)
     {
-        if(!(User::isAuthorized('submodule_update_slug')))
+        if(!(User::isAuthorized('submodule_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -131,7 +131,7 @@ class SubModuleController extends Controller
 
     public function deleteSubModule($id)
     {
-        if(!(User::isAuthorized('submodule_delete_slug')))
+        if(!(User::isAuthorized('submodule_delete')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

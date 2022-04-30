@@ -44,7 +44,7 @@
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </div>
-                @can('user_slug')
+                @can('user')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'users' ? 'active' : ''}}" href="{{ route('users.index') }}">
                             <span class="menu-icon">
@@ -58,7 +58,7 @@
                         </a>
                     </div>
                 @endcan
-                @can('lead_slug')
+                @can('lead')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'leads' ? 'active' : ''}}" href="{{ route('lead') }}">
                             <span class="menu-icon">
@@ -75,7 +75,7 @@
                         </a>
                     </div>
                 @endcan
-                @can('role_slug')
+                @can('role')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'role' ? 'active' : ''}}" href="{{ route('role') }}">
                             <span class="menu-icon">
@@ -89,7 +89,7 @@
                         </a>
                     </div>
                 @endcan
-                @can('module_slug')
+                @can('module')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'modules' ? 'active' : ''}}" href="{{ route('module') }}">
                             <span class="menu-icon">
@@ -103,7 +103,7 @@
                         </a>
                     </div>
                 @endcan
-                @can('submodule_slug')
+                @can('submodule')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'subModules' ? 'active' : ''}}" href="{{ route('submodule') }}">
                             <span class="menu-icon">

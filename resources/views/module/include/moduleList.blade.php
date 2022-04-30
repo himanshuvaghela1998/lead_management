@@ -10,7 +10,7 @@
             </th> --}}
             <th style="width: 25%">Name</th>
             <th style="width: 25%">Slug</th>
-            @canany(['module_update_slug','module_delete_slug'])
+            @canany(['module_update','module_delete'])
                 <th style="width: 15%">Actions</th>
             @endcanany
         </tr>
@@ -24,7 +24,7 @@
                 <td>
                     <p>{{ $module->slug }}</p>
                 </td>
-                @canany(['module_update_slug','module_delete_slug'])
+                @canany(['module_update','module_delete'])
                     <td>
                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                             <span class="svg-icon svg-icon-5 m-0">
@@ -34,14 +34,14 @@
                             </span>
                         </a>
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4 kt-action-menu" data-kt-menu="true">
-                            @can('module_update_slug')
+                            @can('module_update')
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a class="menu-link px-3 edit_module" data-url="{{ route('module.edit',[$module->secret])}}" id="{{ $module->secret }}">Edit</a>
                                 </div>
                                 <!--end::Menu item-->
                             @endcan
-                            @can('module_delete_slug')
+                            @can('module_delete')
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a class="menu-link px-3 delete_row" data-title="module" data-user_id ="{{$module->secret}}" data-href="{{route('module.delete',$module->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>
