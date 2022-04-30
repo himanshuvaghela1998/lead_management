@@ -121,23 +121,25 @@
                                             @enderror
                                     </div>
                                 </div>
-                                <div class="row mt-2">
-                                    <div class="d-flex flex-column col-md-12">
-                                        <label class="required fs-6 fw-bold mb-2">
-                                            <span class="">Assigned To</span>
-                                        </label>
-                                            <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" class=" form-control form-control-solid">
-                                                <option value="">Assign to a user</option>
-                                                @foreach ($users as $user)
-                                                <option value="{{ $user->id }}" >{{ucfirst(trans($user->name))}}  ({{ucfirst(trans($user->getRole->name))}})</option>
-                                                @endforeach
-                                            </select>
-                                            <div id="assignedTo"></div>
-                                            @error('user_id')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+                                @can('lead_assign_to')
+                                    <div class="row mt-2">
+                                        <div class="d-flex flex-column col-md-12">
+                                            <label class="required fs-6 fw-bold mb-2">
+                                                <span class="">Assigned To</span>
+                                            </label>
+                                                <select name="user_id" aria-label="Assigned Too" data-error="#assignedTo" class=" form-control form-control-solid">
+                                                    <option value="">Assign to a user</option>
+                                                    @foreach ($users as $user)
+                                                    <option value="{{ $user->id }}" >{{ucfirst(trans($user->name))}}  ({{ucfirst(trans($user->getRole->name))}})</option>
+                                                    @endforeach
+                                                </select>
+                                                <div id="assignedTo"></div>
+                                                @error('user_id')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                        </div>
                                     </div>
-                                </div>
+                                @endcan
                                 <div class="row mt-2">
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">Client Name</label>
@@ -263,9 +265,6 @@
             source_id : {
                 required: true
             },
-            user_id : {
-                required: true
-            },
             status : {
                 required: true
             },
@@ -291,9 +290,6 @@
             },
             "source_id":{
                 required:"Lead source is required"
-            },
-            "user_id":{
-                required:"Assigned too is required"
             },
             "status":{
                 required:"Project status is required"

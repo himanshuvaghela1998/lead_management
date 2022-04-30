@@ -41,7 +41,7 @@
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
                                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                                    @can(get_permission_name('sub module','add'))
+                                    @can('submodule_update')
                                         <!--begin::Add SubModule-->
                                         <button type="button" class="btn btn-primary btn-sm" id="add_subModule_btn"><i class="fas fa-user-plus"></i>Add Sub Module</button>
                                         <!--end::Add SubModule-->

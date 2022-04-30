@@ -71,18 +71,16 @@ class LeadController extends Controller
 
     public function create(Request $request)
     {
-        if(!(User::isAuthorized('lead','add')))
+        if(!(User::isAuthorized('lead_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
 
         if ($request->method() == 'POST') {
-
             $request->validate([
                 'project_title' => 'required',
                 'project_type_id' => 'required',
                 'source_id' => 'required',
-                'user_id' => 'required',
                 'status' => 'required',
                 'billing_type' => 'required',
                 'time_estimation' => 'required',
@@ -93,7 +91,6 @@ class LeadController extends Controller
             'project_title.required' => 'Project title is required',
             'project_type_id.required' => 'Project type is required',
             'source_id.required' => 'Lead source is required',
-            'user_id.required' => 'Assigned too is required',
             'status.required' => 'Project status is required',
             'billing_type.required' => 'Billing type is required',
             'time_estimation.required' => 'Time estimation is required',
@@ -106,7 +103,10 @@ class LeadController extends Controller
             $lead->project_title = $request->input('project_title');
             $lead->project_type_id = $request->input('project_type_id');
             $lead->source_id = $request->input('source_id');
-            $lead->user_id = $request->input('user_id');
+            if(User::isAuthorized('lead_assign_to'))
+            {
+                $lead->user_id = $request->input('user_id');
+            }
             $lead->status = $request->input('status');
             $lead->billing_type = $request->input('billing_type');
             $lead->time_estimation = $request->input('time_estimation');
@@ -133,7 +133,7 @@ class LeadController extends Controller
 
     public function edit($id)
     {
-        if(!(User::isAuthorized('lead','edit')))
+        if(!(User::isAuthorized('lead_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -157,7 +157,6 @@ class LeadController extends Controller
             'project_title' => 'required',
             'project_type_id' => 'required',
             'source_id' => 'required',
-            'user_id' => 'required',
             'status' => 'required',
             'billing_type' => 'required',
             'time_estimation' => 'required',
@@ -168,7 +167,6 @@ class LeadController extends Controller
         'project_title.required' => 'Project title is required',
         'project_type_id.required' => 'Project type is required',
         'source_id.required' => 'Lead source is required',
-        'user_id.required' => 'Assigned too is required',
         'status.required' => 'Project status is required',
         'billing_type.required' => 'Billing type is required',
         'time_estimation.required' => 'Time estimation is required',
@@ -180,7 +178,10 @@ class LeadController extends Controller
         $lead->project_title = $request->input('project_title');
         $lead->project_type_id = $request->input('project_type_id');
         $lead->source_id = $request->input('source_id');
-        $lead->user_id = $request->input('user_id');
+        if(User::isAuthorized('lead_assign_to'))
+        {
+            $lead->user_id = $request->input('user_id');
+        }
         $lead->status = $request->input('status');
         $lead->billing_type = $request->input('billing_type');
         $lead->time_estimation = $request->input('time_estimation');
@@ -203,7 +204,7 @@ class LeadController extends Controller
 
     public function delete($id)
     {
-        if(!(User::isAuthorized('lead','delete')))
+        if(!(User::isAuthorized('lead_delete')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -301,7 +302,7 @@ class LeadController extends Controller
 
     public function leadChat(Request $request,$id)
     {
-        if(!(User::isAuthorized('lead','lead thread')))
+        if(!(User::isAuthorized('lead_thread')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

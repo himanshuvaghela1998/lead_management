@@ -57,7 +57,7 @@ class User extends Authenticatable
         return base64_encode($encrypted_string);
     }
 
-    public static function isAuthorized($module_name, $submodule_name = null)
+    public static function isAuthorized($slug)
     {
         $auth_user = User::where('id',Auth::user()->id)->first();
         $authorized = false;
@@ -67,12 +67,8 @@ class User extends Authenticatable
             return true;
         }
         try {
-            $permission_name = get_permission_name($module_name,$submodule_name);
-            if($permission_name == null)
-            {
-                $authorized = false;
-            }
-            elseif(isset($auth_user) && $auth_user->hasPermissionTo($permission_name))
+            $permission_name = $slug;
+            if(isset($auth_user) && $auth_user->hasPermissionTo($permission_name))
             {
                 $authorized = true;
             }

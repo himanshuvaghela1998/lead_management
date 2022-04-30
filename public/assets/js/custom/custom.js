@@ -629,8 +629,7 @@ $(document).on("click",".edit_subModule",function (e) {
 // End edit submodule
 
 $(document).on('click','.selected_permission_rows',function(){
-    var module_slug  = $(this).data('module-slug');
-    var submodule_slug  = $(this).data('submodule-slug');
+    var slug  = $(this).data('slug');
     var URL = $(this).data('url');
      
     if($(this).is(":checked")){
@@ -646,7 +645,7 @@ $(document).on('click','.selected_permission_rows',function(){
         url:URL,
         type:'post',
         dataType: "JSON",
-        data: {module_slug : module_slug , submodule_slug:submodule_slug, status:status},
+        data: {slug : slug, status:status},
         success: function (response)
         {
             toastr.success(response.message);
