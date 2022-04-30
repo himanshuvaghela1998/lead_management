@@ -103,7 +103,10 @@ class LeadController extends Controller
             $lead->project_title = $request->input('project_title');
             $lead->project_type_id = $request->input('project_type_id');
             $lead->source_id = $request->input('source_id');
-            $lead->user_id = $request->input('user_id');
+            if(User::isAuthorized('lead_assign_to_slug'))
+            {
+                $lead->user_id = $request->input('user_id');
+            }
             $lead->status = $request->input('status');
             $lead->billing_type = $request->input('billing_type');
             $lead->time_estimation = $request->input('time_estimation');
@@ -175,7 +178,10 @@ class LeadController extends Controller
         $lead->project_title = $request->input('project_title');
         $lead->project_type_id = $request->input('project_type_id');
         $lead->source_id = $request->input('source_id');
-        $lead->user_id = $request->input('user_id');
+        if(User::isAuthorized('lead_assign_to_slug'))
+        {
+            $lead->user_id = $request->input('user_id');
+        }
         $lead->status = $request->input('status');
         $lead->billing_type = $request->input('billing_type');
         $lead->time_estimation = $request->input('time_estimation');
