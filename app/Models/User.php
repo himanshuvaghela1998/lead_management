@@ -67,7 +67,12 @@ class User extends Authenticatable
             return true;
         }
         try {
-            if(isset($auth_user) && $auth_user->hasPermissionTo(get_permission_name($module_name,$submodule_name)))
+            $permission_name = get_permission_name($module_name,$submodule_name);
+            if($permission_name == null)
+            {
+                $authorized = false;
+            }
+            elseif(isset($auth_user) && $auth_user->hasPermissionTo($permission_name))
             {
                 $authorized = true;
             }
