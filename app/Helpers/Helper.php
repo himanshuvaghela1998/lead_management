@@ -50,15 +50,3 @@ function get_time_ago( $time )
 		}
 	}
 }
-
-function get_permission_name($module_name, $submodule_name = null)
-{
-	$module = Module::where('name',$module_name)->first();
-	$slug = isset($module) ? $module->slug : null;
-	if(isset($submodule_name) && isset($module))
-	{
-		$subModule = SubModule::where('module_id',$module->id)->where('name',$submodule_name)->first();
-		$slug = isset($subModule) ? $slug.'.'.$subModule->slug : $slug;
-	}
-	return $slug;
-}

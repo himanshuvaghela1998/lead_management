@@ -8,7 +8,7 @@
             <th class="min-w-125px">Project Type</th>
             <th class="min-w-125px">Assign To</th>
             {{-- <th class="min-w-125px">Project Status</th> --}}
-            @canany([get_permission_name('lead','edit'),get_permission_name('lead','delete')])
+            @canany(['lead_update_slug','lead_delete_slug'])
                 <th class="text-center min-w-125px">Actions</th>
             @endcanany
         </tr>
@@ -35,7 +35,7 @@
             <td> <p class="capitalize-letter">{{ ($lead->getUser) ? $lead->getUser->name : ''  }}</p></td>
             <!-- Start drop down list -->
             <!-- End Drop down -->
-            @canany([get_permission_name('lead','edit'),get_permission_name('lead','delete')])
+            @canany(['lead_update_slug','lead_delete_slug'])
                 <td class="text-center">
                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                         <span class="svg-icon svg-icon-5 m-0">
@@ -47,14 +47,14 @@
                     <!--begin::Menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                         <!--begin::Menu item-->
-                        @can(get_permission_name('lead','edit'))
+                        @can('lead_update_slug')
                             <div class="menu-item px-3">
                                 <a class="menu-link px-3 subModule" href="{{ route('edit', $lead->secret )}}">Edit</a>
                             </div>
                         @endcan
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
-                        @can(get_permission_name('lead','delete'))
+                        @can('lead_delete_slug')
                             <div class="menu-item px-3">
                                 <a class="menu-link px-3 delete_row" data-title="lead" data-user_id ="{{$lead->secret}}" data-href="{{route('lead.destroy',$lead->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>
                             </div>

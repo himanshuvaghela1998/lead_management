@@ -61,7 +61,7 @@
                             </div>
                             <div class="card-toolbar">
                                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                                    @can(get_permission_name('lead','add'))
+                                    @can('lead_create_slug')
                                         <a class="btn btn-primary btn-sm" href="{{ route('create') }}"><i class="fa-solid fa-plus"></i>Add Leads</a>
                                     @endcan
                                 </div>

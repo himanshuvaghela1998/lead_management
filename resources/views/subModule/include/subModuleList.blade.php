@@ -11,7 +11,7 @@
             <th style="width: 25%">Module Name</th>
             <th style="width: 25%">Name</th>
             <th style="width: 25%">Slug</th>
-            @canany([get_permission_name('sub module','edit'),get_permission_name('sub module','delete')])
+            @canany(['submodule_update_slug','submodule_delete_slug'])
                 <th style="width: 15%">Actions</th>
             @endcanany
         </tr>
@@ -21,15 +21,15 @@
         @foreach ($submodules as $submodule)
         <tr id="user_{{$submodule->secret}}">
                 <td>
-                    <p class="capitalize-letter">{{ $submodule->getModule->name }}</p>
+                    <p>{{ $submodule->getModule->name }}</p>
                 </td>
                 <td>
-                    <p class="capitalize-letter">{{ $submodule->name }}</p>
+                    <p>{{ $submodule->name }}</p>
                 </td>
                 <td>
                     <p>{{ $submodule->slug }}</p>
                 </td>
-                @canany([get_permission_name('sub module','edit'),get_permission_name('sub module','delete')])
+                @canany(['submodule_update_slug','submodule_delete_slug'])
                     <td>
                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                             <span class="svg-icon svg-icon-5 m-0">
@@ -39,14 +39,14 @@
                             </span>
                         </a>
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4 kt-action-menu" data-kt-menu="true">
-                            @can(get_permission_name('sub module','edit'))
+                            @can('submodule_update_slug')
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a class="menu-link px-3 edit_subModule" data-url="{{ route('subModule.edit',[$submodule->secret])}}" id="{{ $submodule->secret }}">Edit</a>
                                 </div>
                                 <!--end::Menu item-->
                             @endcan
-                            @can(get_permission_name('sub module','delete'))
+                            @can('submodule_delete_sluge')
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a class="menu-link px-3 delete_row" data-title="SubModules" data-user_id ="{{$submodule->secret}}" data-href="{{route('subModules.delete',$submodule->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>

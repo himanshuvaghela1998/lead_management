@@ -25,7 +25,7 @@ class LeadController extends Controller
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
 			if(Auth::check()) {	
-				if(!(User::isAuthorized('lead')))
+				if(!(User::isAuthorized('lead_slug')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
                 }
@@ -36,7 +36,7 @@ class LeadController extends Controller
 
     public function index(Request $request)
     {
-        if(!(User::isAuthorized('lead')))
+        if(!(User::isAuthorized('lead_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -71,7 +71,7 @@ class LeadController extends Controller
 
     public function create(Request $request)
     {
-        if(!(User::isAuthorized('lead','add')))
+        if(!(User::isAuthorized('lead_create_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -133,7 +133,7 @@ class LeadController extends Controller
 
     public function edit($id)
     {
-        if(!(User::isAuthorized('lead','edit')))
+        if(!(User::isAuthorized('lead_update_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -203,7 +203,7 @@ class LeadController extends Controller
 
     public function delete($id)
     {
-        if(!(User::isAuthorized('lead','delete')))
+        if(!(User::isAuthorized('lead_delete_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -301,7 +301,7 @@ class LeadController extends Controller
 
     public function leadChat(Request $request,$id)
     {
-        if(!(User::isAuthorized('lead','lead thread')))
+        if(!(User::isAuthorized('lead_thread_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

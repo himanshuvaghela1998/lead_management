@@ -17,7 +17,7 @@ class SubModuleController extends Controller
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
 			if(Auth::check()) {	
-				if(!(User::isAuthorized('sub module')))
+				if(!(User::isAuthorized('submodule_slug')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
                 }
@@ -28,7 +28,7 @@ class SubModuleController extends Controller
 
     public function index()
     {
-        if(!(User::isAuthorized('sub module')))
+        if(!(User::isAuthorized('submodule_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -40,7 +40,7 @@ class SubModuleController extends Controller
 
     public function create(Request $request)
     {
-        if(!(User::isAuthorized('sub module','add')))
+        if(!(User::isAuthorized('submodule_create_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -68,7 +68,7 @@ class SubModuleController extends Controller
             $subModule->slug = $request->input('slug');
             $subModule->save();
 
-            $permission_name = $subModule->getModule->slug .'.'. $request->input('slug');
+            $permission_name = $request->input('slug');
             Permission::create(['name' => $permission_name]);
 
             if ($subModule) {
@@ -82,7 +82,7 @@ class SubModuleController extends Controller
 
     public function editModule($id)
     {
-        if(!(User::isAuthorized('sub module','edit')))
+        if(!(User::isAuthorized('submodule_update_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -116,7 +116,7 @@ class SubModuleController extends Controller
             $submodule->name = $request->input('name');
 
             if ($submodule->slug != $request->input('slug')) {
-                $permission_name = $submodule->getModule->slug .'.'. $request->input('slug');
+                $permission_name = $request->input('slug');
                 Permission::where('name',$permission_name)->delete();
                 Permission::create(['name' => $permission_name]);
             }
@@ -131,7 +131,7 @@ class SubModuleController extends Controller
 
     public function deleteSubModule($id)
     {
-        if(!(User::isAuthorized('sub module','delete')))
+        if(!(User::isAuthorized('submodule_delete_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

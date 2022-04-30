@@ -16,7 +16,7 @@ class RoleController extends Controller
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
 			if(Auth::check()) {	
-                if(!(User::isAuthorized('role')))
+                if(!(User::isAuthorized('role_slug')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
                 }
@@ -27,7 +27,7 @@ class RoleController extends Controller
 
     public function index()
     {
-        if(!(User::isAuthorized('role')))
+        if(!(User::isAuthorized('role_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -38,7 +38,7 @@ class RoleController extends Controller
 
     public function roleAction($id)
     {
-        if(!(User::isAuthorized('role','add')))
+        if(!(User::isAuthorized('role_action_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -50,12 +50,7 @@ class RoleController extends Controller
 
     public function setPermission(Request $request, $id)
     {
-        $permission_name = $request->module_slug;
-        if(isset($request->submodule_slug))
-        {
-            $permission_name = $permission_name.'.'.$request->submodule_slug;
-        }
-
+        $permission_name = $request->slug;
         $role = Role::find($id);
         if($request->status == 1){
             $role->givePermissionTo($permission_name);

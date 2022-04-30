@@ -10,7 +10,7 @@
             </th> --}}
             <th style="width: 25%">Name</th>
             <th style="width: 25%">Slug</th>
-            @canany([get_permission_name('module','edit'),get_permission_name('module','delete')])
+            @canany(['module_update_slug','module_delete_slug'])
                 <th style="width: 15%">Actions</th>
             @endcanany
         </tr>
@@ -19,12 +19,12 @@
         @foreach ($modules as $module)
         <tr id="user_{{$module->secret}}">
                 <td>
-                    <p class="capitalize-letter">{{ $module->name }}</p>
+                    <p>{{ $module->name }}</p>
                 </td>
                 <td>
                     <p>{{ $module->slug }}</p>
                 </td>
-                @canany([get_permission_name('module','edit'),get_permission_name('module','delete')])
+                @canany(['module_update_slug','module_delete_slug'])
                     <td>
                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                             <span class="svg-icon svg-icon-5 m-0">
@@ -34,14 +34,14 @@
                             </span>
                         </a>
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4 kt-action-menu" data-kt-menu="true">
-                            @can(get_permission_name('module','edit'))
+                            @can('module_update_slug')
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a class="menu-link px-3 edit_module" data-url="{{ route('module.edit',[$module->secret])}}" id="{{ $module->secret }}">Edit</a>
                                 </div>
                                 <!--end::Menu item-->
                             @endcan
-                            @can(get_permission_name('module','delete'))
+                            @can('module_delete_slug')
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a class="menu-link px-3 delete_row" data-title="module" data-user_id ="{{$module->secret}}" data-href="{{route('module.delete',$module->secret)}}" data-kt-users-table-filter="delete_row">Delete</a>

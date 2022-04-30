@@ -15,7 +15,7 @@ class ModuleController extends Controller
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
 			if(Auth::check()) {	
-				if(!(User::isAuthorized('module')))
+				if(!(User::isAuthorized('module_slug')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
                 }
@@ -26,7 +26,7 @@ class ModuleController extends Controller
 
     public function index()
     {
-        if(!(User::isAuthorized('module')))
+        if(!(User::isAuthorized('module_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -37,7 +37,7 @@ class ModuleController extends Controller
 
     public function create(Request $request)
     {
-        if(!(User::isAuthorized('module','add')))
+        if(!(User::isAuthorized('module_create_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -49,7 +49,8 @@ class ModuleController extends Controller
                 'slug' => 'required|unique:modules,slug,id',
             ], [
                 'name.required' => 'Name is required.',
-                'slug.required' => 'Slug is required.'
+                'slug.required' => 'Slug is required.',
+                'slug.unique' => 'Slug is already taken.'
             ]);
 
             $modules = new Module;
@@ -70,7 +71,7 @@ class ModuleController extends Controller
 
     public function moduleEdit(Request $request, $id)
     {
-        if(!(User::isAuthorized('module','edit')))
+        if(!(User::isAuthorized('module_update_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -116,7 +117,7 @@ class ModuleController extends Controller
 
     public function moduleDelete($id)
     {
-        if(!(User::isAuthorized('module','delete')))
+        if(!(User::isAuthorized('module_delete_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

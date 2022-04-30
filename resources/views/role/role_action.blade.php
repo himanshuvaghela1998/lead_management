@@ -42,13 +42,13 @@
                                <div class="capitalize-letter py-3">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid fw-bolder">
                                         <input type="checkbox" value="" {{ $role->hasPermissionTo($module->slug)?'checked':'' }} class="form-check-input selected_permission_rows" 
-                                        data-module-slug="{{ $module->slug }}" data-submodule-slug="" data-url="{{ route('role.set_permission',$role->id)}}" id="{{ $role->id }}">
+                                        data-slug="{{ $module->slug }}" data-url="{{ route('role.set_permission',$role->id)}}" id="{{ $role->id }}">
                                         <label class="form-check-label " for="{{ $role->id }}">{{ $module->name }}</label>
                                     </div>
                                    <div class="container mt-2">
                                        @foreach ($module->getSubModule as $subModule)
                                         <div class="form-check form-check-sm form-check-custom form-check-solid d-inline px-2">
-                                            <input type="checkbox" value="" {{ $role->hasPermissionTo($module->slug.'.'.$subModule->slug)?'checked':'' }} class="form-check-input selected_permission_rows" data-module-slug="{{ $module->slug }}" data-submodule-slug="{{ $subModule->slug }}" data-url="{{ route('role.set_permission',$role->id)}}">
+                                            <input type="checkbox" value="" {{ $role->hasPermissionTo($subModule->slug)?'checked':'' }} class="form-check-input selected_permission_rows" data-slug="{{ $subModule->slug }}" data-url="{{ route('role.set_permission',$role->id)}}">
                                             <label class="form-check-label" for="{{ $role->id }}">{{ $subModule->name }}</label>
                                         </div>
                                        @endforeach
