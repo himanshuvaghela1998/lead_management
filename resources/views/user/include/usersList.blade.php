@@ -39,7 +39,7 @@
                 <?php
                     $checked = ($user->status == 1) ? "checked" : "";
                     $ids=$user->id;
-                    $readonly = App\Models\User::isAuthorized('user','change status') == true ? '' : 'disabled';
+                    $readonly = App\Models\User::isAuthorized('user_change_status') == true ? '' : 'disabled';
                 ?>
                 <label class="form-check form-switch  form-check-custom form-check-solid">
                     <input class="form-check-input update_status" data-title="user" name="status" type="checkbox" href="{{route('user.update_status',$user->secret)}}" {{$checked}} {{$readonly}} />
@@ -63,11 +63,13 @@
                             </div>
                             <!--end::Menu item-->
                         @endcan
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                            <a class="menu-link px-3 change_password" data-url="{{ route('user.edit_confirmPassword',[$user->secret])}}" id="{{ $user->secret }}">Chnage Password</a>
-                        </div>
-                        <!--end::Menu item-->
+                        @can('user_change_password')
+                            <!--begin::Menu item-->
+                            <div class="menu-item px-3">
+                                <a class="menu-link px-3 change_password" data-url="{{ route('user.edit_confirmPassword',[$user->secret])}}" id="{{ $user->secret }}">Chnage Password</a>
+                            </div>
+                            <!--end::Menu item-->
+                        @endcan
                         @can('user_delete')
                             <!--begin::Menu item-->
                             <div class="menu-item px-3">
