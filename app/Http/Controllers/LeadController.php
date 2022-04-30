@@ -77,12 +77,10 @@ class LeadController extends Controller
         }
 
         if ($request->method() == 'POST') {
-
             $request->validate([
                 'project_title' => 'required',
                 'project_type_id' => 'required',
                 'source_id' => 'required',
-                'user_id' => 'required',
                 'status' => 'required',
                 'billing_type' => 'required',
                 'time_estimation' => 'required',
@@ -93,7 +91,6 @@ class LeadController extends Controller
             'project_title.required' => 'Project title is required',
             'project_type_id.required' => 'Project type is required',
             'source_id.required' => 'Lead source is required',
-            'user_id.required' => 'Assigned too is required',
             'status.required' => 'Project status is required',
             'billing_type.required' => 'Billing type is required',
             'time_estimation.required' => 'Time estimation is required',
@@ -157,7 +154,6 @@ class LeadController extends Controller
             'project_title' => 'required',
             'project_type_id' => 'required',
             'source_id' => 'required',
-            'user_id' => 'required',
             'status' => 'required',
             'billing_type' => 'required',
             'time_estimation' => 'required',
@@ -168,7 +164,6 @@ class LeadController extends Controller
         'project_title.required' => 'Project title is required',
         'project_type_id.required' => 'Project type is required',
         'source_id.required' => 'Lead source is required',
-        'user_id.required' => 'Assigned too is required',
         'status.required' => 'Project status is required',
         'billing_type.required' => 'Billing type is required',
         'time_estimation.required' => 'Time estimation is required',
