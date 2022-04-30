@@ -37,7 +37,7 @@ class ModuleController extends Controller
 
     public function create(Request $request)
     {
-        if(!(User::isAuthorized('module_create_slug')))
+        if(!(User::isAuthorized('module_update_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

@@ -40,7 +40,7 @@ class SubModuleController extends Controller
 
     public function create(Request $request)
     {
-        if(!(User::isAuthorized('submodule_create_slug')))
+        if(!(User::isAuthorized('submodule_update_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

@@ -71,7 +71,7 @@ class LeadController extends Controller
 
     public function create(Request $request)
     {
-        if(!(User::isAuthorized('lead_create_slug')))
+        if(!(User::isAuthorized('lead_update_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

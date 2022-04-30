@@ -69,7 +69,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        if(!(User::isAuthorized('user_create_slug')))
+        if(!(User::isAuthorized('user_update_slug')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
