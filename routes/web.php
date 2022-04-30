@@ -35,6 +35,7 @@ Route::middleware(['auth','CheckAdmin'])->group(function(){
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+    // User Routes
     Route::resource('users', UserController::class);
     Route::post('users/email-exists', [UserController::class,'isEmailExists'])->name('isEmailExists');
     Route::post('users/update_status/{id}', [UserController::class,'status_update'])->name('user.update_status');
@@ -43,7 +44,6 @@ Route::middleware(['auth','CheckAdmin'])->group(function(){
     Route::post('users/update-confirmPassword/{id}', [UserController::class, 'updatePassword'])->name('user.update_confirmPassword');
     
     //  Lead Routes
-
     Route::get('leads', [LeadController::class, 'index'])->name('lead');
     Route::match(['GET', 'POST'], 'leads/create', [LeadController::class, 'create'])->name('create');
     Route::get('leads/edit/{id}', [LeadController::class, 'edit'])->name('edit');
@@ -54,22 +54,19 @@ Route::middleware(['auth','CheckAdmin'])->group(function(){
     Route::match(['GET', 'POST'], 'leads/chat/{id}', [LeadController::class,'leadChat'])->name('lead.chat');
 
     //Role Routes
-
     Route::get('role', [RoleController::class, 'index'])->name('role');
     Route::get('role/action/{id}', [RoleController::class, 'roleAction'])->name('role.action');
     Route::post('role/action/{id}', [RoleController::class, 'setPermission'])->name('role.set_permission');
 
 
-    //Module Controller
-
+    //Module Routes
     Route::get('modules', [ModuleController::class, 'index'])->name('module');
     Route::match(['GET', 'POST'], 'modules/create', [ModuleController::class, 'create'])->name('module.create');
     Route::get('modules/edit/{secret}', [ModuleController::class, 'moduleEdit'])->name('module.edit');
     Route::post('modules/update/{secret}', [ModuleController::class, 'moduleUpdate'])->name('module.update');
     Route::delete('modules/delete/{secret}', [ModuleController::class, 'moduleDelete'])->name('module.delete');
 
-    //Sub Module Controller
-
+    //Sub Module Routes
     Route::get('subModules', [SubModuleController::class, 'index'])->name('submodule');
     Route::match(['GET', 'POST'], 'subModule/create', [SubModuleController::class, 'create'])->name('subModule.create');
     Route::get('subModules/edit/{secret}', [SubModuleController::class, 'editModule'])->name('subModule.edit');

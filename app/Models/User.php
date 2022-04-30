@@ -61,14 +61,18 @@ class User extends Authenticatable
     {
         $auth_user = User::where('id',Auth::user()->id)->first();
         $authorized = false;
-        if(isset($auth_user) && $auth_user->hasPermissionTo(get_permission_name($module_name,$submodule_name)))
+        // access enabled for super admin
+        if(isset($auth_user) && $auth_user->hasRole('Super Admin'))
         {
-            $authorized = true;
+            return true;
         }
-        // access enabled for super admin(4)
-        if(isset($auth_user) && $auth_user->role_id == 4)
-        {
-            $authorized = true;
+        try {
+            if(isset($auth_user) && $auth_user->hasPermissionTo(get_permission_name($module_name,$submodule_name)))
+            {
+                $authorized = true;
+            }
+        } catch (\Throwable $th) {
+            $authorized = false;
         }
         return $authorized;
     }

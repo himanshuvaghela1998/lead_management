@@ -19,7 +19,7 @@
         @foreach ($modules as $module)
         <tr id="user_{{$module->secret}}">
                 <td>
-                    <p>{{ $module->name }}</p>
+                    <p class="capitalize-letter">{{ $module->name }}</p>
                 </td>
                 <td>
                     <p>{{ $module->slug }}</p>
