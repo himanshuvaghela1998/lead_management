@@ -117,7 +117,7 @@ class SubModuleController extends Controller
 
             if ($submodule->slug != $request->input('slug')) {
                 $permission_name = $request->input('slug');
-                Permission::where('name',$permission_name)->delete();
+                Permission::where('name',$submodule->slug)->delete();
                 Permission::create(['name' => $permission_name]);
             }
             $submodule->slug = $request->input('slug');
