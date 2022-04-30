@@ -360,6 +360,46 @@ $(document).on('click','.delete_row',function(e){
 });
 /* END Delete Record Jquery */
 
+$('.lead_status_span').on('click',function(e){
+    $(this).hide();
+    var title = $(this).data('title');
+    $('#'+title).show();
+
+});
+$('.lead_status').on('change', function (e) {
+    var url = $(this).data('url');
+    var title = $(this).data('title');
+    var selected_status = $(this).val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'json',
+        cache: false,
+        data: {selected_status : selected_status},
+        success: function(data) {
+            if(data.status == 'success'){
+                toastr.success(data.message);
+                location.reload();
+                // $('#'+title).val(selected_status);
+                // $(this).hide();
+                // $('#'+title).show();
+            }else{
+                toastr.error(data.message);
+            }
+        },
+        error: function(){
+            toastr.error('Something went wrong');
+        }
+    });
+})
+
+
+$('#message').keypress(function (e) {
+    if (e.which == 13) {
+      $('#frm_lead_thread').submit();
+      return false; 
+    }
+});
 $(document).on('submit','#frm_lead_thread',function(e){
     e.preventDefault();
     var form_data = new FormData($('#frm_lead_thread')[0]);

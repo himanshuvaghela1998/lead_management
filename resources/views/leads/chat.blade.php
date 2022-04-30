@@ -119,6 +119,7 @@
                             <form action="{{ route('lead.chat',$lead->secret) }}" method="POST" id="frm_lead_thread" enctype="multipart/form-data">
                             @csrf
                                 <!--begin::Input-->
+                                {{-- <input class="form-control form-control-flush mb-3" name="message" id="message" autocomplete="off" placeholder="Type a message"/> --}}
                                 <textarea class="form-control form-control-flush mb-3" rows="1" name="message" id="message" data-kt-element="input" placeholder="Type a message"></textarea>
                                 <!--end::Input-->
                                 <!--begin:Toolbar-->

@@ -10,9 +10,9 @@
             <!--end::Avatar-->
             <!--begin::Details-->
             <div class="ms-3">
-                <span class="fw-bolder capitalize-letter">Brian Cox</span>
+                <span class="fw-bolder capitalize-letter">{{ isset($lead_thread->getSender) ? $lead_thread->getSender->name : ''}}</span>
                 <span class="badge badge-light capitalize-letter">
-                    Sales
+                    {{ isset($lead_thread->getSender) && isset($lead_thread->getSender->getRole) ? $lead_thread->getSender->getRole->name : ''}}
                 </span>
                 <span class="text-muted fs-9 mb-1">{{get_time_ago(strtotime($lead_thread->created_at))}}</span>
             </div>
