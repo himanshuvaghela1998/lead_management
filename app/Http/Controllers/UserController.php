@@ -69,7 +69,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        if(!(User::isAuthorized('user','add')))
+        if(!(User::isAuthorized('user_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -105,53 +105,6 @@ class UserController extends Controller
         return redirect()->route('users.index')->with($type,$msg);
     }
 
-    public function editPassword($id)
-    {
-        if(!(User::isAuthorized('user','change status')))
-        {
-            return redirect()->route('dashboard')->with('error','Unauthorized access');
-        }
-
-        $user = User::find(getDecrypted($id));
-        if ($user) {
-            $roles = Role::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
-            $view = view('user.confirmPassword',compact('user','roles'))->render();
-            return response()->json(['status'=>'success','content'=>$view]);
-        }
-        return response()->json(['status'=>'error']);
-    }
-
-    public function updatePassword(Request $request, $id)
-    {
-
-        $request->validate([
-            'password' => 'required|password|min:6',
-            'new_password' => 'required',
-            'confirm_password' => 'required|required_with:new_password|same:new_password|min:6'
-        ]);
-
-
-        $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
-        if ($user) {
-            if (Hash::check($request->password, $user->password)) {
-                $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
-                $user->password = Hash::make($request->new_password);
-                $user->save();
-
-                if ($user) {
-                    return redirect()->route('users.index')->with('message', 'Password changes success fully');
-                }
-
-            }else{
-                return redirect()->route('users.index')->with('error', 'password not match');
-            }
-
-
-        }else{
-            return redirect()->route('dashboard')->with('error', 'data not found');
-        }
-    }
-
     /**
      * Display the specified resource.
      *
@@ -171,7 +124,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if(!(User::isAuthorized('user','edit')))
+        if(!(User::isAuthorized('user_update')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -219,7 +172,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if(!(User::isAuthorized('user','delete')))
+        if(!(User::isAuthorized('user_delete')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
@@ -237,6 +190,54 @@ class UserController extends Controller
 
         return response()->json(['status'=>$type,'message'=>$msg]);
     }
+
+    public function editPassword($id)
+    {
+        if(!(User::isAuthorized('user_change_password')))
+        {
+            return redirect()->route('dashboard')->with('error','Unauthorized access');
+        }
+
+        $user = User::find(getDecrypted($id));
+        if ($user) {
+            $roles = Role::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
+            $view = view('user.confirmPassword',compact('user','roles'))->render();
+            return response()->json(['status'=>'success','content'=>$view]);
+        }
+        return response()->json(['status'=>'error']);
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+
+        $request->validate([
+            'password' => 'required|password|min:6',
+            'new_password' => 'required',
+            'confirm_password' => 'required|required_with:new_password|same:new_password|min:6'
+        ]);
+
+
+        $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                $user = User::where('is_delete',0)->where('id',getDecrypted($id))->first();
+                $user->password = Hash::make($request->new_password);
+                $user->save();
+
+                if ($user) {
+                    return redirect()->route('users.index')->with('message', 'Password changes success fully');
+                }
+
+            }else{
+                return redirect()->route('users.index')->with('error', 'password not match');
+            }
+
+
+        }else{
+            return redirect()->route('dashboard')->with('error', 'data not found');
+        }
+    }
+
 
     public function isEmailExists(Request $request){
         $isValid = true;
@@ -256,7 +257,7 @@ class UserController extends Controller
     }
 
     public function status_update(Request $request,$id){
-        if(!(User::isAuthorized('user','change status')))
+        if(!(User::isAuthorized('user_change_status')))
         {
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }

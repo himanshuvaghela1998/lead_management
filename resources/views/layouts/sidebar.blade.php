@@ -44,7 +44,7 @@
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </div>
-                @can(get_permission_name('user'))
+                @can('user')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'users' ? 'active' : ''}}" href="{{ route('users.index') }}">
                             <span class="menu-icon">
@@ -58,7 +58,7 @@
                         </a>
                     </div>
                 @endcan
-                @can(get_permission_name('lead'))
+                @can('lead')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'leads' ? 'active' : ''}}" href="{{ route('lead') }}">
                             <span class="menu-icon">
@@ -75,7 +75,7 @@
                         </a>
                     </div>
                 @endcan
-                @can(get_permission_name('role'))
+                @can('role')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'role' ? 'active' : ''}}" href="{{ route('role') }}">
                             <span class="menu-icon">
@@ -89,7 +89,7 @@
                         </a>
                     </div>
                 @endcan
-                @can(get_permission_name('module'))
+                @can('module')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'modules' ? 'active' : ''}}" href="{{ route('module') }}">
                             <span class="menu-icon">
@@ -103,7 +103,7 @@
                         </a>
                     </div>
                 @endcan
-                @can(get_permission_name('sub module'))
+                @can('submodule')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'subModules' ? 'active' : ''}}" href="{{ route('submodule') }}">
                             <span class="menu-icon">
