@@ -387,7 +387,7 @@ class LeadController extends Controller
     {
         if(!(User::isAuthorized('lead_change_status')))
         {
-            return redirect()->route('dashboard')->with('error','Unauthorized access');
+            return response()->json(['status'=>'error','message'=>'Unauthorized access']);
         }
         /* Record status update*/
         $lead = Lead::select('id','status')->find(getDecrypted($id));

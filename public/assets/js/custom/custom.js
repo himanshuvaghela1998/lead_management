@@ -370,6 +370,7 @@ $('.lead_status').on('change', function (e) {
     var url = $(this).data('url');
     var title = $(this).data('title');
     var selected_status = $(this).val();
+    var $selected_lead = $(this);
     $.ajax({
         type: "POST",
         url: url,
@@ -379,16 +380,18 @@ $('.lead_status').on('change', function (e) {
         success: function(data) {
             if(data.status == 'success'){
                 toastr.success(data.message);
-                location.reload();
-                // $('#'+title).val(selected_status);
-                // $(this).hide();
-                // $('#'+title).show();
+                $('#'+title).html(selected_status);
+                
             }else{
                 toastr.error(data.message);
             }
+            $selected_lead.hide();
+            $('#'+title).show();
         },
         error: function(){
             toastr.error('Something went wrong');
+            $selected_lead.hide();
+            $('#'+title).show();
         }
     });
 })
