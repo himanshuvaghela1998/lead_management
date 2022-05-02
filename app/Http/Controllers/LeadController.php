@@ -307,7 +307,7 @@ class LeadController extends Controller
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
 
-        $lead = Lead::with('clients', 'projectType', 'getUser','leadThreads')->where('id',getDecrypted($id))->first();
+        $lead = Lead::with('clients', 'projectType', 'getUser','leadThreads','leadThreads.getSender')->where('id',getDecrypted($id))->first();
         if ($request->method() == 'POST') {
             $lead_thread = new LeadThread;
             if ($request->file('thread_attachment') != null) {
@@ -381,5 +381,25 @@ class LeadController extends Controller
             return response()->json(['status' => 200 , 'message' => "Message sent", 'content' => $view]);
         }
         return view('leads.chat',compact('lead'));
+    }
+
+    public function changeLeadStatus(Request $request,$id)
+    {
+        if(!(User::isAuthorized('lead_change_status')))
+        {
+            return response()->json(['status'=>'error','message'=>'Unauthorized access']);
+        }
+        /* Record status update*/
+        $lead = Lead::select('id','status')->find(getDecrypted($id));
+        $lead->status = $request->selected_status;
+        $lead->save();
+        if($lead){
+            $type = 'success';
+            $msg = 'Status updated successfully';
+        }else{
+            $type = 'error';
+            $msg = 'Error! something went to wrong!';
+        }
+        return response()->json(['status'=>$type,'message'=>$msg]);
     }
 }

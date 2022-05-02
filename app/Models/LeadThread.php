@@ -21,4 +21,9 @@ class LeadThread extends Model
     {
         return $this->belongsto(Lead::class,'lead_id','id');
     }
+
+    public function getSender()
+    {
+        return $this->belongsTo(User::class, 'sender_id', 'id');
+    }
 }
