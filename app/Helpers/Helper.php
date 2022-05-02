@@ -50,3 +50,15 @@ function get_time_ago( $time )
 		}
 	}
 }
+
+function get_lead_status()
+{
+	$Status = [
+		'open' => 'Open',
+		'in_Conversation' => 'In Conversation',
+		'estimation_submitted' => 'Estimation Submitted',
+		'closed' => 'Closed',
+		'converted' => 'Converted'
+	];
+	return $Status;
+}
