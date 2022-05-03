@@ -85,6 +85,7 @@ class LeadController extends Controller
                 'billing_type' => 'required',
                 'time_estimation' => 'required',
                 'client_name' => 'required',
+                'client_skype' => 'required',
                 'client_email' => 'required|email',
             ],
         [
@@ -95,6 +96,7 @@ class LeadController extends Controller
             'billing_type.required' => 'Billing type is required',
             'time_estimation.required' => 'Time estimation is required',
             'client_name.required' => 'Client name is required',
+            'client_skype.required' => 'Client skyoe id required',
             'client_email.required' => 'Client email is required',
         ]);
 
@@ -107,7 +109,7 @@ class LeadController extends Controller
             {
                 $lead->user_id = $request->input('user_id');
             }
-            $lead->status = $request->input('status');
+            $lead->status = 'open';
             $lead->billing_type = $request->input('billing_type');
             $lead->time_estimation = $request->input('time_estimation');
             $lead->lead_details = $request->input('lead_details_data');
@@ -123,11 +125,12 @@ class LeadController extends Controller
             return response()->json(['success' => true,'secret_id' => $lead->secret]);
 
         }
-
+        $auth_user = User::where('id',Auth::user()->id)->first();
+        $authorized = false;
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
-        return view('leads.create', compact('projects', 'Sources', 'users'));
+        return view('leads.create', compact('projects', 'Sources', 'users', 'auth_user'));
 
     }
 
@@ -138,13 +141,15 @@ class LeadController extends Controller
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
 
+        $auth_user = User::where('id',Auth::user()->id)->first();
+        $authorized = false;
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
         $leads = Lead::with('clients', 'projectType','leadAttachments')->find(getDecrypted($id));
         $lead_attachments = $leads->leadAttachments;
         if (!$leads == null) {
-        return view('leads.edit', compact('leads', 'projects', 'Sources', 'users','lead_attachments'));
+        return view('leads.edit', compact('leads', 'projects', 'Sources', 'users','lead_attachments', 'auth_user'));
         }else{
             return redirect(route('lead'));
         }
@@ -161,6 +166,7 @@ class LeadController extends Controller
             'billing_type' => 'required',
             'time_estimation' => 'required',
             'client_name' => 'required',
+            'client_skype' => 'required',
             'client_email' => 'required|email',
         ],
     [
@@ -171,6 +177,7 @@ class LeadController extends Controller
         'billing_type.required' => 'Billing type is required',
         'time_estimation.required' => 'Time estimation is required',
         'client_name.required' => 'Client name is required',
+        'client_skype.required' => 'Client skyoe id required',
         'client_email.required' => 'Client email is required',
     ]);
 
@@ -182,7 +189,7 @@ class LeadController extends Controller
         {
             $lead->user_id = $request->input('user_id');
         }
-        $lead->status = $request->input('status');
+        $lead->status = "open";
         $lead->billing_type = $request->input('billing_type');
         $lead->time_estimation = $request->input('time_estimation');
         $lead->lead_details = $request->input('lead_details');

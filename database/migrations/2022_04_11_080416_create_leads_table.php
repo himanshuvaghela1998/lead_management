@@ -18,7 +18,7 @@ class CreateLeadsTable extends Migration
             $table->integer('user_id')->index('user_id');
             $table->string('project_title',100);
             $table->integer('project_type_id')->index('project_type_id');
-            $table->string('status');
+            $table->string('status')->default('open');
             $table->integer('source_id')->index('source_id');
             $table->string('billing_type');
             $table->string('time_estimation');
