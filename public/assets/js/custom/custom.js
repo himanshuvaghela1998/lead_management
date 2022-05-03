@@ -363,12 +363,17 @@ $(document).on('click','.delete_row',function(e){
 $('.lead_status_span').on('click',function(e){
     $(this).hide();
     var title = $(this).data('title');
+    var btn = $(this).data('btn');
+    var cancel = $(this).data('cancel');
+    $('#'+btn).show();
+    $('#'+cancel).show();
     $('#'+title).show();
 
 });
-$('.lead_status').on('change', function (e) {
+$('.lead_status').on('click', function (e) {
     var url = $(this).data('url');
     var title = $(this).data('title');
+    console.log(title)
     var selected_status = $(this).val();
     var $selected_lead = $(this);
     $.ajax({
@@ -381,7 +386,7 @@ $('.lead_status').on('change', function (e) {
             if(data.status == 'success'){
                 toastr.success(data.message);
                 $('#'+title).html(selected_status);
-                
+
             }else{
                 toastr.error(data.message);
             }
@@ -400,7 +405,7 @@ $('.lead_status').on('change', function (e) {
 $('#message').keypress(function (e) {
     if (e.which == 13) {
       $('#frm_lead_thread').submit();
-      return false; 
+      return false;
     }
 });
 $(document).on('submit','#frm_lead_thread',function(e){
@@ -674,7 +679,7 @@ $(document).on("click",".edit_subModule",function (e) {
 $(document).on('click','.selected_permission_rows',function(){
     var slug  = $(this).data('slug');
     var URL = $(this).data('url');
-     
+
     if($(this).is(":checked")){
         $(this).attr('checked', true);
         var status = 1;
@@ -683,7 +688,7 @@ $(document).on('click','.selected_permission_rows',function(){
         $(this).attr('checked', false);
         var status = 0;
     }
- 
+
     $.ajax({
         url:URL,
         type:'post',

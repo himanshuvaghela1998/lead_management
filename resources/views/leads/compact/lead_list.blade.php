@@ -17,13 +17,19 @@
         @foreach ($leads as $lead)
         <tr id="user_{{$lead->secret}}">
             <td><p class="capitalize-letter"><a href="{{ route('lead.chat',$lead->secret) }}">{{ $lead->project_title }}</a></p></td>
-            <td> <p id="lead_status_span_{{ $lead->secret }}" data-title="lead_status_{{ $lead->secret }}" class="capitalize-letter lead_status_span">{{ str_replace('_', ' ', $lead->status) }} </p>
-                <select name="status" id="lead_status_{{ $lead->secret }}" data-url="{{ route('lead.change_status',$lead->secret) }}" data-title="lead_status_span_{{ $lead->secret }}" data-placeholder="Project Status..." class="form-select form-select-solid lead_status" style="display:none ">
+            <td> <p id="lead_status_span_{{ $lead->secret }}" data-title="lead_status_{{ $lead->secret }}" data-cancel="lead_cancel_{{ $lead->secret }}" data-btn="lead_btn_{{ $lead->secret }}"  class="capitalize-letter lead_status_span">{{ str_replace('_', ' ', $lead->status) }} </p>
+                <select name="status" id="lead_status_{{ $lead->secret }}"  data-placeholder="Project Status..." class="btn btn-secondary dropdown-toggle lead_status btn-sm" style="display:none ">
                     <option value="">Project Status...</option>
                     @foreach (get_lead_status() as $key => $value)
                         <option value="{{ $key }}" {{ $lead->status == $key ? 'selected' : '' }}>{{ $value }}</option>
                     @endforeach
                 </select>
+                    <a>
+                        <i id="lead_btn_{{ $lead->secret }}" data-url="{{ route('lead.change_status',$lead->secret) }}" data-title="lead_status_span_{{ $lead->secret }}" class="btn btn-primary fa-solid fa-check btn-sm lead_status " style="display:none "></i>
+                    </a>
+                    <a class="lead_status-close">
+                        <i id="lead_cancel_{{ $lead->secret }}" class="btn btn-secondary fa-solid fa-xmark btn-sm lead_status" ></i>
+                    </a>
             </td>
             <td> <p class="capitalize-letter">{{ ($lead->ProjectType) ? $lead->ProjectType->project_type : '' }} </p></td>
             <td> <p class="capitalize-letter">{{ ($lead->getUser) ? $lead->getUser->name : ''  }}</p></td>
