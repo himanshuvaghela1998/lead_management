@@ -362,15 +362,24 @@ $(document).on('click','.delete_row',function(e){
 
 $('.lead_status_span').on('click',function(e){
     $(this).hide();
-    var title = $(this).data('title');
-    $('#'+title).show();
-
+    var secret = $(this).data('secret');
+    $('#lead_status_'+secret).show();
+    $('#lead_check_btn_'+secret).show();
+    $('#lead_cross_btn_'+secret).show();
 });
-$('.lead_status').on('change', function (e) {
+$('.lead_cross_btn').on('click',function(e){
+    var secret = $(this).data('secret');
+    $('#lead_status_'+secret).hide();
+    $('#lead_check_btn_'+secret).hide();
+    $('#lead_cross_btn_'+secret).hide();
+    $('#lead_status_span_'+secret).show();
+});
+$('.lead_status_change').on('click', function (e) {
     var url = $(this).data('url');
-    var title = $(this).data('title');
-    var selected_status = $(this).val();
-    var $selected_lead = $(this);
+    var secret = $(this).data('secret');
+    var $selected_lead = $('#lead_status_'+secret);
+    var selected_status = $selected_lead.val();
+    console.log(selected_status);
     $.ajax({
         type: "POST",
         url: url,
@@ -380,18 +389,22 @@ $('.lead_status').on('change', function (e) {
         success: function(data) {
             if(data.status == 'success'){
                 toastr.success(data.message);
-                $('#'+title).html(selected_status);
+                $('#lead_status_span_'+secret).html(selected_status);
                 
             }else{
                 toastr.error(data.message);
             }
             $selected_lead.hide();
-            $('#'+title).show();
+            $('#lead_check_btn_'+secret).hide();
+            $('#lead_cross_btn_'+secret).hide();
+            $('#lead_status_span_'+secret).show();
         },
         error: function(){
             toastr.error('Something went wrong');
             $selected_lead.hide();
-            $('#'+title).show();
+            $('#lead_check_btn_'+secret).hide();
+            $('#lead_cross_btn_'+secret).hide();
+            $('#lead_status_span_'+secret).show();
         }
     });
 })

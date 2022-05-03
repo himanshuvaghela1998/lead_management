@@ -56,7 +56,7 @@ function get_lead_status()
 	$Status = [
 		'open' => 'Open',
 		'in_Conversation' => 'In Conversation',
-		'estimation_submitted' => 'Estimation Submitted',
+		'estimation_submited' => 'Estimation Submited',
 		'closed' => 'Closed',
 		'converted' => 'Converted'
 	];

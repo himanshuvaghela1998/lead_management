@@ -17,13 +17,17 @@
         @foreach ($leads as $lead)
         <tr id="user_{{$lead->secret}}">
             <td><p class="capitalize-letter"><a href="{{ route('lead.chat',$lead->secret) }}">{{ $lead->project_title }}</a></p></td>
-            <td> <p id="lead_status_span_{{ $lead->secret }}" data-title="lead_status_{{ $lead->secret }}" class="capitalize-letter lead_status_span">{{ str_replace('_', ' ', $lead->status) }} </p>
-                <select name="status" id="lead_status_{{ $lead->secret }}" data-url="{{ route('lead.change_status',$lead->secret) }}" data-title="lead_status_span_{{ $lead->secret }}" data-placeholder="Project Status..." class="form-select form-select-solid lead_status" style="display:none ">
-                    <option value="">Project Status...</option>
-                    @foreach (get_lead_status() as $key => $value)
-                        <option value="{{ $key }}" {{ $lead->status == $key ? 'selected' : '' }}>{{ $value }}</option>
-                    @endforeach
-                </select>
+            <td> <p id="lead_status_span_{{ $lead->secret }}" data-secret="{{ $lead->secret }}" class="capitalize-letter lead_status_span">{{ str_replace('_', ' ', $lead->status) }} </p>
+                <div class="d-flex align-items-center">
+                    <select name="status" id="lead_status_{{ $lead->secret }}" data-placeholder="Project Status..." class="form-select form-select-solid" style="width:210px; display:none">
+                        <option value="">Project Status...</option>
+                        @foreach (get_lead_status() as $key => $value)
+                            <option value="{{ $key }}" {{ $lead->status == $key ? 'selected' : '' }}>{{ $value }}</option>
+                        @endforeach
+                    </select>
+                    <i id="lead_check_btn_{{ $lead->secret }}" class="fa fa-check fa-solid solid-icon lead_status_change" style="display:none" data-url="{{ route('lead.change_status',$lead->secret) }}" data-secret="{{ $lead->secret }}"></i>
+                    <i id="lead_cross_btn_{{ $lead->secret }}" class="fa fa-xmark fa-solid solid-icon lead_cross_btn" style="background-color: #eee; color:#555; display:none" data-secret="{{ $lead->secret }}"></i>
+                </div>
             </td>
             <td> <p class="capitalize-letter">{{ ($lead->ProjectType) ? $lead->ProjectType->project_type : '' }} </p></td>
             <td> <p class="capitalize-letter">{{ ($lead->getUser) ? $lead->getUser->name : ''  }}</p></td>
