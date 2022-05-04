@@ -85,10 +85,3 @@
 
 @endsection
 
-@section('scripts')
-<script>
-    $(document).ready(function(e){
-        $('.lead_status').hide();
-    });
-</script>
-@endsection
