@@ -24,7 +24,7 @@ class LeadController extends Controller
     {
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
-			if(Auth::check()) {	
+			if(Auth::check()) {
 				if(!(User::isAuthorized('lead')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
@@ -66,7 +66,8 @@ class LeadController extends Controller
             return response()->json(['status'=>200,'message','content'=>$view]);
         }
 
-        return view('leads.index', compact('leads'));
+        $users = User::where('is_delete',0)->where('role_id', '!=', 4)->where('status', 1)->get();
+        return view('leads.index', compact('leads', 'users'));
     }
 
     public function create(Request $request)
@@ -333,7 +334,7 @@ class LeadController extends Controller
                     ]);
                 }
 
-    
+
                 if ($validator->fails()) {
                     return response()->json(['status' => 401, 'message' => $validator->errors()->first()]);
                 }
@@ -367,16 +368,16 @@ class LeadController extends Controller
                     }
                     $lead_thread->is_attachment = 1;
                     $lead_thread->attachment_type = $media_type;
-                } 
+                }
                 catch (Exception $e) {
                     return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
-                } 
+                }
             }
             $lead_thread->lead_id = $lead->id;
             $lead_thread->sender_id = Auth::user()->id;
             $lead_thread->message = $request->message;
             $lead_thread->save();
-            
+
             $view = view('leads.compact.msg_out',compact('lead_thread'))->render();
             return response()->json(['status' => 200 , 'message' => "Message sent", 'content' => $view]);
         }
@@ -401,5 +402,30 @@ class LeadController extends Controller
             $msg = 'Error! something went to wrong!';
         }
         return response()->json(['status'=>$type,'message'=>$msg]);
+    }
+
+    public function changeLeadAssignee(Request $request, $id)
+    {
+        if (!(User::isAuthorized('lead_change_assignee'))) {
+            return response()->json(['status'=>'error', 'message'=>'Unauthorized access']);
+        }
+
+        // $user = User::select('id','name')->find(getDecrypted($id));
+        $lead = Lead::select('id', 'user_id')->find(getDecrypted($id));
+        $lead->user_id = $request->selected_assignee;
+        $lead->save();
+
+        $data = user::select('id','name')->find($request->selected_assignee);
+
+        // $lead->save();
+        if ($lead) {
+            $type = 'success';
+            $msg = 'Assignee user successfully';
+        }else{
+            $type = 'error';
+            $msg = 'Error! something went to wrong!';
+        }
+
+        return response()->json(['status'=>$type, 'message'=>$msg, 'content'=>$data]);
     }
 }
