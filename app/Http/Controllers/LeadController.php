@@ -81,14 +81,12 @@ class LeadController extends Controller
                 'project_title' => 'required',
                 'project_type_id' => 'required',
                 'client_name' => 'required',
-                'lead_details' => 'required',
                 'source_id' => 'required',
             ],
         [
             'project_title.required' => 'Project title is required',
             'project_type_id.required' => 'Project type is required',
             'client_name.required' => 'Client name is required',
-            'lead_details.required' => 'Details is required',
             'source_id.required' => 'Lead source is required',
 
         ]);
@@ -156,14 +154,12 @@ class LeadController extends Controller
             'project_type_id' => 'required',
             'client_name' => 'required',
             'source_id' => 'required',
-            'lead_details' => 'required',
         ],
     [
         'project_title.required' => 'Project title is required',
         'project_type_id.required' => 'Project type is required',
         'client_name.required' => 'Client name is required',
         'source_id.required' => 'Lead source is required',
-        'lead_details.required' => 'Details is required'
 
     ]);
 

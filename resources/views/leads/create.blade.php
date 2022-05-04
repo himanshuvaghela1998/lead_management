@@ -109,9 +109,6 @@
                                             <textarea name="lead_details" id="lead_details" class="form-control form-control-solid"></textarea>
                                             <input type="hidden" name="lead_details_data" id="lead_details_data">
                                         </div>
-                                        @error('lead_details')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-md-12">
@@ -230,9 +227,6 @@
             client_name : {
                 required: true
             },
-            lead_details : {
-                required: true
-            },
 
         },
         messages: {
@@ -248,9 +242,7 @@
             "client_name":{
                 required:"Client name is required"
             },
-            "lead_details":{
-                required:"Details is required"
-            },
+
         },
         errorPlacement: function(error, element) {
             var placement = $(element).data('error');
