@@ -77,7 +77,7 @@
                 @endcan
 
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-
+                        <span class="menu-link">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -93,7 +93,7 @@
                             <span class="menu-arrow"></span>
                         </span>
                         @can('role')
-                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            <div class="menu-sub menu-sub-accordion menu-active-bg">
                                 <div class="menu-item menu-accordion">
                                     <a class="menu-link {{ \Request::segment(1) == 'role' ? 'active' : ''}}" href="{{ route('role') }}">
                                         <span class="menu-bullet">
@@ -103,7 +103,7 @@
                                         <span class="menu"></span>
                                     </a>
                                 </div>
-                        </div>
+                            </div>
                         @endcan
 
                     </div>
