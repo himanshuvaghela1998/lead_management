@@ -389,7 +389,7 @@ $('.lead_status_change').on('click', function (e) {
         success: function(data) {
             if(data.status == 'success'){
                 toastr.success(data.message);
-                $('#lead_status_span_'+secret).html(selected_status);
+                $('#lead_status_span_'+secret).html(selected_status.replaceAll('_',' '));
                 
             }else{
                 toastr.error(data.message);
