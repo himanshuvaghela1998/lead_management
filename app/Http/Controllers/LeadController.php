@@ -81,19 +81,15 @@ class LeadController extends Controller
                 'project_title' => 'required',
                 'project_type_id' => 'required',
                 'client_name' => 'required',
-                'client_email' => 'required|email',
+                'lead_details' => 'required',
                 'source_id' => 'required',
-                'billing_type' => 'required',
-                'time_estimation' => 'required',
             ],
         [
             'project_title.required' => 'Project title is required',
             'project_type_id.required' => 'Project type is required',
             'client_name.required' => 'Client name is required',
-            'client_email.required' => 'Client email is required',
+            'lead_details.required' => 'Details is required',
             'source_id.required' => 'Lead source is required',
-            'billing_type.required' => 'Billing type is required',
-            'time_estimation.required' => 'Time estimation is required',
 
         ]);
 
@@ -159,19 +155,15 @@ class LeadController extends Controller
             'project_title' => 'required',
             'project_type_id' => 'required',
             'client_name' => 'required',
-            'client_email' => 'required|email',
             'source_id' => 'required',
-            'billing_type' => 'required',
-            'time_estimation' => 'required',
+            'lead_details' => 'required',
         ],
     [
         'project_title.required' => 'Project title is required',
         'project_type_id.required' => 'Project type is required',
         'client_name.required' => 'Client name is required',
-        'client_email.required' => 'Client email is required',
         'source_id.required' => 'Lead source is required',
-        'billing_type.required' => 'Billing type is required',
-        'time_estimation.required' => 'Time estimation is required',
+        'lead_details.required' => 'Details is required'
 
     ]);
 

@@ -72,25 +72,19 @@
                                                 @enderror
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="required fs-6 fw-bold mb-2">Client Email</label>
+                                            <label class="fs-6 fw-bold mb-2">Client Email</label>
                                             <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" name="client_email" id="client Email"/>
-                                            @error('client_email')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mt-2">
                                         @if(isset($auth_user) && $auth_user->hasRole('Super Admin') || $auth_user->hasRole('admin') || $auth_user->hasRole('sales'))
                                         <div class="col-md-6">
-                                            <label class="required fs-6 fw-bold mb-2">Client Skype</label>
+                                            <label class="fs-6 fw-bold mb-2">Client Skype</label>
                                             <input type="text" class="form-control form-control-solid" placeholder="Enter client skype" name="client_skype" id="client_skype"/>
-                                                @error('client_skype')
-                                                <span class="text-danger">{{ $message }}</span>
-                                                @enderror
                                         </div>
                                         @endif
                                         <div class="col-md-6">
-                                                <label class="required fs-6 fw-bold mb-2">Client's Details </label>
+                                                <label class="fs-6 fw-bold mb-2">Client's Details </label>
                                                 <textarea class="form-control form-control-solid" name="client_other_details" placeholder="Enter client details" id="client_other_details" cols="30" rows="5"></textarea>
                                         </div>
                                         <div class="d-flex flex-column col-md-6">
@@ -111,10 +105,13 @@
                                     </div>
                                      <div class="row mt-2">
                                         <div class="col-md-12">
-                                            <label class="fs-6 fw-bold mb-2">Lead Details</label>
+                                            <label class="required fs-6 fw-bold mb-2">Lead Details</label>
                                             <textarea name="lead_details" id="lead_details" class="form-control form-control-solid"></textarea>
                                             <input type="hidden" name="lead_details_data" id="lead_details_data">
                                         </div>
+                                        @error('lead_details')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-md-12">
@@ -130,7 +127,7 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="d-flex flex-column  col-md-6">
-                                                <label class="required fs-6 fw-bold mb-2">
+                                                <label class="fs-6 fw-bold mb-2">
                                                     <span>Billing Type</span>
                                                 </label>
                                                 <select name="billing_type" aria-label="Billing type" data-error="#billingType" class="form-control form-control-solid">
@@ -140,16 +137,10 @@
                                                 <option value="not_mentioned">Not Mentioned</option>
                                                 </select>
                                                 <div id="billingType"></div>
-                                                @error('billing_type')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="required fs-6 fw-bold mb-2">Time Estimation</label>
+                                            <label class="fs-6 fw-bold mb-2">Time Estimation</label>
                                             <input type="text" class="form-control form-control-solid" placeholder="Enter Time Estimation" name="time_estimation" id="time_estimation"/>
-                                                @error('time_estimation')
-                                                <span class="text-danger">{{ $message }}</span>
-                                                @enderror
                                         </div>
                                     </div>
                                     <div class="row">
@@ -236,18 +227,13 @@
             source_id : {
                 required: true
             },
-            billing_type : {
-                required: true
-            },
-            time_estimation : {
-                required: true
-            },
             client_name : {
                 required: true
             },
-            client_email : {
+            lead_details : {
                 required: true
-            }
+            },
+
         },
         messages: {
             "project_title":{
@@ -259,18 +245,12 @@
             "source_id":{
                 required:"Lead source is required"
             },
-            "billing_type":{
-                required:"Billing type is required"
-            },
-            "time_estimation":{
-                required:"Time estimation is required"
-            },
             "client_name":{
                 required:"Client name is required"
             },
-            "client_email":{
-                required:"Client email is required"
-            }
+            "lead_details":{
+                required:"Details is required"
+            },
         },
         errorPlacement: function(error, element) {
             var placement = $(element).data('error');

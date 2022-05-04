@@ -76,21 +76,15 @@
                                                 @enderror
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="required fs-6 fw-bold mb-2">Client Email</label>
+                                            <label class=" fs-6 fw-bold mb-2">Client Email</label>
                                             <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" value="{{ ($leads->clients) ? $leads->clients->client_email : '' }}" name="client_email" id="client Email"/>
-                                                @error('client_email')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
                                         </div>
                                     </div>
                                     <div class="row mt-2">
                                         @if(isset($auth_user) && $auth_user->hasRole('Super Admin') || $auth_user->hasRole('admin') || $auth_user->hasRole('sales'))
                                         <div class="col-md-6">
-                                            <label class="required fs-6 fw-bold mb-2">Client Skype</label>
+                                            <label class=" fs-6 fw-bold mb-2">Client Skype</label>
                                             <input type="text" class="form-control form-control-solid" placeholder="Enter client skype" name="client_skype" id="client_skype"/>
-                                                @error('client_skype')
-                                                <span class="text-danger">{{ $message }}</span>
-                                                @enderror
                                         </div>
                                         @endif
                                         <div class="col-md-6">
@@ -115,9 +109,12 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-md-12">
-                                            <label class="fs-6 fw-bold mb-2">Lead Details</label>
+                                            <label class="required fs-6 fw-bold mb-2">Lead Details</label>
                                             <textarea name="lead_details" id="lead_details" class="form-control form-control-solid">{{ str_replace( '&', '&amp;', $leads->lead_details) }}</textarea>
                                         </div>
+                                        @error('lead_details')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-md-12">
@@ -134,7 +131,7 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="d-flex flex-column  col-md-6">
-                                            <label class="required fs-6 fw-bold mb-2">
+                                            <label class=" fs-6 fw-bold mb-2">
                                                 <span>Billing Type</span>
                                             </label>
                                             <select name="billing_type" aria-label="Billing type" data-error="#billingType" class="form-select form-select-solid">
@@ -144,20 +141,14 @@
                                                 <option value="not_mentioned" {{ ($leads->billing_type == 'not_mentioned') ? 'selected' :'' }} >Not Mentioned</option>
                                             </select>
                                             <div id="billingType"></div>
-                                            @error('billing_type')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="required fs-6 fw-bold mb-2">Time Estimation</label>
+                                            <label class=" fs-6 fw-bold mb-2">Time Estimation</label>
                                             <input type="text" class="form-control form-control-solid" placeholder="Enter Time Estimation" value="{{ $leads->time_estimation }}" name="time_estimation" id="time_estimation"/>
-                                                @error('time_estimation')
-                                                <span class="text-danger">{{ $message }}</span>
-                                                @enderror
                                         </div>
                                     </div>
                                 </div>
-                                    
+
                                 <div class="form-actions d-flex justify-content-end mt-5">
                                     <a href="{{ route('lead') }}"><button type="button" class="btn btn-secondary me-3 btn-sm">Cancel</button></a>
                                     <button type="submit" class="btn btn-primary btn-sm">
