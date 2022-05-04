@@ -24,7 +24,7 @@ class LeadController extends Controller
     {
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
-			if(Auth::check()) {	
+			if(Auth::check()) {
 				if(!(User::isAuthorized('lead')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
@@ -80,24 +80,21 @@ class LeadController extends Controller
             $request->validate([
                 'project_title' => 'required',
                 'project_type_id' => 'required',
+                'client_name' => 'required',
+                'client_email' => 'required|email',
                 'source_id' => 'required',
-                'status' => 'required',
                 'billing_type' => 'required',
                 'time_estimation' => 'required',
-                'client_name' => 'required',
-                'client_skype' => 'required',
-                'client_email' => 'required|email',
             ],
         [
             'project_title.required' => 'Project title is required',
             'project_type_id.required' => 'Project type is required',
+            'client_name.required' => 'Client name is required',
+            'client_email.required' => 'Client email is required',
             'source_id.required' => 'Lead source is required',
-            'status.required' => 'Project status is required',
             'billing_type.required' => 'Billing type is required',
             'time_estimation.required' => 'Time estimation is required',
-            'client_name.required' => 'Client name is required',
-            'client_skype.required' => 'Client skyoe id required',
-            'client_email.required' => 'Client email is required',
+
         ]);
 
 
@@ -161,24 +158,21 @@ class LeadController extends Controller
         $request->validate([
             'project_title' => 'required',
             'project_type_id' => 'required',
+            'client_name' => 'required',
+            'client_email' => 'required|email',
             'source_id' => 'required',
-            'status' => 'required',
             'billing_type' => 'required',
             'time_estimation' => 'required',
-            'client_name' => 'required',
-            'client_skype' => 'required',
-            'client_email' => 'required|email',
         ],
     [
         'project_title.required' => 'Project title is required',
         'project_type_id.required' => 'Project type is required',
+        'client_name.required' => 'Client name is required',
+        'client_email.required' => 'Client email is required',
         'source_id.required' => 'Lead source is required',
-        'status.required' => 'Project status is required',
         'billing_type.required' => 'Billing type is required',
         'time_estimation.required' => 'Time estimation is required',
-        'client_name.required' => 'Client name is required',
-        'client_skype.required' => 'Client skyoe id required',
-        'client_email.required' => 'Client email is required',
+
     ]);
 
         $lead = Lead::find($id);
@@ -189,7 +183,6 @@ class LeadController extends Controller
         {
             $lead->user_id = $request->input('user_id');
         }
-        $lead->status = "open";
         $lead->billing_type = $request->input('billing_type');
         $lead->time_estimation = $request->input('time_estimation');
         $lead->lead_details = $request->input('lead_details');
@@ -199,7 +192,7 @@ class LeadController extends Controller
         $clients->client_name = $request->input('client_name');
         $clients->client_email = $request->input('client_email');
         $clients->client_other_details = $request->input('client_other_details');
-        $clients->save();
+         $clients->save();
 
         if ($clients) {
             return redirect()->route('lead')->with('message', 'Update successfully');
@@ -340,7 +333,7 @@ class LeadController extends Controller
                     ]);
                 }
 
-    
+
                 if ($validator->fails()) {
                     return response()->json(['status' => 401, 'message' => $validator->errors()->first()]);
                 }
@@ -374,16 +367,16 @@ class LeadController extends Controller
                     }
                     $lead_thread->is_attachment = 1;
                     $lead_thread->attachment_type = $media_type;
-                } 
+                }
                 catch (Exception $e) {
                     return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
-                } 
+                }
             }
             $lead_thread->lead_id = $lead->id;
             $lead_thread->sender_id = Auth::user()->id;
             $lead_thread->message = $request->message;
             $lead_thread->save();
-            
+
             $view = view('leads.compact.msg_out',compact('lead_thread'))->render();
             return response()->json(['status' => 200 , 'message' => "Message sent", 'content' => $view]);
         }

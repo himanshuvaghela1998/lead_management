@@ -29,7 +29,7 @@
                 </select>
             </td>
             <td> <p class="capitalize-letter">{{ ($lead->getUser) ? $lead->getUser->name : ''  }}</p></td>
-            <td> <p class="capitalize-letter">{{ ($lead) ? date_format($lead->created_at,"Y/m/d") : ''  }}</p></td>
+            <td> <p class="capitalize-letter">{{ ($lead) ? date_format($lead->created_at,"m-d-Y h:i A") : ''  }}</p></td>
             <!-- Start drop down list -->
             <!-- End Drop down -->
             @canany(['lead_update','lead_delete'])

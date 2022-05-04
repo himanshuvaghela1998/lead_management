@@ -236,9 +236,6 @@
             source_id : {
                 required: true
             },
-            status : {
-                required: true
-            },
             billing_type : {
                 required: true
             },
@@ -261,9 +258,6 @@
             },
             "source_id":{
                 required:"Lead source is required"
-            },
-            "status":{
-                required:"Project status is required"
             },
             "billing_type":{
                 required:"Billing type is required"
