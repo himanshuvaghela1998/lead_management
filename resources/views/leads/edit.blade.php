@@ -184,22 +184,14 @@
                project_title : 'required',
                project_type_id : 'required',
                source_id : 'required',
-               status : 'required',
-               billing_type :'required',
-               time_estimation : 'required',
                client_name : 'required',
-               client_email : 'required'
            },
            message: {
 
            project_title : 'Project title is required',
            project_type_id : 'Project type is required',
            source_id : 'Lead source is required',
-           status : 'Project status is required',
-           billing_type : 'Billing type is required',
-           time_estimation : 'Time estimation is required',
            client_name : 'Client name is required',
-           client_email : 'Client email is required',
 
            },
            errorPlacement: function(error, element){
