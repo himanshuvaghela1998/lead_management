@@ -62,7 +62,7 @@ class LeadController extends Controller
             }
 
         /* Status filter */
-        if (!is_null($request->status_id)) {
+        if (!is_null($request->status_id) && $request->status_id != '-1') {
             $leads->where('status', $request->status_id);
         }
         $leads = $leads->paginate($this->limit)->appends($request->all());

@@ -36,7 +36,7 @@
                                 <div class="w-150px mx-3">
                                     <!--begin::Select2-->
                                     <select class="form-select form-select-solid" id="status_filter" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
-                                        <option></option>
+                                        <option value="-1">All</option>
                                         <option value="open">Open</option>
                                         <option value="in_Conversation">In Conversation</option>
                                         <option value="estimation_submited">Estimation Submited</option>
