@@ -112,7 +112,6 @@ class LeadController extends Controller
             $clients->client_email = $request->input('client_email');
             $clients->client_skype = $request->input('client_skype');
             $clients->client_other_details = $request->input('client_other_details');
-            // dd($clients);
             $clients->save();
 
             return response()->json(['success' => true,'secret_id' => $lead->secret]);
@@ -176,7 +175,6 @@ class LeadController extends Controller
         $lead->lead_details = $request->input('lead_details');
         $lead->save();
         $clients = Client::where('lead_id',$id)->first();
-        // dd($clients);
         $clients->lead_id = $lead->id;
         $clients->client_name = $request->input('client_name');
         $clients->client_email = $request->input('client_email');
