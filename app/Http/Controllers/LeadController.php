@@ -110,6 +110,7 @@ class LeadController extends Controller
             $clients->lead_id = $lead->id;
             $clients->client_name = $request->input('client_name');
             $clients->client_email = $request->input('client_email');
+            $clients->client_skype = $request->input('client_skype');
             $clients->client_other_details = $request->input('client_other_details');
             $clients->save();
 
@@ -117,7 +118,6 @@ class LeadController extends Controller
 
         }
         $auth_user = User::where('id',Auth::user()->id)->first();
-        $authorized = false;
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
@@ -133,7 +133,6 @@ class LeadController extends Controller
         }
 
         $auth_user = User::where('id',Auth::user()->id)->first();
-        $authorized = false;
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
@@ -175,12 +174,13 @@ class LeadController extends Controller
         $lead->time_estimation = $request->input('time_estimation');
         $lead->lead_details = $request->input('lead_details');
         $lead->save();
-        $clients = Client::find($id);
+        $clients = Client::where('lead_id',$id)->first();
         $clients->lead_id = $lead->id;
         $clients->client_name = $request->input('client_name');
         $clients->client_email = $request->input('client_email');
+        $clients->client_skype = $request->input('client_skype');
         $clients->client_other_details = $request->input('client_other_details');
-         $clients->save();
+        $clients->save();
 
         if ($clients) {
             return redirect()->route('lead')->with('message', 'Update successfully');

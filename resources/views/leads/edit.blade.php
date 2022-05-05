@@ -49,14 +49,14 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class=" fs-6 fw-bold mb-2">Client Email</label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" value="{{ ($leads->clients) ? $leads->clients->client_email : '' }}" name="client_email" id="client Email"/>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" value="{{ ($leads->clients) ? $leads->clients->client_email : '' }}" name="client_email" id="client_email"/>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
                                         @if(isset($auth_user) && $auth_user->hasRole('Super Admin') || $auth_user->hasRole('admin') || $auth_user->hasRole('sales'))
                                         <div class="col-md-6">
                                             <label class=" fs-6 fw-bold mb-2">Client Skype</label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Enter client skype" name="client_skype" id="client_skype"/>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Enter client skype" value="{{ ($leads->clients) ? $leads->clients->client_skype : '' }}" name="client_skype" id="client_skype"/>
                                         </div>
                                         @endif
                                         <div class="col-md-6">

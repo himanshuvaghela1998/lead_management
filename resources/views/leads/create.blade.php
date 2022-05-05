@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="fs-6 fw-bold mb-2">Client Email</label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" name="client_email" id="client Email"/>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Enter client Email" name="client_email" id="client_email"/>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
