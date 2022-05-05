@@ -63,12 +63,12 @@ class LeadController extends Controller
             $leads->where('status', $request->status_id);
         }
         $leads = $leads->paginate($this->limit)->appends($request->all());
+        $users = User::where('is_delete',0)->where('role_id', '!=', 4)->where('status', 1)->get();
         if($request->ajax()){
-            $view = view('leads.compact.lead_list',compact('leads'))->render();
+            $view = view('leads.compact.lead_list',compact('leads','users'))->render();
             return response()->json(['status'=>200,'message','content'=>$view]);
         }
 
-        $users = User::where('is_delete',0)->where('role_id', '!=', 4)->where('status', 1)->get();
         return view('leads.index', compact('leads', 'users'));
     }
 
