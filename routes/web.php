@@ -42,7 +42,7 @@ Route::middleware(['auth','CheckAdmin'])->group(function(){
     Route::post('users/update/{id}', [UserController::class,'update'])->name('user.modify');
     Route::get('users/edit-confirmPassword/{id}', [UserController::class, 'editPassword'])->name('user.edit_confirmPassword');
     Route::post('users/update-confirmPassword/{id}', [UserController::class, 'updatePassword'])->name('user.update_confirmPassword');
-    
+
     //  Lead Routes
     Route::get('leads', [LeadController::class, 'index'])->name('lead');
     Route::match(['GET', 'POST'], 'leads/create', [LeadController::class, 'create'])->name('create');
@@ -53,6 +53,7 @@ Route::middleware(['auth','CheckAdmin'])->group(function(){
     Route::post('leads/media/delete', [LeadController::class,'lead_media_delete'])->name('lead.media.delete');
     Route::match(['GET', 'POST'], 'leads/chat/{id}', [LeadController::class,'leadChat'])->name('lead.chat');
     Route::post('leads/change-status/{id}', [LeadController::class,'changeLeadStatus'])->name('lead.change_status');
+    Route::post('leads/change-assignee/{id}', [LeadController::class,'changeLeadAssignee'])->name('lead.change_assignee');
 
 
     //Role Routes

@@ -66,7 +66,8 @@ class LeadController extends Controller
             return response()->json(['status'=>200,'message','content'=>$view]);
         }
 
-        return view('leads.index', compact('leads'));
+        $users = User::where('is_delete',0)->where('role_id', '!=', 4)->where('status', 1)->get();
+        return view('leads.index', compact('leads', 'users'));
     }
 
     public function create(Request $request)
@@ -389,5 +390,30 @@ class LeadController extends Controller
             $msg = 'Error! something went to wrong!';
         }
         return response()->json(['status'=>$type,'message'=>$msg]);
+    }
+
+    public function changeLeadAssignee(Request $request, $id)
+    {
+        if (!(User::isAuthorized('lead_change_assignee'))) {
+            return response()->json(['status'=>'error', 'message'=>'Unauthorized access']);
+        }
+
+        // $user = User::select('id','name')->find(getDecrypted($id));
+        $lead = Lead::select('id', 'user_id')->find(getDecrypted($id));
+        $lead->user_id = $request->selected_assignee;
+        $lead->save();
+
+        $data = user::select('id','name')->find($request->selected_assignee);
+
+        // $lead->save();
+        if ($lead) {
+            $type = 'success';
+            $msg = 'Lead assigned successfully';
+        }else{
+            $type = 'error';
+            $msg = 'Error! something went to wrong!';
+        }
+
+        return response()->json(['status'=>$type, 'message'=>$msg, 'content'=>$data]);
     }
 }

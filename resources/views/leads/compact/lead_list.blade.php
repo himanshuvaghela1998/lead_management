@@ -20,7 +20,7 @@
         <tr id="user_{{$lead->secret}}">
             <td><p class="capitalize-letter">{{ ($lead->clients) ?  $lead->clients->client_name : '' }}</p></td>
             <td><p class="capitalize-letter"><a href="{{ route('lead.chat',$lead->secret) }}">{{ $lead->project_title }}</a></p></td>
-            <td> <p id="lead_status_span_{{ $lead->secret }}" data-secret="{{ $lead->secret }}" class="capitalize-letter lead_status_span">{{ str_replace('_', ' ', $lead->status) }} </p>
+            <td style="    cursor: pointer;text-decoration: underline;text-decoration-style: dotted;"> <p id="lead_status_span_{{ $lead->secret }}" data-secret="{{ $lead->secret }}" class="capitalize-letter lead_status_span">{{ str_replace('_', ' ', $lead->status) }} </p>
                 <div class="d-flex align-items-center">
                     <select name="status" id="lead_status_{{ $lead->secret }}" data-placeholder="Project Status..." class="form-select form-select-solid" style="width:210px; display:none">
                         <option value="">Project Status...</option>
@@ -32,7 +32,19 @@
                     <i id="lead_cross_btn_{{ $lead->secret }}" class="fa fa-xmark fa-solid solid-icon lead_cross_btn" style="background-color: #eee; color:#555; display:none" data-secret="{{ $lead->secret }}"></i>
                 </div>
             </td>
-            <td> <p class="capitalize-letter">{{ ($lead->getUser) ? $lead->getUser->name : ''  }}</p></td>
+            <td style="cursor: pointer;text-decoration: underline;text-decoration-style: dotted;">
+                <p id="lead_assignee_span_{{ $lead->secret }}" data-secret="{{ $lead->secret }}" class="capitalize-letter lead_assignee_span">{{ str_replace('_', ' ', ($lead->getUser) ? $lead->getUser->name : 'Assign to a user') }} </p>
+                <div class="d-flex align-items-center">
+                    <select name="user_id" id="lead_assignee_{{ $lead->secret }}"  data-placeholder="Assign to a user" class="form-select form-select-solid" style="width:210px; display:none">
+                            <option value="">Assign to a user</option>
+                            @foreach ($users as $user)
+                            <option value="{{ $user->id }}" >{{ucfirst(trans($user->name))}}  ({{ucfirst(trans($user->getRole->name))}})</option>
+                            @endforeach
+                    </select>
+                    <i id="lead_check_assignee_btn_{{ $lead->secret }}" class="fa fa-check fa-solid solid-icon lead_assignee_change" style="display:none" data-url="{{ route('lead.change_assignee',$lead->secret) }}" data-secret="{{ $lead->secret }}"></i>
+                    <i id="lead_cross_assignee_btn_{{ $lead->secret }}" class="fa fa-xmark fa-solid solid-icon lead_cross_assignee_btn" style="background-color: #eee; color:#555; display:none" data-secret="{{ $lead->secret }}"></i>
+                </div>
+            </td>
             <td> <p class="capitalize-letter">{{ ($lead) ? date_format($lead->created_at,"m-d-Y h:i A") : ''  }}</p></td>
             <!-- Start drop down list -->
             <!-- End Drop down -->
