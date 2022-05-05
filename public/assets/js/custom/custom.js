@@ -360,6 +360,57 @@ $(document).on('click','.delete_row',function(e){
 });
 /* END Delete Record Jquery */
 
+
+$('.lead_assignee_span').on('click',function(e){
+    $(this).hide();
+    var secret = $(this).data('secret');
+    $('#lead_assignee_'+secret).show();
+    $('#lead_check_assignee_btn_'+secret).show();
+    $('#lead_cross_assignee_btn_'+secret).show();
+});
+$('.lead_cross_assignee_btn').on('click',function(e){
+    var secret = $(this).data('secret');
+    $('#lead_assignee_'+secret).hide();
+    $('#lead_check_assignee_btn_'+secret).hide();
+    $('#lead_cross_assignee_btn_'+secret).hide();
+    $('#lead_assignee_span_'+secret).show();
+});
+$('.lead_assignee_change').on('click', function (e) {
+    var url = $(this).data('url');
+    var secret = $(this).data('secret');
+    var $selected_lead = $('#lead_assignee_'+secret);
+    var selected_assignee = $selected_lead.val();
+    console.log(selected_assignee);
+    $.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'json',
+        cache: false,
+        data: {selected_assignee : selected_assignee},
+        success: function(data) {
+            console.log(data.content);
+            if(data.status == 'success'){
+                toastr.success(data.message);
+                $('#lead_assignee_span_'+secret).html(data.content.name);
+            }else{
+                toastr.error(data.message);
+            }
+            $selected_lead.hide();
+            $('#lead_check_assignee_btn_'+secret).hide();
+            $('#lead_cross_assignee_btn_'+secret).hide();
+            $('#lead_assignee_span_'+secret).show();
+        },
+        error: function(){
+            toastr.error('Something went wrong');
+            $selected_lead.hide();
+            $('#lead_check_assignee_btn_'+secret).hide();
+            $('#lead_cross_assignee_btn_'+secret).hide();
+            $('#lead_assignee_span_'+secret).show();
+        }
+    });
+})
+
+/* Start status Jquery */
 $('.lead_status_span').on('click',function(e){
     $(this).hide();
     var secret = $(this).data('secret');
@@ -390,7 +441,7 @@ $('.lead_status_change').on('click', function (e) {
             if(data.status == 'success'){
                 toastr.success(data.message);
                 $('#lead_status_span_'+secret).html(selected_status.replaceAll('_',' '));
-                
+
             }else{
                 toastr.error(data.message);
             }
@@ -413,7 +464,7 @@ $('.lead_status_change').on('click', function (e) {
 $('#message').keypress(function (e) {
     if (e.which == 13) {
       $('#frm_lead_thread').submit();
-      return false; 
+      return false;
     }
 });
 $(document).on('submit','#frm_lead_thread',function(e){
@@ -687,7 +738,7 @@ $(document).on("click",".edit_subModule",function (e) {
 $(document).on('click','.selected_permission_rows',function(){
     var slug  = $(this).data('slug');
     var URL = $(this).data('url');
-     
+
     if($(this).is(":checked")){
         $(this).attr('checked', true);
         var status = 1;
@@ -696,7 +747,7 @@ $(document).on('click','.selected_permission_rows',function(){
         $(this).attr('checked', false);
         var status = 0;
     }
- 
+
     $.ajax({
         url:URL,
         type:'post',
