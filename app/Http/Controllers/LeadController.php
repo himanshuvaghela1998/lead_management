@@ -81,22 +81,15 @@ class LeadController extends Controller
             $request->validate([
                 'project_title' => 'required',
                 'project_type_id' => 'required',
-                'source_id' => 'required',
-                'status' => 'required',
-                'billing_type' => 'required',
-                'time_estimation' => 'required',
                 'client_name' => 'required',
-                'client_email' => 'required|email',
+                'source_id' => 'required',
             ],
         [
             'project_title.required' => 'Project title is required',
             'project_type_id.required' => 'Project type is required',
-            'source_id.required' => 'Lead source is required',
-            'status.required' => 'Project status is required',
-            'billing_type.required' => 'Billing type is required',
-            'time_estimation.required' => 'Time estimation is required',
             'client_name.required' => 'Client name is required',
-            'client_email.required' => 'Client email is required',
+            'source_id.required' => 'Lead source is required',
+
         ]);
 
 
@@ -108,7 +101,7 @@ class LeadController extends Controller
             {
                 $lead->user_id = $request->input('user_id');
             }
-            $lead->status = $request->input('status');
+            $lead->status = 'open';
             $lead->billing_type = $request->input('billing_type');
             $lead->time_estimation = $request->input('time_estimation');
             $lead->lead_details = $request->input('lead_details_data');
@@ -118,17 +111,18 @@ class LeadController extends Controller
             $clients->lead_id = $lead->id;
             $clients->client_name = $request->input('client_name');
             $clients->client_email = $request->input('client_email');
+            $clients->client_skype = $request->input('client_skype');
             $clients->client_other_details = $request->input('client_other_details');
             $clients->save();
 
             return response()->json(['success' => true,'secret_id' => $lead->secret]);
 
         }
-
+        $auth_user = User::where('id',Auth::user()->id)->first();
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
-        return view('leads.create', compact('projects', 'Sources', 'users'));
+        return view('leads.create', compact('projects', 'Sources', 'users', 'auth_user'));
 
     }
 
@@ -139,13 +133,14 @@ class LeadController extends Controller
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
 
+        $auth_user = User::where('id',Auth::user()->id)->first();
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
         $leads = Lead::with('clients', 'projectType','leadAttachments')->find(getDecrypted($id));
         $lead_attachments = $leads->leadAttachments;
         if (!$leads == null) {
-        return view('leads.edit', compact('leads', 'projects', 'Sources', 'users','lead_attachments'));
+        return view('leads.edit', compact('leads', 'projects', 'Sources', 'users','lead_attachments', 'auth_user'));
         }else{
             return redirect(route('lead'));
         }
@@ -157,22 +152,15 @@ class LeadController extends Controller
         $request->validate([
             'project_title' => 'required',
             'project_type_id' => 'required',
-            'source_id' => 'required',
-            'status' => 'required',
-            'billing_type' => 'required',
-            'time_estimation' => 'required',
             'client_name' => 'required',
-            'client_email' => 'required|email',
+            'source_id' => 'required',
         ],
     [
         'project_title.required' => 'Project title is required',
         'project_type_id.required' => 'Project type is required',
-        'source_id.required' => 'Lead source is required',
-        'status.required' => 'Project status is required',
-        'billing_type.required' => 'Billing type is required',
-        'time_estimation.required' => 'Time estimation is required',
         'client_name.required' => 'Client name is required',
-        'client_email.required' => 'Client email is required',
+        'source_id.required' => 'Lead source is required',
+
     ]);
 
         $lead = Lead::find($id);
@@ -183,15 +171,15 @@ class LeadController extends Controller
         {
             $lead->user_id = $request->input('user_id');
         }
-        $lead->status = $request->input('status');
         $lead->billing_type = $request->input('billing_type');
         $lead->time_estimation = $request->input('time_estimation');
         $lead->lead_details = $request->input('lead_details');
         $lead->save();
-        $clients = Client::find($id);
+        $clients = Client::where('lead_id',$id)->first();
         $clients->lead_id = $lead->id;
         $clients->client_name = $request->input('client_name');
         $clients->client_email = $request->input('client_email');
+        $clients->client_skype = $request->input('client_skype');
         $clients->client_other_details = $request->input('client_other_details');
         $clients->save();
 

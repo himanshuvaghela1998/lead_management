@@ -3,10 +3,11 @@
     <thead>
         <!--begin::Table row-->
         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-            <th class="min-w-125px">Project Title</th>
-            <th class="min-w-125px">Project Status </th>
-            <th class="min-w-125px">Project Type</th>
+            <th class="min-w-125px">Client name</th>
+            <th class="min-w-125px">Project Title </th>
+            <th class="min-w-125px">Project status</th>
             <th class="min-w-125px">Assign To</th>
+            <th class="min-w-125px">Created date</th>
             {{-- <th class="min-w-125px">Project Status</th> --}}
             @canany(['lead_update','lead_delete'])
                 <th class="text-center min-w-125px">Actions</th>
@@ -17,6 +18,7 @@
         @foreach ($leads as $lead)
         {{-- @dd($lead->getUser->name) --}}
         <tr id="user_{{$lead->secret}}">
+            <td><p class="capitalize-letter">{{ ($lead->clients) ?  $lead->clients->client_name : '' }}</p></td>
             <td><p class="capitalize-letter"><a href="{{ route('lead.chat',$lead->secret) }}">{{ $lead->project_title }}</a></p></td>
             <td style="    cursor: pointer;text-decoration: underline;text-decoration-style: dotted;"> <p id="lead_status_span_{{ $lead->secret }}" data-secret="{{ $lead->secret }}" class="capitalize-letter lead_status_span">{{ str_replace('_', ' ', $lead->status) }} </p>
                 <div class="d-flex align-items-center">
@@ -30,11 +32,10 @@
                     <i id="lead_cross_btn_{{ $lead->secret }}" class="fa fa-xmark fa-solid solid-icon lead_cross_btn" style="background-color: #eee; color:#555; display:none" data-secret="{{ $lead->secret }}"></i>
                 </div>
             </td>
-            <td> <p class="capitalize-letter">{{ ($lead->ProjectType) ? $lead->ProjectType->project_type : '' }} </p></td>
-            <td style="    cursor: pointer;text-decoration: underline;text-decoration-style: dotted;">
-                <p id="lead_assignee_span_{{ $lead->secret }}" data-secret="{{ $lead->secret }}" class="capitalize-letter lead_assignee_span">{{ str_replace('_', ' ', ($lead->getUser) ? $lead->getUser->name : 'Assignee_to_user') }} </p>
+            <td style="cursor: pointer;text-decoration: underline;text-decoration-style: dotted;">
+                <p id="lead_assignee_span_{{ $lead->secret }}" data-secret="{{ $lead->secret }}" class="capitalize-letter lead_assignee_span">{{ str_replace('_', ' ', ($lead->getUser) ? $lead->getUser->name : 'Assign to a user') }} </p>
                 <div class="d-flex align-items-center">
-                    <select name="user_id" id="lead_assignee_{{ $lead->secret }}"  data-placeholder="Assignee to User..." class="form-select form-select-solid" style="width:210px; display:none">
+                    <select name="user_id" id="lead_assignee_{{ $lead->secret }}"  data-placeholder="Assign to a user" class="form-select form-select-solid" style="width:210px; display:none">
                             <option value="">Assign to a user</option>
                             @foreach ($users as $user)
                             <option value="{{ $user->id }}" >{{ucfirst(trans($user->name))}}  ({{ucfirst(trans($user->getRole->name))}})</option>
@@ -44,6 +45,7 @@
                     <i id="lead_cross_assignee_btn_{{ $lead->secret }}" class="fa fa-xmark fa-solid solid-icon lead_cross_assignee_btn" style="background-color: #eee; color:#555; display:none" data-secret="{{ $lead->secret }}"></i>
                 </div>
             </td>
+            <td> <p class="capitalize-letter">{{ ($lead) ? date_format($lead->created_at,"m-d-Y h:i A") : ''  }}</p></td>
             <!-- Start drop down list -->
             <!-- End Drop down -->
             @canany(['lead_update','lead_delete'])
