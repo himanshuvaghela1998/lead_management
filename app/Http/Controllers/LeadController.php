@@ -420,7 +420,7 @@ class LeadController extends Controller
         // $lead->save();
         if ($lead) {
             $type = 'success';
-            $msg = 'Assignee user successfully';
+            $msg = 'Lead assigned successfully';
         }else{
             $type = 'error';
             $msg = 'Error! something went to wrong!';
