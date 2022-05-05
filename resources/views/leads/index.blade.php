@@ -25,7 +25,7 @@
                                     </span>
                                     <!--end::Svg Icon-->
                                     <form id="filter_form" action="{{route('lead')}}" method="GET">
-                                        <input type="hidden" name="status" class="input-sm form-control" id="form-status">
+                                        <input type="hidden" name="status_id" class="input-sm form-control" id="status_id">
                                         <input type="hidden" name="page" value="1" id="filter_page">
                                         <input type="text" name="search_keyword" class="form-control form-control-solid w-250px ps-15" placeholder="Search" />
                                     </form>
@@ -35,9 +35,11 @@
                                     <!--begin::Select2-->
                                     <select class="form-select form-select-solid" id="status_filter" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
                                         <option></option>
-                                        <option value="-1">All</option>
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                        <option value="open">Open</option>
+                                        <option value="in_Conversation">In Conversation</option>
+                                        <option value="estimation_submited">Estimation Submited</option>
+                                        <option value="closed">Closed</option>
+                                        <option value="converted">Converted</option>
                                     </select>
                                     <!--end::Select2-->
                                 </div>

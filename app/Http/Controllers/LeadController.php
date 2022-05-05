@@ -24,7 +24,7 @@ class LeadController extends Controller
     {
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
-			if(Auth::check()) {	
+			if(Auth::check()) {
 				if(!(User::isAuthorized('lead')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
@@ -57,8 +57,10 @@ class LeadController extends Controller
         }
 
         /* Status filter */
-          if (!is_null($request->status)) {
-            $leads->where('status', $request->status);
+        // $roles = Lead::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
+        /* Status filter */
+        if (!is_null($request->status_id)) {
+            $leads->where('status', $request->status_id);
         }
         $leads = $leads->paginate($this->limit)->appends($request->all());
         if($request->ajax()){
@@ -333,7 +335,7 @@ class LeadController extends Controller
                     ]);
                 }
 
-    
+
                 if ($validator->fails()) {
                     return response()->json(['status' => 401, 'message' => $validator->errors()->first()]);
                 }
@@ -367,16 +369,16 @@ class LeadController extends Controller
                     }
                     $lead_thread->is_attachment = 1;
                     $lead_thread->attachment_type = $media_type;
-                } 
+                }
                 catch (Exception $e) {
                     return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
-                } 
+                }
             }
             $lead_thread->lead_id = $lead->id;
             $lead_thread->sender_id = Auth::user()->id;
             $lead_thread->message = $request->message;
             $lead_thread->save();
-            
+
             $view = view('leads.compact.msg_out',compact('lead_thread'))->render();
             return response()->json(['status' => 200 , 'message' => "Message sent", 'content' => $view]);
         }
