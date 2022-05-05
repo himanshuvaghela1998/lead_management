@@ -9,6 +9,7 @@ use App\Models\LeadAttachment;
 use App\Models\ProjectType;
 use App\Models\LeadSources;
 use App\Models\LeadThread;
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Thumbnail;
@@ -47,17 +48,19 @@ class LeadController extends Controller
             $leads = $leads->where(function($q) use($request){
                 $q->where('status', 'LIKE', '%'.$request->search_keyword.'%');
                 $q->orWhere('project_title', 'LIKE', '%'.$request->search_keyword.'%');
-                $q->orWhereHas('ProjectType', function($q1) use ($request){
-                    $q1->where('project_type', 'LIKE', '%' .$request->search_keyword. '%');
+                $q->orWhereHas('clients', function($q1) use ($request){
+                    $q1->where('client_name', 'LIKE', '%' .$request->search_keyword. '%');
                 });
                 $q->orWhereHas('getUser', function($q2) use ($request){
                     $q2->where('name', 'LIKE', '%' .$request->search_keyword. '%');
                 });
             });
         }
+        /* Date filter */
+        if ($request->from_date != 0) {
+                $leads->whereBetween('created_at', [$request->from_date. ' 00:00:00',$request->to_date . ' 23:59:59'] );
+            }
 
-        /* Status filter */
-        // $roles = Lead::where('status','1')->where('id','!=','1')->get()->pluck('name','id')->toArray();
         /* Status filter */
         if (!is_null($request->status_id)) {
             $leads->where('status', $request->status_id);

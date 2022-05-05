@@ -26,6 +26,8 @@
                                     <!--end::Svg Icon-->
                                     <form id="filter_form" action="{{route('lead')}}" method="GET">
                                         <input type="hidden" name="status_id" class="input-sm form-control" id="status_id">
+                                        <input type="hidden" name="from_date" class="input-sm form-control" id="from_date">
+                                        <input type="hidden" name="to_date" class="input-sm form-control" id="to_date">
                                         <input type="hidden" name="page" value="1" id="filter_page">
                                         <input type="text" name="search_keyword" class="form-control form-control-solid w-250px ps-15" placeholder="Search" />
                                     </form>
@@ -42,6 +44,14 @@
                                         <option value="converted">Converted</option>
                                     </select>
                                     <!--end::Select2-->
+                                </div>
+                                <div class="row" id="date_filter_form">
+                                    <div class="w-150px mx-3 ">
+                                        <input class="form-control form-control-solid date_filter" placeholder="Start date" id="start_date_filter"/>
+                                    </div>
+                                    <div class="w-150px mx-3 ">
+                                        <input class="form-control form-control-solid date_filter" placeholder="End date" id="end_date_filter"/>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-toolbar">
