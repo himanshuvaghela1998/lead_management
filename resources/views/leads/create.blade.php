@@ -79,7 +79,7 @@
                                     </div>
                                      <div class="row mt-2">
                                         <div class="col-md-12">
-                                            <label class="required fs-6 fw-bold mb-2">Lead Details</label>
+                                            <label class="fs-6 fw-bold mb-2">Lead Details</label> {{--TODO this fileld need to do required --}}
                                             <textarea name="lead_details" id="lead_details" class="form-control form-control-solid"></textarea>
                                             <input type="hidden" name="lead_details_data" id="lead_details_data">
                                         </div>
