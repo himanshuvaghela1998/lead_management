@@ -58,6 +58,12 @@
                                 @if(session('success'))
                                     <div class="alert alert-success">{{session('success')}}</div>
                                 @endif
+                                @if($errors->has('email'))
+                                <div class="error">{{ $errors->first('firstname') }}</div>
+                                @endif
+                                @if($errors->has('password'))
+                                <div class="error">{{ $errors->first('firstname') }}</div>
+                                @endif
 
 								<div class="text-center mb-10">
 									<!--begin::Title-->
@@ -74,9 +80,7 @@
                                     @error('email')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                    @if($errors->has('email'))
-                                        <div class="error">{{ $errors->first('firstname') }}</div>
-                                    @endif
+
 
 
 									<!--end::Input-->
@@ -112,9 +116,7 @@
                                     @error('password')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                    @if($errors->has('password'))
-                                        <div class="error">{{ $errors->first('firstname') }}</div>
-                                    @endif
+
 
 									<!--end::Input-->
 								</div>
