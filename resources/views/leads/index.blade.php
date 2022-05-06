@@ -37,20 +37,18 @@
                                     <!--begin::Select2-->
                                     <select class="form-select form-select-solid" id="status_filter" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
                                         <option value="-1">All</option>
-                                        <option value="open">Open</option>
-                                        <option value="in_Conversation">In Conversation</option>
-                                        <option value="estimation_submited">Estimation Submited</option>
-                                        <option value="closed">Closed</option>
-                                        <option value="converted">Converted</option>
+                                        @foreach (get_lead_status() as $key => $value )
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
                                     </select>
                                     <!--end::Select2-->
                                 </div>
-                                <div class="row" id="date_filter_form">
+                                <div class="row" id="date_filter_form" style="margin-left: -21px;">
                                     <div class="w-150px mx-3 ">
                                         <input class="form-control form-control-solid date_filter" placeholder="Start date" id="start_date_filter"/>
                                     </div>
                                     <div class="w-150px mx-3 ">
-                                        <input class="form-control form-control-solid date_filter" placeholder="End date" id="end_date_filter"/>
+                                        <input class="form-control form-control-solid date_filter" placeholder="End date" id="end_date_filter" style="margin-left: -30px;"/>
                                     </div>
                                 </div>
                             </div>
