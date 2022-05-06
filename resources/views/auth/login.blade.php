@@ -20,7 +20,7 @@
 				<!--begin::Aside-->
 				<div class="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative" style="background-color: #F2C98A">
 					<!--begin::Wrapper-->
-					<div class="d-flex flex-column position-xl-fixed top-0 bottom-5 w-xl-600px scroll-y"> 
+					<div class="d-flex flex-column position-xl-fixed top-0 bottom-5 w-xl-600px scroll-y">
 						<!--begin::Content-->
 						<div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
 							<!--begin::Logo-->
@@ -51,6 +51,10 @@
 							<form class="form w-100" method="post" action="{{ route('login') }}" id="login_form">
 								@csrf
                                 <!--begin::Heading-->
+                                @if(session('error'))
+                                <div class="alert alert-danger">{{session('error')}}</div>
+                                @endif
+
 								<div class="text-center mb-10">
 									<!--begin::Title-->
 									<h1 class="text-dark mb-3">Sign In to Lead Management</h1>
@@ -66,8 +70,15 @@
                                     @error('email')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
+
+
+
 									<!--end::Input-->
 								</div>
+
+
+
+
 								<!--end::Input group-->
 								<!--begin::Input group-->
 								<div class="fv-row mb-10">
@@ -86,6 +97,8 @@
                                     @error('password')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
+
+
 									<!--end::Input-->
 								</div>
 								<!--end::Input group-->
@@ -152,23 +165,23 @@
         <!-- strat Toastr -->
         <script src="{{ asset('public/assets/js/toastr.js') }}"></script>
         <script>
-        @if (Session::has('error'))
-        toastr.options =
-        {
-        "closeButton" : true,
-        "progressbar" : true
-        }
-        toastr.error("{{ session('error') }}")
+        // @if (Session::has('error'))
+        // toastr.options =
+        // {
+        // "closeButton" : true,
+        // "progressbar" : true
+        // }
+        // toastr.error("{{ session('error') }}")
 
-        @endif
-        @if (Session::has('success'))
-        toastr.options =
-        {
-            "closeButton" = true,
-            "progressbar" = true
-        }
-            toastr.success("{{ session('success') }}")
-        @endif
+        // @endif
+        // @if (Session::has('success'))
+        // toastr.options =
+        // {
+        //     "closeButton" = true,
+        //     "progressbar" = true
+        // }
+        //     toastr.success("{{ session('success') }}")
+        // @endif
         </script>
         <!-- end Toastr -->
 		<!--begin::Page Custom Javascript(used by this page)-->

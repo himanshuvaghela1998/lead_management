@@ -75,7 +75,7 @@
                         </a>
                     </div>
                 @endcan
-                @can('module')
+                {{-- @can('module')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'modules' ? 'active' : ''}}" href="{{ route('module') }}">
                             <span class="menu-icon">
@@ -102,7 +102,7 @@
                             <span class="menu-title">Sub module</span>
                         </a>
                     </div>
-                @endcan
+                @endcan --}}
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">

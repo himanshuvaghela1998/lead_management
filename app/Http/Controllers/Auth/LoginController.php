@@ -67,7 +67,7 @@ class LoginController extends Controller
                         $user->assignRole($user->getRole->name);
                         return redirect()->route('home')->with('message','Login successfully');
                     }else{
-                        return back()->with('error','Please use correct password!');
+                        return back()->with('error','Please use correct email or password!');
                     }
 
                 }else{
@@ -75,7 +75,7 @@ class LoginController extends Controller
                 }
 
             }else{
-                return back()->with('error', 'The recipient`s email address doesn`t exist.');
+                return back()->with('error','Please use correct email or password!');
             }
 
         }
