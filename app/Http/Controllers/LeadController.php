@@ -9,6 +9,7 @@ use App\Models\LeadAttachment;
 use App\Models\ProjectType;
 use App\Models\LeadSources;
 use App\Models\LeadThread;
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Thumbnail;
@@ -47,26 +48,30 @@ class LeadController extends Controller
             $leads = $leads->where(function($q) use($request){
                 $q->where('status', 'LIKE', '%'.$request->search_keyword.'%');
                 $q->orWhere('project_title', 'LIKE', '%'.$request->search_keyword.'%');
-                $q->orWhereHas('ProjectType', function($q1) use ($request){
-                    $q1->where('project_type', 'LIKE', '%' .$request->search_keyword. '%');
+                $q->orWhereHas('clients', function($q1) use ($request){
+                    $q1->where('client_name', 'LIKE', '%' .$request->search_keyword. '%');
                 });
                 $q->orWhereHas('getUser', function($q2) use ($request){
                     $q2->where('name', 'LIKE', '%' .$request->search_keyword. '%');
                 });
             });
         }
+        /* Date filter */
+        if ($request->from_date != 0) {
+                $leads->whereBetween('created_at', [$request->from_date. ' 00:00:00',$request->to_date . ' 23:59:59'] );
+            }
 
         /* Status filter */
-          if (!is_null($request->status)) {
-            $leads->where('status', $request->status);
+        if (!is_null($request->status_id) && $request->status_id != '-1') {
+            $leads->where('status', $request->status_id);
         }
         $leads = $leads->paginate($this->limit)->appends($request->all());
+        $users = User::where('is_delete',0)->where('role_id', '!=', 4)->where('status', 1)->get();
         if($request->ajax()){
-            $view = view('leads.compact.lead_list',compact('leads'))->render();
+            $view = view('leads.compact.lead_list',compact('leads','users'))->render();
             return response()->json(['status'=>200,'message','content'=>$view]);
         }
 
-        $users = User::where('is_delete',0)->where('role_id', '!=', 4)->where('status', 1)->get();
         return view('leads.index', compact('leads', 'users'));
     }
 

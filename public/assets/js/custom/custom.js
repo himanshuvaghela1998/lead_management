@@ -288,6 +288,33 @@ $(document).on('change','#filter_form select',function(){
     $('#filter_form').trigger('submit');
 });
 
+/* start date filter */
+$(".date_filter").flatpickr();
+$(document).on('change', '#start_date_filter', function(e){
+
+    if ($('#start_date_filter').val() != '' && $('#end_date_filter').val() != '') {
+
+        var str_date = $('#start_date_filter').val();
+        var end_date = $('#end_date_filter').val();
+        $('#from_date').val(str_date);
+        $('#to_date').val(end_date);
+        $('#filter_form').trigger('submit');
+    }
+})
+
+$(document).on('change', '#end_date_filter', function(e){
+    if ($('#start_date_filter').val() != '' && $('#end_date_filter').val() != '') {
+
+        var str_date = $('#start_date_filter').val();
+        var end_date = $('#end_date_filter').val();
+        $('#from_date').val(str_date);
+        $('#to_date').val(end_date);
+        $('#filter_form').trigger('submit');
+    }
+
+
+})
+
 /* Status Filter */
 $(document).on('change','#status_filter',function(){
        var status  =$('#status_filter').val();

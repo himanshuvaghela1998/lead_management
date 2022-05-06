@@ -15,6 +15,7 @@
         </tr>
     </thead>
     <tbody class="fw-bold text-gray-600">
+        @if (count($leads)>0)
         @foreach ($leads as $lead)
         {{-- @dd($lead->getUser->name) --}}
         <tr id="user_{{$lead->secret}}">
@@ -78,6 +79,13 @@
             @endcanany
         </tr>
          @endforeach
+         @else
+         <tr>
+            <th colspan="7" class="text-center">
+                No records found
+            </th>
+        </tr>
+         @endif
     </tbody>
 </table>
 
