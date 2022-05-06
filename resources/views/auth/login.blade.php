@@ -55,16 +55,6 @@
                                 <div class="alert alert-danger">{{session('error')}}</div>
                                 @endif
 
-                                @if(session('success'))
-                                    <div class="alert alert-success">{{session('success')}}</div>
-                                @endif
-                                @if($errors->has('email'))
-                                <div class="error">{{ $errors->first('firstname') }}</div>
-                                @endif
-                                @if($errors->has('password'))
-                                <div class="error">{{ $errors->first('firstname') }}</div>
-                                @endif
-
 								<div class="text-center mb-10">
 									<!--begin::Title-->
 									<h1 class="text-dark mb-3">Sign In to Lead Management</h1>
