@@ -288,6 +288,33 @@ $(document).on('change','#filter_form select',function(){
     $('#filter_form').trigger('submit');
 });
 
+/* start date filter */
+$(".date_filter").flatpickr();
+$(document).on('change', '#start_date_filter', function(e){
+
+    if ($('#start_date_filter').val() != '' && $('#end_date_filter').val() != '') {
+
+        var str_date = $('#start_date_filter').val();
+        var end_date = $('#end_date_filter').val();
+        $('#from_date').val(str_date);
+        $('#to_date').val(end_date);
+        $('#filter_form').trigger('submit');
+    }
+})
+
+$(document).on('change', '#end_date_filter', function(e){
+    if ($('#start_date_filter').val() != '' && $('#end_date_filter').val() != '') {
+
+        var str_date = $('#start_date_filter').val();
+        var end_date = $('#end_date_filter').val();
+        $('#from_date').val(str_date);
+        $('#to_date').val(end_date);
+        $('#filter_form').trigger('submit');
+    }
+
+
+})
+
 /* Status Filter */
 $(document).on('change','#status_filter',function(){
        var status  =$('#status_filter').val();
@@ -360,17 +387,77 @@ $(document).on('click','.delete_row',function(e){
 });
 /* END Delete Record Jquery */
 
+
+$('.lead_assignee_span').on('click',function(e){
+    $(this).hide();
+    var secret = $(this).data('secret');
+    $('#lead_assignee_'+secret).show();
+    $('#lead_check_assignee_btn_'+secret).show();
+    $('#lead_cross_assignee_btn_'+secret).show();
+});
+$('.lead_cross_assignee_btn').on('click',function(e){
+    var secret = $(this).data('secret');
+    $('#lead_assignee_'+secret).hide();
+    $('#lead_check_assignee_btn_'+secret).hide();
+    $('#lead_cross_assignee_btn_'+secret).hide();
+    $('#lead_assignee_span_'+secret).show();
+});
+$('.lead_assignee_change').on('click', function (e) {
+    var url = $(this).data('url');
+    var secret = $(this).data('secret');
+    var $selected_lead = $('#lead_assignee_'+secret);
+    var selected_assignee = $selected_lead.val();
+    console.log(selected_assignee);
+    $.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'json',
+        cache: false,
+        data: {selected_assignee : selected_assignee},
+        success: function(data) {
+            console.log(data.content);
+            if(data.status == 'success'){
+                toastr.success(data.message);
+                $('#lead_assignee_span_'+secret).html(data.content.name);
+            }else{
+                toastr.error(data.message);
+            }
+            $selected_lead.hide();
+            $('#lead_check_assignee_btn_'+secret).hide();
+            $('#lead_cross_assignee_btn_'+secret).hide();
+            $('#lead_assignee_span_'+secret).show();
+        },
+        error: function(){
+            toastr.error('Something went wrong');
+            $selected_lead.hide();
+            $('#lead_check_assignee_btn_'+secret).hide();
+            $('#lead_cross_assignee_btn_'+secret).hide();
+            $('#lead_assignee_span_'+secret).show();
+        }
+    });
+})
+
+/* Start status Jquery */
 $('.lead_status_span').on('click',function(e){
     $(this).hide();
-    var title = $(this).data('title');
-    $('#'+title).show();
-
+    var secret = $(this).data('secret');
+    $('#lead_status_'+secret).show();
+    $('#lead_check_btn_'+secret).show();
+    $('#lead_cross_btn_'+secret).show();
 });
-$('.lead_status').on('change', function (e) {
+$('.lead_cross_btn').on('click',function(e){
+    var secret = $(this).data('secret');
+    $('#lead_status_'+secret).hide();
+    $('#lead_check_btn_'+secret).hide();
+    $('#lead_cross_btn_'+secret).hide();
+    $('#lead_status_span_'+secret).show();
+});
+$('.lead_status_change').on('click', function (e) {
     var url = $(this).data('url');
-    var title = $(this).data('title');
-    var selected_status = $(this).val();
-    var $selected_lead = $(this);
+    var secret = $(this).data('secret');
+    var $selected_lead = $('#lead_status_'+secret);
+    var selected_status = $selected_lead.val();
+    console.log(selected_status);
     $.ajax({
         type: "POST",
         url: url,
@@ -380,18 +467,22 @@ $('.lead_status').on('change', function (e) {
         success: function(data) {
             if(data.status == 'success'){
                 toastr.success(data.message);
-                $('#'+title).html(selected_status);
-                
+                $('#lead_status_span_'+secret).html(selected_status.replaceAll('_',' '));
+
             }else{
                 toastr.error(data.message);
             }
             $selected_lead.hide();
-            $('#'+title).show();
+            $('#lead_check_btn_'+secret).hide();
+            $('#lead_cross_btn_'+secret).hide();
+            $('#lead_status_span_'+secret).show();
         },
         error: function(){
             toastr.error('Something went wrong');
             $selected_lead.hide();
-            $('#'+title).show();
+            $('#lead_check_btn_'+secret).hide();
+            $('#lead_cross_btn_'+secret).hide();
+            $('#lead_status_span_'+secret).show();
         }
     });
 })
@@ -400,7 +491,7 @@ $('.lead_status').on('change', function (e) {
 $('#message').keypress(function (e) {
     if (e.which == 13) {
       $('#frm_lead_thread').submit();
-      return false; 
+      return false;
     }
 });
 $(document).on('submit','#frm_lead_thread',function(e){
@@ -674,7 +765,7 @@ $(document).on("click",".edit_subModule",function (e) {
 $(document).on('click','.selected_permission_rows',function(){
     var slug  = $(this).data('slug');
     var URL = $(this).data('url');
-     
+
     if($(this).is(":checked")){
         $(this).attr('checked', true);
         var status = 1;
@@ -683,7 +774,7 @@ $(document).on('click','.selected_permission_rows',function(){
         $(this).attr('checked', false);
         var status = 0;
     }
- 
+
     $.ajax({
         url:URL,
         type:'post',

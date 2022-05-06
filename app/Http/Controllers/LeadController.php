@@ -9,6 +9,7 @@ use App\Models\LeadAttachment;
 use App\Models\ProjectType;
 use App\Models\LeadSources;
 use App\Models\LeadThread;
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Thumbnail;
@@ -24,7 +25,7 @@ class LeadController extends Controller
     {
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
-			if(Auth::check()) {	
+			if(Auth::check()) {
 				if(!(User::isAuthorized('lead')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
@@ -47,26 +48,31 @@ class LeadController extends Controller
             $leads = $leads->where(function($q) use($request){
                 $q->where('status', 'LIKE', '%'.$request->search_keyword.'%');
                 $q->orWhere('project_title', 'LIKE', '%'.$request->search_keyword.'%');
-                $q->orWhereHas('ProjectType', function($q1) use ($request){
-                    $q1->where('project_type', 'LIKE', '%' .$request->search_keyword. '%');
+                $q->orWhereHas('clients', function($q1) use ($request){
+                    $q1->where('client_name', 'LIKE', '%' .$request->search_keyword. '%');
                 });
                 $q->orWhereHas('getUser', function($q2) use ($request){
                     $q2->where('name', 'LIKE', '%' .$request->search_keyword. '%');
                 });
             });
         }
+        /* Date filter */
+        if ($request->from_date != 0) {
+                $leads->whereBetween('created_at', [$request->from_date. ' 00:00:00',$request->to_date . ' 23:59:59'] );
+            }
 
         /* Status filter */
-          if (!is_null($request->status)) {
-            $leads->where('status', $request->status);
+        if (!is_null($request->status_id) && $request->status_id != '-1') {
+            $leads->where('status', $request->status_id);
         }
         $leads = $leads->paginate($this->limit)->appends($request->all());
+        $users = User::where('is_delete',0)->where('role_id', '!=', 4)->where('status', 1)->get();
         if($request->ajax()){
-            $view = view('leads.compact.lead_list',compact('leads'))->render();
+            $view = view('leads.compact.lead_list',compact('leads','users'))->render();
             return response()->json(['status'=>200,'message','content'=>$view]);
         }
 
-        return view('leads.index', compact('leads'));
+        return view('leads.index', compact('leads', 'users'));
     }
 
     public function create(Request $request)
@@ -80,22 +86,15 @@ class LeadController extends Controller
             $request->validate([
                 'project_title' => 'required',
                 'project_type_id' => 'required',
-                'source_id' => 'required',
-                'status' => 'required',
-                'billing_type' => 'required',
-                'time_estimation' => 'required',
                 'client_name' => 'required',
-                'client_email' => 'required|email',
+                'source_id' => 'required',
             ],
         [
             'project_title.required' => 'Project title is required',
             'project_type_id.required' => 'Project type is required',
-            'source_id.required' => 'Lead source is required',
-            'status.required' => 'Project status is required',
-            'billing_type.required' => 'Billing type is required',
-            'time_estimation.required' => 'Time estimation is required',
             'client_name.required' => 'Client name is required',
-            'client_email.required' => 'Client email is required',
+            'source_id.required' => 'Lead source is required',
+
         ]);
 
 
@@ -107,7 +106,7 @@ class LeadController extends Controller
             {
                 $lead->user_id = $request->input('user_id');
             }
-            $lead->status = $request->input('status');
+            $lead->status = 'open';
             $lead->billing_type = $request->input('billing_type');
             $lead->time_estimation = $request->input('time_estimation');
             $lead->lead_details = $request->input('lead_details_data');
@@ -117,17 +116,18 @@ class LeadController extends Controller
             $clients->lead_id = $lead->id;
             $clients->client_name = $request->input('client_name');
             $clients->client_email = $request->input('client_email');
+            $clients->client_skype = $request->input('client_skype');
             $clients->client_other_details = $request->input('client_other_details');
             $clients->save();
 
             return response()->json(['success' => true,'secret_id' => $lead->secret]);
 
         }
-
+        $auth_user = User::where('id',Auth::user()->id)->first();
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
-        return view('leads.create', compact('projects', 'Sources', 'users'));
+        return view('leads.create', compact('projects', 'Sources', 'users', 'auth_user'));
 
     }
 
@@ -138,13 +138,14 @@ class LeadController extends Controller
             return redirect()->route('dashboard')->with('error','Unauthorized access');
         }
 
+        $auth_user = User::where('id',Auth::user()->id)->first();
         $users = User::with('getRole')->where([['role_id', '!=', 1],['status',1],['is_delete', 0]])->get();
         $projects = ProjectType::get();
         $Sources = LeadSources::get();
         $leads = Lead::with('clients', 'projectType','leadAttachments')->find(getDecrypted($id));
         $lead_attachments = $leads->leadAttachments;
         if (!$leads == null) {
-        return view('leads.edit', compact('leads', 'projects', 'Sources', 'users','lead_attachments'));
+        return view('leads.edit', compact('leads', 'projects', 'Sources', 'users','lead_attachments', 'auth_user'));
         }else{
             return redirect(route('lead'));
         }
@@ -156,22 +157,15 @@ class LeadController extends Controller
         $request->validate([
             'project_title' => 'required',
             'project_type_id' => 'required',
-            'source_id' => 'required',
-            'status' => 'required',
-            'billing_type' => 'required',
-            'time_estimation' => 'required',
             'client_name' => 'required',
-            'client_email' => 'required|email',
+            'source_id' => 'required',
         ],
     [
         'project_title.required' => 'Project title is required',
         'project_type_id.required' => 'Project type is required',
-        'source_id.required' => 'Lead source is required',
-        'status.required' => 'Project status is required',
-        'billing_type.required' => 'Billing type is required',
-        'time_estimation.required' => 'Time estimation is required',
         'client_name.required' => 'Client name is required',
-        'client_email.required' => 'Client email is required',
+        'source_id.required' => 'Lead source is required',
+
     ]);
 
         $lead = Lead::find($id);
@@ -182,15 +176,15 @@ class LeadController extends Controller
         {
             $lead->user_id = $request->input('user_id');
         }
-        $lead->status = $request->input('status');
         $lead->billing_type = $request->input('billing_type');
         $lead->time_estimation = $request->input('time_estimation');
         $lead->lead_details = $request->input('lead_details');
         $lead->save();
-        $clients = Client::find($id);
+        $clients = Client::where('lead_id',$id)->first();
         $clients->lead_id = $lead->id;
         $clients->client_name = $request->input('client_name');
         $clients->client_email = $request->input('client_email');
+        $clients->client_skype = $request->input('client_skype');
         $clients->client_other_details = $request->input('client_other_details');
         $clients->save();
 
@@ -333,7 +327,7 @@ class LeadController extends Controller
                     ]);
                 }
 
-    
+
                 if ($validator->fails()) {
                     return response()->json(['status' => 401, 'message' => $validator->errors()->first()]);
                 }
@@ -367,16 +361,16 @@ class LeadController extends Controller
                     }
                     $lead_thread->is_attachment = 1;
                     $lead_thread->attachment_type = $media_type;
-                } 
+                }
                 catch (Exception $e) {
                     return response()->json(['success' => false, 'status' => 401, 'message' => 'Something went wrong. Please try again.']);
-                } 
+                }
             }
             $lead_thread->lead_id = $lead->id;
             $lead_thread->sender_id = Auth::user()->id;
             $lead_thread->message = $request->message;
             $lead_thread->save();
-            
+
             $view = view('leads.compact.msg_out',compact('lead_thread'))->render();
             return response()->json(['status' => 200 , 'message' => "Message sent", 'content' => $view]);
         }
@@ -401,5 +395,30 @@ class LeadController extends Controller
             $msg = 'Error! something went to wrong!';
         }
         return response()->json(['status'=>$type,'message'=>$msg]);
+    }
+
+    public function changeLeadAssignee(Request $request, $id)
+    {
+        if (!(User::isAuthorized('lead_change_assignee'))) {
+            return response()->json(['status'=>'error', 'message'=>'Unauthorized access']);
+        }
+
+        // $user = User::select('id','name')->find(getDecrypted($id));
+        $lead = Lead::select('id', 'user_id')->find(getDecrypted($id));
+        $lead->user_id = $request->selected_assignee;
+        $lead->save();
+
+        $data = user::select('id','name')->find($request->selected_assignee);
+
+        // $lead->save();
+        if ($lead) {
+            $type = 'success';
+            $msg = 'Lead assigned successfully';
+        }else{
+            $type = 'error';
+            $msg = 'Error! something went to wrong!';
+        }
+
+        return response()->json(['status'=>$type, 'message'=>$msg, 'content'=>$data]);
     }
 }

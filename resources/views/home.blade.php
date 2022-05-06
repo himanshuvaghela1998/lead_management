@@ -4,25 +4,13 @@
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
-    <div class="toolbar" id="kt_toolbar" style="margin-top: -66px;">
-        <!--begin::Container-->
-        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-            <div class="px-10 mt-0">
-                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 pt-1">
-                    <li class="breadcrumb-item text-dark"><b>Dashboard</b></li>
-
-                </ul>
-            </div>
-        </div>
-        <!--end::Container-->
-    </div>
     <!--end::Toolbar-->
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl" >
 
-            <div class="row g-5 g-xl-8" style="margin: auto;">
+            <div class="row g-5 g-xl-8">
                 {{-- <div class="col-xl-4">
                     <!--begin::Statistics Widget 5-->
                     <a href="#" class="card bg-body-white hoverable card-xl-stretch mb-xl-8">

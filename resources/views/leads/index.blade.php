@@ -3,23 +3,6 @@
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
-    <div class="toolbar" id="kt_toolbar" style="margin-top: -66px;">
-        <!--begin::Container-->
-        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-            <div class="px-10 mt-0">
-                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 pt-1">
-                    <li class="breadcrumb-item text-muted">
-                        <a href="{{ route('home') }}" class="text-muted text-hover-primary">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
-                    </li>
-                    <li class="breadcrumb-item text-dark">Leads</li>
-                </ul>
-            </div>
-        </div>
-        <!--end::Container-->
-    </div>
     <!--end::Toolbar-->
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -27,7 +10,7 @@
         <div id="kt_content_container" class="container-xxl">
 
             <div class="row justify-content-center">
-                <div class="col-md-12" style="margin: 25px">
+                <div class="col-md-12" style="margin: -31px;">
                     <div class="card">
                         <div class="card-header border-0 pt-6">
                             <div class="card-title">
@@ -42,7 +25,9 @@
                                     </span>
                                     <!--end::Svg Icon-->
                                     <form id="filter_form" action="{{route('lead')}}" method="GET">
-                                        <input type="hidden" name="status" class="input-sm form-control" id="form-status">
+                                        <input type="hidden" name="status_id" class="input-sm form-control" id="status_id">
+                                        <input type="hidden" name="from_date" class="input-sm form-control" id="from_date">
+                                        <input type="hidden" name="to_date" class="input-sm form-control" id="to_date">
                                         <input type="hidden" name="page" value="1" id="filter_page">
                                         <input type="text" name="search_keyword" class="form-control form-control-solid w-250px ps-15" placeholder="Search" />
                                     </form>
@@ -51,12 +36,20 @@
                                 <div class="w-150px mx-3">
                                     <!--begin::Select2-->
                                     <select class="form-select form-select-solid" id="status_filter" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
-                                        <option></option>
                                         <option value="-1">All</option>
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                        @foreach (get_lead_status() as $key => $value )
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
                                     </select>
                                     <!--end::Select2-->
+                                </div>
+                                <div class="row" id="date_filter_form" style="margin-left: -21px;">
+                                    <div class="w-150px mx-3 ">
+                                        <input class="form-control form-control-solid date_filter" placeholder="Start date" id="start_date_filter"/>
+                                    </div>
+                                    <div class="w-150px mx-3 ">
+                                        <input class="form-control form-control-solid date_filter" placeholder="End date" id="end_date_filter" style="margin-left: -30px;"/>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-toolbar">
@@ -85,10 +78,3 @@
 
 @endsection
 
-@section('scripts')
-<script>
-    $(document).ready(function(e){
-        $('.lead_status').hide();
-    });
-</script>
-@endsection

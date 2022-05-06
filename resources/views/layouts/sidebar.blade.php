@@ -75,20 +75,6 @@
                         </a>
                     </div>
                 @endcan
-                @can('role')
-                    <div class="menu-item">
-                        <a class="menu-link {{ \Request::segment(1) == 'role' ? 'active' : ''}}" href="{{ route('role') }}">
-                            <span class="menu-icon">
-                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                <span class="svg-icon svg-icon-2">
-                                    <i class="fa-brands fa-r-project fa-lg"></i>
-                                </span>
-                                <!--end::Svg Icon-->
-                            </span>
-                            <span class="menu-title">Roles</span>
-                        </a>
-                    </div>
-                @endcan
                 @can('module')
                     <div class="menu-item">
                         <a class="menu-link {{ \Request::segment(1) == 'modules' ? 'active' : ''}}" href="{{ route('module') }}">
@@ -117,6 +103,33 @@
                         </a>
                     </div>
                 @endcan
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                    <i class="fa-solid fa-gear fa-lg"></i>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Settings</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    @can('role')
+                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            <div class="menu-item menu-accordion">
+                                <a class="menu-link {{ \Request::segment(1) == 'role' ? 'active' : ''}}" href="{{ route('role') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Roles</span>
+                                    <span class="menu"></span>
+                                </a>
+                            </div>
+                        </div>
+                    @endcan
+
+                </div>
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('logout') }}">
                         <span class="menu-icon">
