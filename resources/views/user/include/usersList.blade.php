@@ -8,12 +8,12 @@
                     <input class="form-check-input" type="checkbox" data-kt-check="true" name="select_all" value="1" id="search-select-all" />
                 </div>
             </th> --}}
-            <th style="width: 25%">Name</th>
-            <th style="width: 25%">Email</th>
-            <th style="width: 25%">Role</th>
-            <th style="width: 10%">Status</th>
+            <th class="w-25%" >Name</th>
+            <th class="w-25%">Email</th>
+            <th class="w-25%">Role</th>
+            <th class="w-25%">Status</th>
             @canany(['user_delete','user_update','user_change_password'])
-                <th style="width: 15%">Actions</th>
+                <th class="w-25%">Actions</th>
             @endcanany
         </tr>
     </thead>

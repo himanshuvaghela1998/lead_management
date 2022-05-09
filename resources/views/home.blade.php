@@ -42,7 +42,7 @@
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen008.svg-->
                                     <span class="svg-icon svg-icon-white svg-icon-3x ms-n1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <i class="fa-solid fa-users fa-2x" style="margin-left: -38px;margin-top: 11px; color:white"></i>
+                                        <i class="fa-solid fa-users fa-2x lead_logo"></i>
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->

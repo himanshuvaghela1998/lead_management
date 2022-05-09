@@ -9,10 +9,10 @@
         <div id="kt_content_container" class="container-xxl">
 
             <div class="row justify-content-center">
-                <div class="col-md-12" style="margin: -31px;">
+                <div class="col-md-12 extra_space">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('update', $leads->id) }}" class="horizontal-form" method="POST" id="lead_store">
+                            <form action="{{ route('lead.update', $leads->id) }}" class="horizontal-form" method="POST" id="lead_store">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="row mt-2">

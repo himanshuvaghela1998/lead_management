@@ -16,7 +16,7 @@ class SubModuleController extends Controller
     {
         $this->limit = 10;
         $this->middleware(function ($request, $next) {
-			if(Auth::check()) {	
+			if(Auth::check()) {
 				if(!(User::isAuthorized('submodule')))
                 {
                     return redirect()->route('dashboard')->with('error','Unauthorized access');
@@ -80,7 +80,7 @@ class SubModuleController extends Controller
 
     }
 
-    public function editModule($id)
+    public function editSubModule($id)
     {
         if(!(User::isAuthorized('submodule_update')))
         {
@@ -96,7 +96,7 @@ class SubModuleController extends Controller
         return response()->json(['status'=>'error']);
     }
 
-    public function updateSubmodule(Request $request, $id)
+    public function updateSubModule(Request $request, $id)
     {
         $request->validate([
             'module_id' => 'required',
@@ -107,7 +107,7 @@ class SubModuleController extends Controller
             'name.required' => 'Name is required.',
             'slug.required' => 'Slug is required.',
         ]);
- 
+
 
         $submodule = SubModule::find(getDecrypted($id));
 

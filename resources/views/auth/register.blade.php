@@ -3,11 +3,10 @@
 	<!--begin::Head-->
 	<head><base href="../../../">
 		<title>{{env('APP_NAME')}}</title>
-		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico')}}" />
-		{{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" /> --}}
-		<!--begin::Global Stylesheets Bundle(used by all pages)-->
-		<link href="{{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link rel="icon" href="{{asset('public/assets/media/logos/Aipxperts-logo_1.png')}}" type = "image/x-icon"/>
+		<link href="{{ asset('public/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('public/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<!--end::Head-->
@@ -16,7 +15,7 @@
 		<!--begin::Main-->
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Authentication - Sign-up -->
-			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/sketchy-1/14-dark.png">
+			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url('public/assets/media/illustrations/sketchy-1/login-visual-1.svg')">
 				<!--begin::Content-->
 				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
 					<!--begin::Logo-->
@@ -98,13 +97,13 @@
 				</div> --}}
 			</div>
 		</div>
-		<script src="{{ asset('assets/plugins/global/plugins.bundle.js')}}"></script>
-		<script src="{{ asset('assets/js/scripts.bundle.js')}}"></script>
+
+		<script src="{{ asset('public/assets/plugins/global/plugins.bundle.js')}}"></script>
+		<script src="{{ asset('public/assets/js/scripts.bundle.js')}}"></script>
 		<!--end::Global Javascript Bundle-->
-		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="{{ asset('assets/js/custom/authentication/sign-up/general.js')}}"></script>
-		<!--end::Page Custom Javascript-->
-		<!--end::Javascript-->
+        <!--Start login validation -->
+        <script src="{{ asset('public/assets/js/validation.js') }}"></script>
+        <script src="{{ asset('public/assets/js/custom_validation/login_validation.js') }}"></script>
 	</body>
 	<!--end::Body-->
 </html>
