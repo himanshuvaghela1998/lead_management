@@ -45,9 +45,9 @@ Route::middleware(['auth','CheckAdmin'])->group(function(){
 
     //  Lead Routes
     Route::get('leads', [LeadController::class, 'index'])->name('lead');
-    Route::match(['GET', 'POST'], 'leads/create', [LeadController::class, 'create'])->name('create');
-    Route::get('leads/edit/{id}', [LeadController::class, 'edit'])->name('edit');
-    Route::post('leads/update/{id}', [LeadController::class, 'update'])->name('update');
+    Route::match(['GET', 'POST'], 'leads/create', [LeadController::class, 'create'])->name('lead.create');
+    Route::get('leads/edit/{id}', [LeadController::class, 'edit'])->name('lead.edit');
+    Route::post('leads/update/{id}', [LeadController::class, 'update'])->name('lead.update');
     Route::delete('leads/delete/{id}', [LeadController::class, 'delete'])->name('lead.destroy');
     Route::post('leads/upload-media/{id}', [LeadController::class,'uploadLeadMedia'])->name('lead.upload.media');
     Route::post('leads/media/delete', [LeadController::class,'lead_media_delete'])->name('lead.media.delete');
@@ -72,8 +72,8 @@ Route::middleware(['auth','CheckAdmin'])->group(function(){
     //Sub Module Routes
     Route::get('subModules', [SubModuleController::class, 'index'])->name('submodule');
     Route::match(['GET', 'POST'], 'subModule/create', [SubModuleController::class, 'create'])->name('subModule.create');
-    Route::get('subModules/edit/{secret}', [SubModuleController::class, 'editModule'])->name('subModule.edit');
-    Route::post('subModules/update/{secret}', [SubModuleController::class, 'updateSubmodule'])->name('subModules.update');
+    Route::get('subModules/edit/{secret}', [SubModuleController::class, 'editSubModule'])->name('subModule.edit');
+    Route::post('subModules/update/{secret}', [SubModuleController::class, 'updateSubModule'])->name('subModules.update');
     Route::delete('subModules/delete/{secret}', [SubModuleController::class, 'deleteSubModule'])->name('subModules.delete');
 
 });
