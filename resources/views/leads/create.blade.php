@@ -191,46 +191,6 @@
             }
         });
     });
-    $('#frm_lead_store').validate({
-        rules: {
-            project_title : {
-                required: true
-            },
-            project_type_id : {
-                required: true
-            },
-            source_id : {
-                required: true
-            },
-            client_name : {
-                required: true
-            },
-
-        },
-        messages: {
-            "project_title":{
-                required:"Project title is required here"
-            },
-            "project_type_id":{
-                required:"Project type is required here"
-            },
-            "source_id":{
-                required:"Lead source is required"
-            },
-            "client_name":{
-                required:"Client name is required"
-            },
-
-        },
-        errorPlacement: function(error, element) {
-            var placement = $(element).data('error');
-            if (placement) {
-                $(placement).append(error)
-            } else {
-                error.insertAfter(element);
-            }
-        },
-    });
 
      /* lead attachments */
         var lead_id = 0;
