@@ -264,17 +264,20 @@
         });
     </script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            ClassicEditor.create( document.querySelector( '#lead_details' ) )
-            .then( newEditor => {
-                desc_editor = newEditor;
-                desc_editor.model.document.on( 'change:data', ( evt, data ) => {
-                    var lead_details =  desc_editor.getData();
-                });
-            })
-            .catch( error => {
-                console.error( error );
-            });
-        });
+      ClassicEditor
+        .create( document.querySelector( '#lead_details' ), {
+            ckfinder: {
+                uploadUrl: '{{route('lead.upload_details').'?_token='.csrf_token()}}'
+            }
+        },{
+            alignment: {
+                options: [ 'right', 'right' ]
+            }} )
+        .then( editor => {
+            console.log( editor );
+        })
+        .catch( error => {
+            console.error( error );
+        })
     </script>
 @endsection

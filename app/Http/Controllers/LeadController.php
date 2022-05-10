@@ -11,6 +11,7 @@ use App\Models\LeadSources;
 use App\Models\LeadThread;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Thumbnail;
 use Exception;
@@ -109,7 +110,7 @@ class LeadController extends Controller
             $lead->status = 'open';
             $lead->billing_type = $request->input('billing_type');
             $lead->time_estimation = $request->input('time_estimation');
-            $lead->lead_details = $request->input('lead_details_data');
+            $lead->lead_details = $request->input('lead_details');
             $lead->save();
 
             $clients = new Client();
@@ -421,4 +422,27 @@ class LeadController extends Controller
 
         return response()->json(['status'=>$type, 'message'=>$msg, 'content'=>$data]);
     }
+
+    public function uploadLeadDetails(Request $request)
+    {
+
+        $path_url = 'storage/uploads';
+
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $lead_details = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $lead_details = $lead_details . '_' . time() . '.' . $extension;
+
+            $request->file('upload')->move(public_path('storage/uploads'), $lead_details);
+
+            $url = asset('storage/uploads/' . $lead_details);
+            return response()->json(['lead_details' => $lead_details, 'uploaded'=> 1, 'url' => $url]);
+
+
+        }
+
+    }
+
+
 }

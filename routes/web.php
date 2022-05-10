@@ -54,6 +54,7 @@ Route::middleware(['auth','CheckAdmin'])->group(function(){
     Route::match(['GET', 'POST'], 'leads/chat/{id}', [LeadController::class,'leadChat'])->name('lead.chat');
     Route::post('leads/change-status/{id}', [LeadController::class,'changeLeadStatus'])->name('lead.change_status');
     Route::post('leads/change-assignee/{id}', [LeadController::class,'changeLeadAssignee'])->name('lead.change_assignee');
+    Route::post('leads/upload-details', [LeadController::class,'uploadLeadDetails'])->name('lead.upload_details');
 
 
     //Role Routes
