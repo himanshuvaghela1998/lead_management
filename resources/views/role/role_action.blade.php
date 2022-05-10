@@ -9,7 +9,7 @@
         <div id="kt_content_container" class="container-xxl">
 
             <div class="row justify-content-center">
-                <div class="col-md-12" style="margin: -31px;">
+                <div class="col-md-12 extra_space">
                     <div class="card" id="role_action_card">
                         <div class="card-header py-3">
                             <h3 class="fw-bolder capitalize-letter">Set Role Permission For {{ $role->name }}</h3>

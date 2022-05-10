@@ -10,7 +10,7 @@
         <div id="kt_content_container" class="container-xxl">
 
             <div class="row justify-content-center">
-                <div class="col-md-12" style="margin: -31px;">
+                <div class="col-md-12 extra_space">
                     <div class="card">
 
                         <div class="card-body" id="load_content">

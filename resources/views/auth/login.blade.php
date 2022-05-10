@@ -5,12 +5,7 @@
 		<link rel="icon" href="{{asset('public/assets/media/logos/Aipxperts-logo_1.png')}}" type = "image/x-icon"/>
 		<link href="{{ asset('public/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('public/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
-        <style>
-            label.error {
-                 color: #dc3545;
-                 font-size: 14px;
-            }
-        </style>
+        <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 	</head>
 	<body id="kt_body" class="bg-body">
 		<!--begin::Main-->
@@ -18,7 +13,7 @@
 			<!--begin::Authentication - Sign-in -->
 			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
 				<!--begin::Aside-->
-				<div class="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative" style="background-color: #F2C98A">
+				<div class="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative lead_background" >
 					<!--begin::Wrapper-->
 					<div class="d-flex flex-column position-xl-fixed top-0 bottom-5 w-xl-600px scroll-y">
 						<!--begin::Content-->
@@ -29,7 +24,7 @@
 							</a>
 							<!--end::Logo-->
 							<!--begin::Description-->
-							<p class="fw-bold fs-2" style="color: #986923;">Discover lead Management
+							<p class="fw-bold fs-2 font_color">Discover lead Management
 							<br />with great build</p>
 							<!--end::Description-->
 						</div>

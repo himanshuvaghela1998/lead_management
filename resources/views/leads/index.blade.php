@@ -10,7 +10,7 @@
         <div id="kt_content_container" class="container-xxl">
 
             <div class="row justify-content-center">
-                <div class="col-md-12" style="margin: -31px;">
+                <div class="col-md-12 extra_space">
                     <div class="card">
                         <div class="card-header border-0 pt-6">
                             <div class="card-title">
@@ -43,19 +43,19 @@
                                     </select>
                                     <!--end::Select2-->
                                 </div>
-                                <div class="row" id="date_filter_form" style="margin-left: -21px;">
+                                <div class="row m-21px" id="date_filter_form">
                                     <div class="w-150px mx-3 ">
                                         <input class="form-control form-control-solid date_filter" placeholder="Start date" id="start_date_filter"/>
                                     </div>
                                     <div class="w-150px mx-3 ">
-                                        <input class="form-control form-control-solid date_filter" placeholder="End date" id="end_date_filter" style="margin-left: -30px;"/>
+                                        <input class="form-control form-control-solid date_filter m-30px" placeholder="End date" id="end_date_filter"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-toolbar">
                                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                                     @can('lead_update')
-                                        <a class="btn btn-primary btn-sm" href="{{ route('create') }}"><i class="fa-solid fa-plus"></i>Add Leads</a>
+                                        <a class="btn btn-primary btn-sm" href="{{ route('lead.create') }}"><i class="fa-solid fa-plus"></i>Add Leads</a>
                                     @endcan
                                 </div>
                             </div>

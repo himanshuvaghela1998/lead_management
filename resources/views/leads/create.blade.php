@@ -9,10 +9,10 @@
         <div id="kt_content_container" class="container-xxl">
 
             <div class="row justify-content-center">
-                <div class="col-md-12" style="margin: -31px;">
+                <div class="col-md-12 extra_space">
                     <div class="card">
-                        <div class="card-body" style="margin: -17px;    margin-left: -16px;margin-right: -36px;">
-                            <form action="{{ route('create') }}" class="horizontal-form" method="POST" id="frm_lead_store" enctype="multipart/form-data">
+                        <div class="card-body body_space">
+                            <form action="{{ route('lead.create') }}" class="horizontal-form" method="POST" id="frm_lead_store" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="row mt-2">
@@ -167,7 +167,7 @@
         if (!form.valid) return false;
         var form_data = new FormData($('#frm_lead_store')[0]);
         $.ajax({
-            url:"{{ route('create') }}",
+            url:"{{ route('lead.create') }}",
             type:'post',
             dataType: 'json',
             cache: false,

@@ -175,3 +175,49 @@
     border-radius: 4px;
     padding-left: 10px;
 }
+label.error {
+    color: #dc3545;
+    font-size: 14px;
+}
+div.lead_background {
+    background-color: #F2C98A
+}
+p.font_color{
+    color: #986923;
+}
+i.lead_logo {
+    margin-left: -38px;
+    margin-top: 11px;
+    color:white
+}
+div.extra_space {
+    margin: -31px;
+}
+th.w-25% {
+    width: 25%
+}
+div.m-21px {
+    margin-left: -21px;
+}
+input.m-30px{
+    margin-left: -30px;
+}
+div.body_space{
+    margin: -17px;
+    margin-left: -16px;
+    margin-right: -36px;
+}
+td.font_style{
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+select.dropdown_style{
+    width:210px;
+    display:none
+}
+i.btn_style{
+    background-color: #eee;
+    color:#555;
+    display:none
+}
