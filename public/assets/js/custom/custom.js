@@ -6,7 +6,9 @@ $.ajaxSetup({
 
 var _token = $("meta[name='_token']").attr('content');
 // extra checking methods start
-
+ jQuery.validator.addMethod('alpha', function (value) {
+    return /^[a-zA-Z ]*$/.test(value);
+}, 'Please enter a valid name.');
 jQuery.validator.addMethod('checkemail', function (value) {
     return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value);
 }, 'Please enter a valid email address.');
@@ -42,6 +44,7 @@ var user_rules = {
     name: {
         required: true,
         minlength:1,
+        alpha: true
     },
     confirm_password: {
         required: true,
@@ -86,6 +89,10 @@ $("#user_store").validate({
 });
 
 // User validation end
+$('#add_user_modal').on('hidden.bs.modal', function(e) {
+    $(this).find('form').trigger('reset');
+})
+
 
 $('#add_user_btn').on('click',function(){
     $('#add_user_modal').modal('show')
@@ -632,6 +639,7 @@ $("#store_module").validate({
     }
 });
 
+
 $('#add_module_btn').on('click',function(){
     $('#add_module_modal').modal('show');
 });
@@ -788,3 +796,59 @@ $(document).on('click','.selected_permission_rows',function(){
         }
     });
 });
+// lead create validation
+// extra validation
+jQuery.validator.addMethod('alpha', function (value) {
+    return /^[a-zA-Z]+$/.test(value);
+    }, 'Please enter a valid name.');
+
+    // lead validation
+    var lead_rules = {
+        project_title : {
+            required: true,
+            alpha: true
+        },
+        project_type_id : {
+            required: true
+        },
+        source_id : {
+            required: true
+        },
+        client_name : {
+            required: true,
+            alpha: true
+        },
+
+    }
+    var lead_msgs = {
+        "project_title":{
+            required:"Project title is required here"
+        },
+        "project_type_id":{
+            required:"Project type is required here"
+        },
+        "source_id":{
+            required:"Lead source is required"
+        },
+        "client_name":{
+            required:"Client name is required"
+        },
+    }
+
+    $("#frm_lead_store").validate({
+    ignore: [],
+    rules: lead_rules,
+    messages: lead_msgs,
+    errorPlacement: function(error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
+        },
+    //perform an AJAX post to ajax.php
+    submitHandler: function() {
+        return true;
+    }
+    });
